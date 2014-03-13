@@ -4,3 +4,7 @@ GENIESupport
 
 # Ignore (default) environment configuration script.
 environment_setup.sh
+
+# editor detritus
+.*.swp
+*~
