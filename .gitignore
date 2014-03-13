@@ -1,0 +1,6 @@
+# Ignore GENIE repo and support repo.
+GENIE_*
+GENIESupport
+
+# Ignore (default) environment configuration script.
+environment_setup.sh
