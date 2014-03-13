@@ -23,7 +23,7 @@ help()
   echo "                       -u name : The repository name. Default is the GENIEMC"
   echo "                       -r tag  : Which ROOT version (default = v5-34-08)."
   echo "                       -n      : Run configure, build, etc. under nice."
-  echo "                       -s      : Use ssh to checkout code from GitHub."
+  echo "                       -s      : Use https to checkout code from GitHub (default is ssh)."
   echo " "
   echo "Note: Currently the user repository choice affects GENIE only - the support packages"
   echo "are always checked out from the GENIEMC organization respoistory."

@@ -25,7 +25,7 @@ no arguments will produce the help menu:
                            -u name : The repository name. Default is the GENIEMC
                            -r tag  : Which ROOT version (default = v5-34-08).
                            -n      : Run configure, build, etc. under nice.
-                           -s      : Use ssh to checkout code from GitHub.
+                           -s      : Use https to checkout code from GitHub (default is ssh).
      
     Note: Currently the user repository choice affects GENIE only - the support packages
     are always checked out from the GENIEMC organization respoistory.
