@@ -91,12 +91,22 @@ if [ $PYTHIAVER -ne 6 -a $PYTHIAVER -ne 8 ]; then
 fi
 echo "Selected ROOT tag is $ROOTTAG..."
 
+GITCHECKOUT="http://github.com/"
 if [ $HTTPSCHECKOUT -ne 0 ]; then 
-  git clone https://github.com/${USERREPO}/GENIESupport.git
-  git clone https://github.com/${USERREPO}/${GENIEVER}.git
+  GITCHECKOUT="https://github.com/"
 else
-  git clone git@github.com:${USERREPO}/GENIESupport.git
-  git clone git@github.com:${USERREPO}/${GENIEVER}.git
+  GITCHECKOUT="git@github.com:"
+fi
+
+if [ ! -d GENIESupport ]; then
+  git clone ${GITCHECKOUT}${USERREPO}/GENIESupport.git
+else
+  echo "GENIESupport already installed..."
+fi
+if [ ! -d $GENIEVER ]; then
+  git clone ${GITCHECKOUT}${USERREPO}/${GENIEVER}.git
+else
+  echo "${GENIEVER} already installed..."
 fi
 
 if [ $MAKENICE -ne 1 ]; then
@@ -107,7 +117,7 @@ fi
 mypush GENIESupport
 ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE
 mv $ENVFILE ..
-my pop
+mypop
 
 echo "export GENIE=`pwd`/${GENIEVER}" >> $ENVFILE
 echo "export PATH=`pwd`/${GENIEVER}/bin:\$PATH" >> $ENVFILE
