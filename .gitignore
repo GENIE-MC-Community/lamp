@@ -8,3 +8,13 @@ environment_setup.sh
 # editor detritus
 .*.swp
 *~
+
+# Ignore any downloaded data
+data
+
+# Ignore any files from the test run
+genie-mcjob-0.status
+gntp.0.ghep.root
+input-flux.root
+run_log.txt
+
