@@ -11,6 +11,9 @@ GENIEVER="GENIE_2_8" # TODO - Add a flag to choose different versions...
                      
 ENVFILE="environment_setup.sh"
 
+XSECDATAREL="2.8.0"
+XSECDATA="gxspl-vA-v2.8.0.xml.gz"
+
 # how to use the script
 help()
 {
@@ -99,7 +102,7 @@ else
 fi
 
 if [ ! -d GENIESupport ]; then
-  git clone ${GITCHECKOUT}${USERREPO}/GENIESupport.git
+  git clone ${GITCHECKOUT}GENIEMC/GENIESupport.git
 else
   echo "GENIESupport already installed..."
 fi
@@ -126,8 +129,41 @@ echo "export LD_LIBRARY_PATH=`pwd`/${GENIEVER}/lib:\$LD_LIBRARY_PATH" >> $ENVFIL
 source $ENVFILE
 echo "Configuring GENIE environment in-shell. You will need to source $ENVFILE after the build finishes."
 
-# mypush $GENIEVER
-# ./configure --enable-debug --enable-test --enable-numi --enable-t2k --enable-rwgt \
-#  --with-optimiz-level=O0 --with-log4cpp-inc=\$LOG4CPP_INC --with-log4cpp-lib=\$LOG4CPP_LIB
-# gmake
-# mypop
+mypush $GENIEVER
+echo "Configuring GENIE buid..."
+./configure --enable-debug --enable-test --enable-numi --enable-t2k --enable-rwgt --with-optimiz-level=O0 --with-log4cpp-inc=$LOG4CPP_INC --with-log4cpp-lib=$LOG4CPP_LIB >& log.config
+echo "Building GENIE..."
+gmake >& log.make
+if [ $? -eq 0 ]; then
+  echo "Build successful!"
+else 
+  echo "Build failed! Please check the log file."
+fi
+mypop
+
+echo "Downloading Cross Section Data..."
+if [ ! -d data ]; then
+  mkdir data
+else
+  echo "Data directory already exists..."
+fi
+mypush data
+XSECSPLINEDIR=`pwd`
+if [ ! -f $XSECDATA ]; then
+  wget http://www.hepforge.org/archive/genie/data/$XSECDATAREL/$XSECDATA >& log.datafetch
+else
+  echo "Cross section data already exists in `pwd`..."
+fi
+mypop
+
+echo "Performing a 5 event test run..."
+gevgen -n 5 -p 14 -t 1000080160 -e 0,10 --run 100 -f 'x*exp(-x)' --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
+if [ $? -eq 0 ]; then
+  echo "Run successful!"
+  echo "***********************************************************"
+  echo "  NOTE: To run GENIE you MIUST first source $ENVFILE "
+  echo "***********************************************************"
+else 
+  echo "Run failed! Please check the log file."
+fi
+
