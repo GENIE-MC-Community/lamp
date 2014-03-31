@@ -116,6 +116,12 @@ if [ $MAKENICE -ne 1 ]; then
   NICE="-n"
 fi
 
+IS64="no"
+# Is this 64 bit?
+if echo `uname -a` | grep "x86_64"; then
+  IS64="yes"
+fi
+
 # TODO - pass other flags nicely
 mypush GENIESupport
 ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE
@@ -125,6 +131,13 @@ mypop
 echo "export GENIE=`pwd`/${GENIEVER}" >> $ENVFILE
 echo "export PATH=`pwd`/${GENIEVER}/bin:\$PATH" >> $ENVFILE
 echo "export LD_LIBRARY_PATH=`pwd`/${GENIEVER}/lib:\$LD_LIBRARY_PATH" >> $ENVFILE
+if [ "$IS64" == "yes" ]; then
+  if [ -d /usr/lib64 ]; then
+    echo "export LD_LIBRARY_PATH=/usr/lib64:\$LD_LIBRARY_PATH" >> $ENVFILE
+  else
+    echo "Can't find lib64 - please update your setup script by hand."
+  fi
+fi
 
 source $ENVFILE
 echo "Configuring GENIE environment in-shell. You will need to source $ENVFILE after the build finishes."
