@@ -168,9 +168,10 @@ else
   echo "Cross section data already exists in `pwd`..."
 fi
 mypop
+echo "export XSECSPLINEDIR=$XSECSPLINEDIR" >> $ENVFILE
 
 echo "Performing a 5 event test run..."
-gevgen -n 5 -p 14 -t 1000080160 -e 0,10 --run 100 -f 'x*exp(-x)' --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
+gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
 if [ $? -eq 0 ]; then
   echo "Run successful!"
   echo "***********************************************************"
