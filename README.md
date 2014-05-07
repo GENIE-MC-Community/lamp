@@ -17,6 +17,8 @@
                                      4$bC/%$bdd$b@$Pd??Jbbr                    
                                        ""?$$$$eeee$$$$F?"                      
 
+#Basic Usage
+
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
 no arguments will produce the help menu:
 
@@ -38,8 +40,18 @@ no arguments will produce the help menu:
     Note: Advanced configuration of the support packages require inspection of that script.
 
 
-This script is not fully functional yet. It supports Linux and will support Mac OSX
-in the near future (we hope).
+This script only supports Linux. It may support Mac OSX in the future (we hope).
+
+#Trouble-Shooting
+
+Sometimes you may run into permissions troubles with `https` or `ssh`, so toggle usage
+of the `-s` flag if you are gettting permission denied errors.
+
+This is a bash script, so some errors will likely occur under different shells. If 
+you get errors, make sure `/bin/bash` exists and is not a link to a different executable.
+
+If there is a strong desire for a c-shell or some other version of this script, 
+we welcome a translation!
 
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).

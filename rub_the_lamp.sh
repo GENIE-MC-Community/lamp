@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 MAKENICE=0           # make under nice?
 HELPFLAG=0           # show the help block (if non-zero)
