@@ -53,6 +53,11 @@ you get errors, make sure `/bin/bash` exists and is not a link to a different ex
 If there is a strong desire for a c-shell or some other version of this script, 
 we welcome a translation!
 
+##Contributors
+
+Gabriel Perdue, [Fermilab](http://www.fnal.gov)
+Mathieu Labare, [Universiteit Gent](http://www.ugent.be)
+
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).
 
