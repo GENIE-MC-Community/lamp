@@ -55,8 +55,8 @@ we welcome a translation!
 
 ##Contributors
 
-Gabriel Perdue, [Fermilab](http://www.fnal.gov)
-Mathieu Labare, [Universiteit Gent](http://www.ugent.be)
+* Gabriel Perdue, [Fermilab](http://www.fnal.gov)
+* Mathieu Labare, [Universiteit Gent](http://www.ugent.be)
 
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).
