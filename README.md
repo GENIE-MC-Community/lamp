@@ -53,6 +53,15 @@ you get errors, make sure `/bin/bash` exists and is not a link to a different ex
 If there is a strong desire for a c-shell or some other version of this script, 
 we welcome a translation!
 
+If you are having trouble installing some items (especially log4cpp) it
+is possible you are missing the autoconf tools. In that case, you can
+install them with a package manager:
+
+* `sudo apt-get install autoconf` (Ubuntu)
+* `yum install autoconf` (RedHat/SLF)
+* Download source from [GNU](http://ftp.gnu.org/gnu/autoconf/) and build.
+* etc.
+
 ##Contributors
 
 * Gabriel Perdue, [Fermilab](http://www.fnal.gov)
