@@ -44,6 +44,11 @@ This script only supports Linux. It may support Mac OSX in the future (we hope).
 
 #Trouble-Shooting
 
+If the build fails it is important to check the logs for each of the 3rd party
+support packages installed under `GENIESupport`. It is possible you are 
+missing requirements for those packages to build. [ROOT](http://root.cern.ch/drupal/)
+especially requires a large number of libraries to be installed.
+
 Sometimes you may run into permissions troubles with `https` or `ssh`, so toggle usage
 of the `-s` flag if you are gettting permission denied errors.
 
@@ -62,10 +67,16 @@ install them with a package manager:
 * Download source from [GNU](http://ftp.gnu.org/gnu/autoconf/) and build.
 * etc.
 
+It is possible that there is a problem with `make` vs. `gmake` on your 
+system. If you find cryptic error messages associated with libtool and 
+autoconf while attempting to build log4cpp, you may chose to try make
+in place of gmake.
+
 ##Contributors
 
 * Gabriel Perdue, [Fermilab](http://www.fnal.gov)
 * Mathieu Labare, [Universiteit Gent](http://www.ugent.be)
+* Tom Van Cuyck,  [Universiteit Gent](http://www.ugent.be)
 
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).
