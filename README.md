@@ -44,6 +44,11 @@ This script only supports Linux. It may support Mac OSX in the future (we hope).
 
 #Trouble-Shooting
 
+NOTE: There is currently an issue with the interaction between the 3rd party support
+software installer and the main installer. You may need to run the script twice. 
+Just run it again immediately after the 3rd party code builds if GENIE is not 
+built (the 3rd party code will not be rebuilt if its directory is already present).
+
 If the build fails it is important to check the logs for each of the 3rd party
 support packages installed under `GENIESupport`. It is possible you are 
 missing requirements for those packages to build. [ROOT](http://root.cern.ch/drupal/)
