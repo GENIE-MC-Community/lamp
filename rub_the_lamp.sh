@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MAKE=gmake           # Use `gmake`
 MAKENICE=0           # make under nice?
 HELPFLAG=0           # show the help block (if non-zero)
 PYTHIAVER=-1         # must eventually be either 6 or 8
@@ -24,6 +25,7 @@ help()
   echo "                       -r tag  : Which ROOT version (default = v5-34-08)."
   echo "                       -n      : Run configure, build, etc. under nice."
   echo "                       -s      : Use https to checkout code from GitHub (default is ssh)."
+  echo "                       -m     : Use \"make\" instead of \"gmake\" to build."
   echo " "
   echo "Note: Currently the user repository choice affects GENIE only - the support packages"
   echo "are always checked out from the GENIEMC organization respoistory."
@@ -69,11 +71,12 @@ badpythia()
 #
 
 
-while getopts "p:u:r:ns" options; do
+while getopts "p:u:r:mns" options; do
   case $options in
     p) PYTHIAVER=$OPTARG;;
     u) USERREPO=$OPTARG;;
     r) ROOTTAG=$OPTARG;;
+    m) MAKE=make;;
     n) MAKENICE=1;;
     s) HTTPSCHECKOUT=1;; 
   esac
@@ -112,8 +115,12 @@ else
   echo "${GENIEVER} already installed..."
 fi
 
-if [ $MAKENICE -ne 1 ]; then
+if [ $MAKENICE -eq 1 ]; then
   NICE="-n"
+fi
+MAKEFLAG=""
+if [ $MAKE == "make" ]; then
+  MAKEFLAG="-m"
 fi
 
 IS64="no"
@@ -124,7 +131,8 @@ fi
 
 # TODO - pass other flags nicely
 mypush GENIESupport
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE
+echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG"
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG
 mv $ENVFILE ..
 mypop
 
@@ -146,7 +154,7 @@ mypush $GENIEVER
 echo "Configuring GENIE buid..."
 ./configure --enable-debug --enable-test --enable-numi --enable-t2k --enable-rwgt --enable-validation-tools --with-optimiz-level=O0 --with-log4cpp-inc=$LOG4CPP_INC --with-log4cpp-lib=$LOG4CPP_LIB >& log.config
 echo "Building GENIE..."
-gmake >& log.make
+$MAKE >& log.make
 if [ $? -eq 0 ]; then
   echo "Build successful!"
 else 
