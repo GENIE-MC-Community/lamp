@@ -152,7 +152,7 @@ echo "Configuring GENIE environment in-shell. You will need to source $ENVFILE a
 
 mypush $GENIEVER
 echo "Configuring GENIE buid..."
-./configure --enable-debug --enable-test --enable-numi --enable-t2k --enable-atmo --enable-rwgt --enable-validation-tools --with-optimiz-level=O0 --with-log4cpp-inc=$LOG4CPP_INC --with-log4cpp-lib=$LOG4CPP_LIB >& log.config
+./configure --enable-debug --enable-test --enable-numi --enable-t2k --enable-atmo --enable-rwgt --enable-vle-extension --enable-validation-tools --with-optimiz-level=O0 --with-log4cpp-inc=$LOG4CPP_INC --with-log4cpp-lib=$LOG4CPP_LIB >& log.config
 echo "Building GENIE..."
 $MAKE >& log.make
 if [ $? -eq 0 ]; then
