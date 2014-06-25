@@ -28,6 +28,7 @@ no arguments will produce the help menu:
                            -r tag  : Which ROOT version (default = v5-34-08).
                            -n      : Run configure, build, etc. under nice.
                            -s      : Use https to checkout code from GitHub (default is ssh).
+                           -m      : Use `make` instead of `gmake`.
      
     Note: Currently the user repository choice affects GENIE only - the support packages
     are always checked out from the GENIEMC organization respoistory.
