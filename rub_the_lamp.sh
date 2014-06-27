@@ -5,7 +5,7 @@ MAKENICE=0           # make under nice?
 HELPFLAG=0           # show the help block (if non-zero)
 PYTHIAVER=-1         # must eventually be either 6 or 8
 USERREPO="GENIEMC"   # where do we get the code from GitHub?
-ROOTTAG="v5-34-08"   # 
+ROOTTAG="v5-34-18"   # 
 HTTPSCHECKOUT=0      # use https checkout if non-zero (otherwise ssh)
 GENIEVER="GENIE_2_8" # TODO - Add a flag to choose different versions...
                      # Also TODO - Add an option to check out from HepForge
