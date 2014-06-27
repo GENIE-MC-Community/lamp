@@ -25,7 +25,7 @@ no arguments will produce the help menu:
     Usage: ./rub_the_lamp.sh -<flag>
                            -p  #   : Build Pythia 6 or 8 and link ROOT to it (required).
                            -u name : The repository name. Default is the GENIEMC
-                           -r tag  : Which ROOT version (default = v5-34-08).
+                           -r tag  : Which ROOT version (default = v5-34-18).
                            -n      : Run configure, build, etc. under nice.
                            -s      : Use https to checkout code from GitHub (default is ssh).
                            -m      : Use `make` instead of `gmake`.
