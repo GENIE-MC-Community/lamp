@@ -82,9 +82,10 @@ users.
 
 ##Contributors
 
-* Gabriel Perdue, [Fermilab](http://www.fnal.gov)
-* Mathieu Labare, [Universiteit Gent](http://www.ugent.be)
-* Tom Van Cuyck,  [Universiteit Gent](http://www.ugent.be)
+* Gabriel Perdue,  [Fermilab](http://www.fnal.gov)
+* Mathieu Labare,  [Universiteit Gent](http://www.ugent.be)
+* Tom Van Cuyck,   [Universiteit Gent](http://www.ugent.be)
+* Kevin McFarland, [University of Rochester](http://www.rochester.edu)
 
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).
