@@ -6,6 +6,7 @@ HELPFLAG=0           # show the help block (if non-zero)
 PYTHIAVER=-1         # must eventually be either 6 or 8
 USERREPO="GENIEMC"   # where do we get the code from GitHub?
 ROOTTAG="v5-34-18"   # 
+FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 HTTPSCHECKOUT=0      # use https checkout if non-zero (otherwise ssh)
 GENIEVER="GENIE_2_8" # TODO - Add a flag to choose different versions...
                      # Also TODO - Add an option to check out from HepForge
@@ -25,7 +26,8 @@ help()
   echo "                       -r tag  : Which ROOT version (default = v5-34-08)."
   echo "                       -n      : Run configure, build, etc. under nice."
   echo "                       -s      : Use https to checkout code from GitHub (default is ssh)."
-  echo "                       -m     : Use \"make\" instead of \"gmake\" to build."
+  echo "                       -m      : Use \"make\" instead of \"gmake\" to build."
+  echo "                       -f      : Archive current support libraries rebuild them fresh."
   echo " "
   echo "Note: Currently the user repository choice affects GENIE only - the support packages"
   echo "are always checked out from the GENIEMC organization respoistory."
@@ -71,7 +73,7 @@ badpythia()
 #
 
 
-while getopts "p:u:r:mns" options; do
+while getopts "p:u:r:mnsf" options; do
   case $options in
     p) PYTHIAVER=$OPTARG;;
     u) USERREPO=$OPTARG;;
@@ -79,6 +81,7 @@ while getopts "p:u:r:mns" options; do
     m) MAKE=make;;
     n) MAKENICE=1;;
     s) HTTPSCHECKOUT=1;; 
+    f) FORCEBUILD=" -f";;
   esac
 done
 
@@ -131,8 +134,8 @@ fi
 
 # TODO - pass other flags nicely
 mypush GENIESupport
-echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG
+echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD"
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD
 mv $ENVFILE ..
 mypop
 
