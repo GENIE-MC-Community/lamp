@@ -18,3 +18,5 @@ gntp.0.ghep.root
 input-flux.root
 run_log.txt
 
+# Ignore the local runs package (if present)
+genie_runs
