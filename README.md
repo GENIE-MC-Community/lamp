@@ -22,30 +22,45 @@
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
 no arguments will produce the help menu:
 
+    Welcome to rub_the_lamp. This script will build the 3rd party support
+    packages for GENIE and then build GENIE itself. 
+    
     Usage: ./rub_the_lamp.sh -<flag>
-                           -p  #   : Build Pythia 6 or 8 and link ROOT to it (required).
-                           -u name : The repository name. Default is the GENIEMC
-                           -r tag  : Which ROOT version (default = v5-34-18).
-                           -n      : Run configure, build, etc. under nice.
-                           -s      : Use https to checkout code from GitHub (default is ssh).
-                           -m      : Use `make` instead of `gmake`.
-                           -f      : Archive current support packages and rebuild them fresh.
-     
-    Note: Currently the user repository choice affects GENIE only - the support packages
-    are always checked out from the GENIEMC organization respoistory.
-     
-      Examples:  
-        ./rub_the_lamp.sh -p 6 -u GENIEMC                  # (GENIEMC is the default)
-        ./rub_the_lamp.sh -p 6 -u <your GitHub user name> 
-        ./rub_the_lamp.sh -p 8 -r v5-34-12
-     
+                 -h / --help   : Help
+                 -g / --github : Check out GENIE code from GitHub
+                 -f / --forge  : Check out GENIE code from HepForge
+                                 (DEFAULT)
+                 -r / --repo   : Specify the GitHub repo
+                                 (default == GENIEMC)
+                 -t / --tag    : Specify the HepForge SVN tag
+                                 (default == R-2_8_4)
+                 -p / --pythia : Pythia version (6 or 8)
+                                 (default == 6)
+                 -m / --make   : Use make instead of gmake
+                                 (default == use gmake)
+                 -n / --nice   : Run make under nice
+                                 (default == normal make)
+                 -o / --root   : ROOT tag version
+                                 (default == v5-34-18)
+                 -s / --https  : Use HTTPS checkout from GitHub
+                                 (default is ssh)
+                 -c / --force  : Archive existing packages and rebuild
+                                 (default is to keep the existing area)
+      All defaults: 
+        ./rub_the_lamp.sh
+      Produces: R-2_8_4 from HepForge, Pythia6, ROOT v5-34-18
+    
+      Other examples: 
+        ./rub_the_lamp.sh --forge
+        ./rub_the_lamp.sh -f --tag trunk
+        ./rub_the_lamp.sh -g -r GENIEMC --root v5-34-18 -n
+    
     Note: Advanced configuration of the support packages require inspection of that script.
-
 
 This script only supports Linux. It may support Mac OSX in the future (we hope).
 
 
-# Checking Available Tags
+# Checking Available HepForge Tags
 
 Currently, if checking out from GitHub, only 2.8.0 is available. If checking out from
 HepForge (recommended except for very specific development tasks), you may see the 

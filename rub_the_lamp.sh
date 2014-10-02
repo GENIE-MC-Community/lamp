@@ -27,8 +27,7 @@ help()
 {
   mybr
   echo "Welcome to rub_the_lamp. This script will build the 3rd party support"
-  echo "packages for GENIE and then build GENIE itself. There are MANDATORY"
-  echo "options you must supply."
+  echo "packages for GENIE and then build GENIE itself."
   echo ""
   echo "Usage: ./rub_the_lamp.sh -<flag>"
   echo "             -h / --help   : Help"
@@ -52,7 +51,11 @@ help()
   echo "             -c / --force  : Archive existing packages and rebuild"
   echo "                             (default is to keep the existing area)"
   echo ""
-  echo "  Examples:  "
+  echo "  All defaults:  "
+  echo "    ./rub_the_lamp.sh"
+  echo "  Produces: R-2_8_4 from HepForge, Pythia6, ROOT v5-34-18"
+  echo ""
+  echo "  Other examples:  "
   echo "    ./rub_the_lamp.sh --forge"
   echo "    ./rub_the_lamp.sh -f --tag trunk"
   echo "    ./rub_the_lamp.sh -g -r GENIEMC --root v5-34-18 -n"
