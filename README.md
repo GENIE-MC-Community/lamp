@@ -17,7 +17,7 @@
                                      4$bC/%$bdd$b@$Pd??Jbbr                    
                                        ""?$$$$eeee$$$$F?"                      
 
-#Basic Usage
+# Basic Usage
 
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
 no arguments will produce the help menu:
@@ -44,7 +44,17 @@ no arguments will produce the help menu:
 
 This script only supports Linux. It may support Mac OSX in the future (we hope).
 
-#Trouble-Shooting
+
+# Checking Available Tags
+
+Currently, if checking out from GitHub, only 2.8.0 is available. If checking out from
+HepForge (recommended except for very specific development tasks), you may see the 
+available tags with:
+
+    Usage: ./list_hepforge_branches.sh
+
+
+# Trouble-Shooting
 
 NOTE: There is currently an issue with the interaction between the 3rd party support
 software installer and the main installer. You may need to run the script twice. 
@@ -80,7 +90,7 @@ autoconf while attempting to build log4cpp, you may chose to try make
 in place of gmake. This seems to be a frequent problem for Ubuntu 
 users.
 
-##Contributors
+## Contributors
 
 * Gabriel Perdue,  [Fermilab](http://www.fnal.gov)
 * Mathieu Labare,  [Universiteit Gent](http://www.ugent.be)
