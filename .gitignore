@@ -1,6 +1,7 @@
 # Ignore GENIE repo and support repo.
 GENIE_*
 GENIESupport
+R-2_*
 
 # Ignore (default) environment configuration script.
 environment_setup.sh
@@ -13,8 +14,8 @@ environment_setup.sh
 data
 
 # Ignore any files from the test run
-genie-mcjob-0.status
-gntp.0.ghep.root
+genie-mcjob-*.status
+gntp.*.ghep.root
 input-flux.root
 run_log.txt
 
