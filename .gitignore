@@ -2,6 +2,7 @@
 GENIE_*
 GENIESupport
 R-2_*
+trunk
 
 # Ignore (default) environment configuration script.
 environment_setup.sh
