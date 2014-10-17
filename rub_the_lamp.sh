@@ -269,10 +269,15 @@ if echo `uname -a` | grep "x86_64"; then
   IS64="yes"
 fi
 
+HTTPSFLAG=""
+if [ $HTTPSCHECKOUT -ne 0 ]; then 
+  HTTPSFLAG="-s"
+fi
+
 # TODO - pass other flags nicely
 mypush GENIESupport
-echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD
+echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG"
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG
 mv $ENVFILE ..
 mypop
 
