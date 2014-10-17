@@ -361,7 +361,17 @@ fi
 mypop
 echo "export XSECSPLINEDIR=$XSECSPLINEDIR" >> $ENVFILE
 
+#
+# Do a short test run.
+#
 echo "Performing a 5 event test run..."
+RUNSPKG="genie_runs"
+if [ ! -d "RUNSPKG" ]; then
+  git clone ${GITCHECKOUT}GENIEMC/${RUNSPKG}.git
+else
+  echo "$RUNSPKG already installed..."
+fi
+mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
   --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
 if [ $? -eq 0 ]; then
@@ -376,4 +386,5 @@ if [ $? -eq 0 ]; then
 else 
   echo "Run failed! Please check the log file."
 fi
+mypop
 
