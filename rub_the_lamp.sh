@@ -6,6 +6,7 @@ TAG="R-2_8_4"        # SVN Branch
 
 USERREPO="GENIEMC"   # where do we get the code from GitHub?
 GENIEVER="GENIE_2_8" # TODO - Add a flag to choose different "versions"
+GITBRANCH="master"   # 
 HTTPSCHECKOUT=0      # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -38,6 +39,8 @@ help()
   echo "                             (default == GENIEMC)"
   echo "             -t / --tag    : Specify the HepForge SVN tag"
   echo "                             (default == R-2_8_4)"
+  echo "             -b / --branch : Specify the GitHub GENIE branch"
+  echo "                             (default == master)"
   echo "             -p / --pythia : Pythia version (6 or 8)"
   echo "                             (default == 6)"
   echo "             -m / --make   : Use make instead of gmake"
@@ -127,6 +130,11 @@ do
     CHECKOUT="HEPFORGE"
     shift
     ;;
+    -b|--branch)
+    GITBRANCH="$1"
+    CHECKOUT="GITHUB"
+    shift
+    ;;
     -p|--pythia)
     PYTHIAVER="$1"
     shift
@@ -176,6 +184,7 @@ if [[ $CHECKOUT == "HEPFORGE" ]]; then
 elif [[ $CHECKOUT == "GITHUB" ]]; then
   echo " Repo           = $USERREPO"
   echo " HTTPS Checkout = $HTTPSCHECKOUT"
+  echo " Branch         = $GITBRANCH"
 else
   echo "Bad checkout option!"
   exit 1
@@ -225,6 +234,9 @@ if [[ $CHECKOUT == "GITHUB" ]]; then
   GENIEDIRNAME=$GENIEVER
   if [ ! -d $GENIEDIRNAME ]; then
     git clone ${GITCHECKOUT}${USERREPO}/${GENIEVER}.git
+    mypush $GENIEVER  
+    git checkout $GITBRANCH
+    mypop
   else
     echo "$GENIEDIRNAME already installed..."
   fi

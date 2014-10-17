@@ -34,6 +34,8 @@ no arguments will produce the help menu:
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
                                  (default == R-2_8_4)
+                 -b / --branch : Specify the GitHub GENIE branch
+                                 (default == master)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
                  -m / --make   : Use make instead of gmake
