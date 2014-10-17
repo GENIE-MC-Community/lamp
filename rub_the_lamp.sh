@@ -367,10 +367,12 @@ echo "export XSECSPLINEDIR=$XSECSPLINEDIR" >> $ENVFILE
 echo "Performing a 5 event test run..."
 RUNSPKG="genie_runs"
 if [ ! -d "RUNSPKG" ]; then
+  echo "Checking out the genie_runs package from GitHub..."
   git clone ${GITCHECKOUT}GENIEMC/${RUNSPKG}.git
 else
   echo "$RUNSPKG already installed..."
 fi
+echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
   --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
