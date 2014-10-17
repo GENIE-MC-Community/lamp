@@ -62,6 +62,12 @@ no arguments will produce the help menu:
 This script only supports Linux. It may support Mac OSX in the future (we hope).
 
 
+# Pythia
+
+Checking out [Pythia](http://home.thep.lu.se/~torbjorn/Pythia.html) version 8 is an option, 
+but GENIE will not currently build against it. Please specify only Pythia version 6 for now.
+
+
 # Checking Available HepForge Tags
 
 Currently, if checking out from GitHub, only 2.8.0 is available. If checking out from
