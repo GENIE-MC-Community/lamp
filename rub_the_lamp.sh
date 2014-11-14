@@ -2,7 +2,7 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_8_4"        # SVN Branch
+TAG="R-2_8_6"        # SVN Branch
 
 USERREPO="GENIEMC"   # where do we get the code from GitHub?
 GENIEVER="GENIE_2_8" # TODO - Add a flag to choose different "versions"
@@ -20,8 +20,8 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 ENVFILE="environment_setup.sh"
 
 # TODO - Hmmm... these versions...
-XSECDATAREL="2.8.0"
-XSECDATA="gxspl-vA-v2.8.0.xml.gz"
+XSECDATAREL="2.8.4"
+XSECDATA="gxspl-NuMIsmall.xml.gz"
 
 # how to use the script
 help()
@@ -305,14 +305,25 @@ if [ "$IS64" == "yes" ]; then
 fi
 
 #
-# For the 2.8.X patch series, we must point LHAPATH into an area in $GENIE
+# For 2.8.2 and 2.8.4, we must point LHAPATH into an area in $GENIE
+# For 2.8.6 we must copy a patched PDF file into the $LHAPATH
 # 
 if [[ $MAJOR == 2 ]]; then
   if [[ $MINOR == 8 ]]; then
-    if [[ $PATCH > 0 ]]; then
+    if [[ $PATCH -ge 2 && $PATCH -le 4 ]]; then
       perl -ni -e 'print if !/LHAPATH/' $ENVFILE  # remove just the LHAPATH line
       echo "export LHAPATH=`pwd`/$GENIEDIRNAME/data/evgen/pdfs" >> $ENVFILE
+    elif [[ $PATCH == 6 ]]; then
+      cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
     fi
+  fi
+fi
+#
+# For trunk prior to 2.9 we must copy a patched PDF file into the $LHAPATH
+# 
+if [[ $CHECKOUT == "HEPFORGE" ]]; then
+  if [[ $TAG == "trunk" ]]; then
+    cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
   fi
 fi
 
@@ -344,8 +355,6 @@ fi
 mypop
 
 echo "Downloading Cross Section Data..."
-echo "  WARNING - only able to fetch 2.8.0 right now!"
-echo "  This may not be what you want to use!"
 if [ ! -d data ]; then
   mkdir data
 else
