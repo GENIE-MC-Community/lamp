@@ -30,8 +30,11 @@ no arguments will produce the help menu:
                  -g / --github : Check out GENIE code from GitHub
                  -f / --forge  : Check out GENIE code from HepForge
                                  (DEFAULT)
-                 -r / --repo   : Specify the GitHub repo
-                                 (default == GENIEMC)
+                 -r / --repo   : Specify the GitHub repo"
+                                 (default == GENIE_2_8_6)"
+                                 Available: GENIE_2_8, GENIE_2_8_6"
+                 -u / --user   : Specify the GitHub user"
+                                 (default == GENIEMC)"
                  -t / --tag    : Specify the HepForge SVN tag
                                  (default == R-2_8_4)
                  -b / --branch : Specify the GitHub GENIE branch
