@@ -53,12 +53,12 @@ no arguments will produce the help menu:
                                  (default is to keep the existing area)
       All defaults: 
         ./rub_the_lamp.sh
-      Produces: R-2_8_4 from HepForge, Pythia6, ROOT v5-34-18
+      Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-18
     
       Other examples: 
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
-        ./rub_the_lamp.sh -g -r GENIEMC --root v5-34-18 -n
+        ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-18 -n
     
     Note: Advanced configuration of the support packages require inspection of that script.
 
