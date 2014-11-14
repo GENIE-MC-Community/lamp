@@ -4,10 +4,10 @@ HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
 TAG="R-2_8_6"        # SVN Branch
 
-USERREPO="GENIEMC"   # where do we get the code from GitHub?
-GENIEVER="GENIE_2_8" # TODO - Add a flag to choose different "versions"
-GITBRANCH="master"   # 
-HTTPSCHECKOUT=0      # use https checkout if non-zero (otherwise ssh)
+USERREPO="GENIEMC"     # where do we get the code from GitHub?
+GENIEVER="GENIE_2_8_6" # 
+GITBRANCH="master"     # 
+HTTPSCHECKOUT=0        # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
 ROOTTAG="v5-34-18"   # 
@@ -36,6 +36,9 @@ help()
   echo "             -f / --forge  : Check out GENIE code from HepForge"
   echo "                             (DEFAULT)"
   echo "             -r / --repo   : Specify the GitHub repo"
+  echo "                             (default == GENIE_2_8_6)"
+  echo "                             Available: GENIE_2_8, GENIE_2_8_6"
+  echo "             -u / --user   : Specify the GitHub user"
   echo "                             (default == GENIEMC)"
   echo "             -t / --tag    : Specify the HepForge SVN tag"
   echo "                             (default == R-2_8_4)"
@@ -56,12 +59,12 @@ help()
   echo ""
   echo "  All defaults:  "
   echo "    ./rub_the_lamp.sh"
-  echo "  Produces: R-2_8_4 from HepForge, Pythia6, ROOT v5-34-18"
+  echo "  Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-18"
   echo ""
   echo "  Other examples:  "
   echo "    ./rub_the_lamp.sh --forge"
   echo "    ./rub_the_lamp.sh -f --tag trunk"
-  echo "    ./rub_the_lamp.sh -g -r GENIEMC --root v5-34-18 -n"
+  echo "    ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-18 -n"
   echo " "
   echo "Note: Advanced configuration of the support packages require inspection of that script."
   mybr
@@ -121,6 +124,11 @@ do
     CHECKOUT="HEPFORGE"
     ;;
     -r|--repo)
+    GENIEVER="$1"
+    CHECKOUT="GITHUB"
+    shift
+    ;;
+    -u|--user)
     USERREPO="$1"
     CHECKOUT="GITHUB"
     shift
@@ -172,6 +180,26 @@ if [ $PYTHIAVER -ne 6 -a $PYTHIAVER -ne 8 ]; then
   badpythia
 fi
 
+#
+# Calculate Major_Minor_Patch from Repository and Name/Tag combos
+#
+MAJOR=2
+MINOR=8
+PATCH=0
+if [[ $CHECKOUT == "GITHUB" ]]; then
+  MAJOR=`echo $GENIEVER | cut -c7-7`
+  MINOR=`echo $GENIEVER | cut -c9-9`
+  PATCH=`echo $GENIEVER | cut -c11-11`
+  # GitHub repos are `GENIE_2_8` and `GENIE_2_8_6`, so we must add the patch 0
+  if [[ $PATCH == "" ]]; then
+    PATCH=0
+  fi
+elif [[ $CHECKOUT == "HEPFORGE" ]]; then
+  MAJOR=`echo $TAG | cut -c3-3`
+  MINOR=`echo $TAG | cut -c5-5`
+  PATCH=`echo $TAG | cut -c7-7`
+fi
+
 # 
 # Show the selected options.
 #
@@ -182,13 +210,14 @@ echo " Checkout       = $CHECKOUT"
 if [[ $CHECKOUT == "HEPFORGE" ]]; then
   echo " Tag            = $TAG"
 elif [[ $CHECKOUT == "GITHUB" ]]; then
-  echo " Repo           = $USERREPO"
+  echo " User           = $USERREPO"
   echo " HTTPS Checkout = $HTTPSCHECKOUT"
   echo " Branch         = $GITBRANCH"
 else
   echo "Bad checkout option!"
   exit 1
 fi
+echo " Deduced ID     = $MAJOR $MINOR $PATCH"
 echo " Pythia version = $PYTHIAVER"
 echo " Make           = $MAKE"
 echo " Make Nice      = $MAKENICE"
@@ -225,11 +254,6 @@ fi
 # Check out the GENIE code.
 # 
 GENIEDIRNAME=""
-# GitHub version is _only_ 2.8.0 right now. If this changes, add logic to 
-# pick out the version number correctly...
-MAJOR=2
-MINOR=8
-PATCH=0
 if [[ $CHECKOUT == "GITHUB" ]]; then
   GENIEDIRNAME=$GENIEVER
   if [ ! -d $GENIEDIRNAME ]; then
@@ -240,6 +264,7 @@ if [[ $CHECKOUT == "GITHUB" ]]; then
   else
     echo "$GENIEDIRNAME already installed..."
   fi
+  echo "Done with GENIE GitHub checkout."
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
   GENIEDIRNAME=$TAG
   echo "Checking out $TAG..."
@@ -252,10 +277,7 @@ elif [[ $CHECKOUT == "HEPFORGE" ]]; then
   else
     echo "$GENIEDIRNAME already installed..."
   fi
-  echo "Done with HepForge checkout."
-  MAJOR=`echo $TAG | cut -c3-3`
-  MINOR=`echo $TAG | cut -c5-5`
-  PATCH=`echo $TAG | cut -c7-7`
+  echo "Done with GENIE HepForge checkout."
 fi
 
 #
@@ -334,17 +356,17 @@ echo "You will need to source $ENVFILE after the build finishes."
 mypush $GENIEDIRNAME
 echo "Configuring GENIE buid..."
 ./configure --enable-debug \
-  --enable-test \
-  --enable-numi \
-  --enable-t2k \
-  --enable-atmo \
-  --enable-rwght \
-  --enable-vle-extension \
-  --enable-validation-tools \
-  --with-optimiz-level=O0 \
-  --with-log4cpp-inc=$LOG4CPP_INC \
-  --with-log4cpp-lib=$LOG4CPP_LIB \
-  >& log.config
+--enable-test \
+--enable-numi \
+--enable-t2k \
+--enable-atmo \
+--enable-rwght \
+--enable-vle-extension \
+--enable-validation-tools \
+--with-optimiz-level=O0 \
+--with-log4cpp-inc=$LOG4CPP_INC \
+--with-log4cpp-lib=$LOG4CPP_LIB \
+>& log.config
 echo "Building GENIE..."
 $MAKE >& log.make
 if [ $? -eq 0 ]; then
@@ -384,7 +406,7 @@ fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
+--seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
 if [ $? -eq 0 ]; then
   echo "Run successful!"
   echo "***********************************************************"
