@@ -27,6 +27,11 @@ XSECDATA="gxspl-NuMIsmall.xml.gz"
 help()
 {
   mybr
+  echo "Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure"
+  echo "you are using a version of lamp that is appropriate for the version of GENIE"
+  echo "you want to use. lamp has been tested for GENIE R-2_8_0 and later. It may"
+  echo "not work with earlier versions."
+  echo ""
   echo "Welcome to rub_the_lamp. This script will build the 3rd party support"
   echo "packages for GENIE and then build GENIE itself."
   echo ""

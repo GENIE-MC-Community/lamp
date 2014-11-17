@@ -17,6 +17,13 @@
                                      4$bC/%$bdd$b@$Pd??Jbbr                    
                                        ""?$$$$eeee$$$$F?"                      
 
+# Versioning
+
+Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
+you are using a version of `lamp` that is appropriate for the version of GENIE
+you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
+not work with earlier versions. 
+
 # Basic Usage
 
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
