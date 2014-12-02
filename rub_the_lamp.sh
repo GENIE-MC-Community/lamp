@@ -331,6 +331,13 @@ if [ "$IS64" == "yes" ]; then
   fi
 fi
 
+# 
+# Set up the environment for the GENIE build.
+#
+source $ENVFILE
+echo "Configuring GENIE environment in-shell."
+echo "You will need to source $ENVFILE after the build finishes."
+
 #
 # For 2.8.2 and 2.8.4, we must point LHAPATH into an area in $GENIE
 # For 2.8.6 we must copy a patched PDF file into the $LHAPATH
@@ -354,10 +361,9 @@ if [[ $CHECKOUT == "HEPFORGE" ]]; then
   fi
 fi
 
-source $ENVFILE
-echo "Configuring GENIE environment in-shell."
-echo "You will need to source $ENVFILE after the build finishes."
-
+#
+# Configure and build GENIE
+#
 mypush $GENIEDIRNAME
 echo "Configuring GENIE buid..."
 ./configure --enable-debug \
@@ -381,6 +387,9 @@ else
 fi
 mypop
 
+#
+# Get cross seciton data
+#
 echo "Downloading Cross Section Data..."
 if [ ! -d data ]; then
   mkdir data
