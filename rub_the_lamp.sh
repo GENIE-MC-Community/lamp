@@ -15,7 +15,7 @@ MAKE=gmake           # May prefer "make" on Ubuntu
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
-
+SUPPORTTAG="R-2_8_6.1"  # TODO: let users supply this via a flag?
                      
 ENVFILE="environment_setup.sh"
 
@@ -315,6 +315,8 @@ fi
 
 # TODO - pass other flags nicely
 mypush GENIESupport
+echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
+git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG"
 ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG
 mv $ENVFILE ..
