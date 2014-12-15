@@ -24,6 +24,17 @@ you are using a version of `lamp` that is appropriate for the version of GENIE
 you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
 not work with earlier versions. 
 
+## Tags and versioning
+
+When first checking out this package, you will have the `HEAD` version of the
+`master` branch. Get a specific tagged release by checking out the tag into a
+branch like so:
+
+    git checkout -b R-2_8_6.3-br R-2_8_6.3
+
+This will checkout _tag_ `R-2_8_6.3` into _branch_ `R-2_8_6.3-br`. You want to
+checkout into a branch to avoid being in a "detached `HEAD`" state.
+
 # Basic Usage
 
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
@@ -53,19 +64,19 @@ no arguments will produce the help menu:
                  -n / --nice   : Run make under nice
                                  (default == normal make)
                  -o / --root   : ROOT tag version
-                                 (default == v5-34-18)
+                                 (default == v5-34-24)
                  -s / --https  : Use HTTPS checkout from GitHub
                                  (default is ssh)
                  -c / --force  : Archive existing packages and rebuild
                                  (default is to keep the existing area)
       All defaults: 
         ./rub_the_lamp.sh
-      Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-18
+      Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24
     
       Other examples: 
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
-        ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-18 -n
+        ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
     
     Note: Advanced configuration of the support packages require inspection of that script.
 
