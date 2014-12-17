@@ -391,7 +391,8 @@ echo -e "# challenging to find with the auto-finder sometimes." >> $CONFIGSCRIPT
 echo -e "#  --enable-gsl \\" >> $CONFIGSCRIPT
 echo -e "#  --with-libxml2-inc=/usr/include/libxml2 \\" >> $CONFIGSCRIPT
 echo -e "#  --with-libxml2-lib=/usr/lib64 \\" >> $CONFIGSCRIPT
-source $CONFIGSCRIPT
+chmod u+x $CONFIGSCRIPT
+./$CONFIGSCRIPT
 echo "Building GENIE..."
 $MAKE >& log.make
 if [ $? -eq 0 ]; then
