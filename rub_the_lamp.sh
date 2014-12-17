@@ -158,7 +158,7 @@ do
     -n|--nice)
     MAKENICE=1
     ;;
-    -o|root)
+    -o|--root)
     ROOTTAG="$1"
     shift
     ;;
