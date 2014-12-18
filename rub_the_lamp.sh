@@ -399,6 +399,7 @@ if [ $? -eq 0 ]; then
   echo "Build successful!"
 else 
   echo "Build failed! Please check the log file."
+  exit 1
 fi
 mypop
 
@@ -435,7 +436,7 @@ fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
---seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
+  --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
 if [ $? -eq 0 ]; then
   echo "Run successful!"
   echo "***********************************************************"
@@ -447,6 +448,7 @@ if [ $? -eq 0 ]; then
   mypop
 else 
   echo "Run failed! Please check the log file."
+  exit 1
 fi
 mypop
 
