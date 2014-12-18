@@ -1,5 +1,8 @@
 # Tags
 
+* `R-2_8_6.4`: Compliant with GENIE 2.8.6; uses tagged version of GENIESupport
+[package](https://github.com/GENIEMC/GENIESupport) tag version `R-2_8_6.3`;
+numerous small updates and exit with a failure if the build fails. 
 * `R-2_8_6.3`: Compliant with GENIE 2.8.6; uses tagged version of GENIESupport
 [package](https://github.com/GENIEMC/GENIESupport) tag version `R-2_8_6.2`;
 saves the GENIE configuration step as a script when running the build.
