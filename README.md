@@ -1,10 +1,9 @@
 # READ ME FIRST!
 
-It is a good idea to use a tagged version of GENIESupport. The latest
+It is a good idea to use a tagged version of the `lamp`. The latest
 recommended tag is `R-2_8_6.4`. Use the following command to check
 it out (and read below for more if you're really interested). After
-cloning the repository, `cd` into the `GENIESupport` directory and
-run:
+cloning the repository, `cd` into the `lamp` directory and run:
 
     git checkout -b R-2_8_6.4-br R-2_8_6.4
 
