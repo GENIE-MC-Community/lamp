@@ -1,3 +1,20 @@
+# READ ME FIRST!
+
+It is a good idea to use a tagged version of GENIESupport. The latest
+recommended tag is `R-2_8_6.4`. Use the following command to check
+it out (and read below for more if you're really interested). After
+cloning the repository, `cd` into the `GENIESupport` directory and
+run:
+
+    git checkout -b R-2_8_6.4-br R-2_8_6.4
+
+Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
+please consult the "Trouble-Shooting" section below. If you find a 
+bug, please feel free to contact Gabe Perdue (`perdue` at Fermilab)
+or open an issue on [GitHub](https://github.com/GENIEMC/lamp).
+
+Let [GENIE](http://genie.hepforge.org) out of the bottle!
+
                                               ..                               
                                              dP/$.                             
                                              $4$$%                             
@@ -17,25 +34,23 @@
                                      4$bC/%$bdd$b@$Pd??Jbbr                    
                                        ""?$$$$eeee$$$$F?"                      
 
-# Versioning
-
-Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
-you are using a version of `lamp` that is appropriate for the version of GENIE
-you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
-not work with earlier versions. 
-
 ## Tags and versioning
 
 When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_8_6.3-br R-2_8_6.3
+    git checkout -b R-2_8_6.4-br R-2_8_6.4
 
-This will checkout _tag_ `R-2_8_6.3` into _branch_ `R-2_8_6.3-br`. You want to
+This will checkout _tag_ `R-2_8_6.4` into _branch_ `R-2_8_6.4-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
-# Basic Usage
+Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
+you are using a version of `lamp` that is appropriate for the version of GENIE
+you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
+not work with earlier versions. 
+
+## Basic Usage
 
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
 no arguments will produce the help menu:
@@ -83,13 +98,13 @@ no arguments will produce the help menu:
 This script only supports Linux. It may support Mac OSX in the future (we hope).
 
 
-# Pythia
+## Pythia
 
 Checking out [Pythia](http://home.thep.lu.se/~torbjorn/Pythia.html) version 8 is an option, 
 but GENIE will not currently build against it. Please specify only Pythia version 6 for now.
 
 
-# Checking Available HepForge Tags
+## Checking Available HepForge Tags
 
 Currently, if checking out from GitHub, only 2.8.0 is available. If checking out from
 HepForge (recommended except for very specific development tasks), you may see the 
@@ -98,20 +113,15 @@ available tags with:
     Usage: ./list_hepforge_branches.sh
 
 
-# Trouble-Shooting
+## Trouble-Shooting
 
-NOTE: There is currently an issue with the interaction between the 3rd party support
-software installer and the main installer. You may need to run the script twice. 
-Just run it again immediately after the 3rd party code builds if GENIE is not 
-built (the 3rd party code will not be rebuilt if its directory is already present).
+Sometimes you may run into permissions troubles with `https` or `ssh`, so toggle usage
+of the `-s` flag if you are gettting permission denied errors.
 
 If the build fails it is important to check the logs for each of the 3rd party
 support packages installed under `GENIESupport`. It is possible you are 
 missing requirements for those packages to build. [ROOT](http://root.cern.ch/drupal/)
 especially requires a large number of libraries to be installed.
-
-Sometimes you may run into permissions troubles with `https` or `ssh`, so toggle usage
-of the `-s` flag if you are gettting permission denied errors.
 
 This is a bash script, so some errors will likely occur under different shells. If 
 you get errors, make sure `/bin/bash` exists and is not a link to a different executable.
