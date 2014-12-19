@@ -214,6 +214,21 @@ fi
 # Show the selected options.
 #
 mybr
+echo " "
+echo "Welcome to the GENIE build script."
+echo " "
+echo " OS Information: "
+if [[ `which lsb_release` != "" ]]; then
+  lsb_release -a
+elif [[ -e "/etc/lsb-release" ]]; then
+  cat /etc/lsb-release
+elif [[ -e "/etc/issue.net" ]]; then
+  cat /etc/issue.net
+else
+  echo " Missing information on Linux distribution..."
+fi
+uname -a
+mybr
 echo "Options set: "
 echo "------------ "
 echo " Checkout       = $CHECKOUT"
@@ -365,7 +380,7 @@ if [[ $MAJOR == 2 ]]; then
   fi
 fi
 #
-# For trunk prior to 2.9 we must copy a patched PDF file into the $LHAPATH
+# For trunk prior to 2.10-proto we must copy a patched PDF file into the $LHAPATH
 # 
 if [[ $CHECKOUT == "HEPFORGE" ]]; then
   if [[ $TAG == "trunk" ]]; then
