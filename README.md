@@ -83,6 +83,8 @@ no arguments will produce the help menu:
                                  (default is ssh)
                  -c / --force  : Archive existing packages and rebuild
                                  (default is to keep the existing area)
+                 --support-tag : Tag for GENIE Support Builder (3rd party code) 
+
       All defaults: 
         ./rub_the_lamp.sh
       Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24

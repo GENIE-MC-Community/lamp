@@ -61,6 +61,8 @@ help()
   echo "                             (default is ssh)"
   echo "             -c / --force  : Archive existing packages and rebuild"
   echo "                             (default is to keep the existing area)"
+  echo "             --support-tag : Tag for GENIE Support"
+  echo "                             (default is $SUPPORTTAG)"
   echo ""
   echo "  All defaults:  "
   echo "    ./rub_the_lamp.sh"
@@ -168,6 +170,9 @@ do
     -c|--force)
     FORCEBUILD="-f"
     ;;
+    --support-tag)
+    SUPPORTTAG="$1"
+    ;;
     *)    # Unknown option
 
     ;;
@@ -223,6 +228,7 @@ else
   exit 1
 fi
 echo " Deduced ID     = $MAJOR $MINOR $PATCH"
+echo " Support Tag    = $SUPPORTTAG"
 echo " Pythia version = $PYTHIAVER"
 echo " Make           = $MAKE"
 echo " Make Nice      = $MAKENICE"
@@ -315,8 +321,12 @@ fi
 
 # TODO - pass other flags nicely
 mypush GENIESupport
-echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
-git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
+if [[ $SUPPORTTAG == "head" || $SUPPORTTAG == "HEAD" ]]; then
+  echo "Using HEAD of GENIE Support..."
+else
+  echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
+  git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
+fi
 echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG"
 ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG
 mv $ENVFILE ..
