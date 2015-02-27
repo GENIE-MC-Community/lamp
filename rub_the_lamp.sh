@@ -405,6 +405,7 @@ echo -e "  --enable-atmo \\" >> $CONFIGSCRIPT
 echo -e "  --enable-rwght \\" >> $CONFIGSCRIPT
 echo -e "  --enable-vle-extension \\" >> $CONFIGSCRIPT
 echo -e "  --enable-validation-tools \\" >> $CONFIGSCRIPT
+echo -e "  --enable-roomuhistos \\" >> $CONFIGSCRIPT
 echo -e "  --with-optimiz-level=O0 \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-inc=$LOG4CPP_INC \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-lib=$LOG4CPP_LIB \\" >> $CONFIGSCRIPT
