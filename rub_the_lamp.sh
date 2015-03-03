@@ -15,95 +15,91 @@ MAKE=gmake           # May prefer "make" on Ubuntu
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
-SUPPORTTAG="R-2_8_6.3"  # TODO: let users supply this via a flag?
-                     
-ENVFILE="environment_setup.sh"
+SUPPORTTAG="R-2_8_6.3"
 
-# TODO - Hmmm... these versions...
-XSECDATAREL="2.8.4"
-XSECDATA="gxspl-NuMIsmall.xml.gz"
+ENVFILE="environment_setup.sh"
 
 # how to use the script
 help()
 {
-  mybr
-  echo "Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure"
-  echo "you are using a version of lamp that is appropriate for the version of GENIE"
-  echo "you want to use. lamp has been tested for GENIE R-2_8_0 and later. It may"
-  echo "not work with earlier versions."
-  echo ""
-  echo "Welcome to rub_the_lamp. This script will build the 3rd party support"
-  echo "packages for GENIE and then build GENIE itself."
-  echo ""
-  echo "Usage: ./rub_the_lamp.sh -<flag>"
-  echo "             -h / --help   : Help"
-  echo "             -g / --github : Check out GENIE code from GitHub"
-  echo "             -f / --forge  : Check out GENIE code from HepForge"
-  echo "                             (DEFAULT)"
-  echo "             -r / --repo   : Specify the GitHub repo"
-  echo "                             (default == GENIE_2_8_6)"
-  echo "                             Available: GENIE_2_8, GENIE_2_8_6"
-  echo "             -u / --user   : Specify the GitHub user"
-  echo "                             (default == GENIEMC)"
-  echo "             -t / --tag    : Specify the HepForge SVN tag"
-  echo "                             (default == R-2_8_4)"
-  echo "             -b / --branch : Specify the GitHub GENIE branch"
-  echo "                             (default == master)"
-  echo "             -p / --pythia : Pythia version (6 or 8)"
-  echo "                             (default == 6)"
-  echo "             -m / --make   : Use make instead of gmake"
-  echo "                             (default == use gmake)"
-  echo "             -n / --nice   : Run make under nice"
-  echo "                             (default == normal make)"
-  echo "             -o / --root   : ROOT tag version"
-  echo "                             (default == v5-34-24)"
-  echo "             -s / --https  : Use HTTPS checkout from GitHub"
-  echo "                             (default is ssh)"
-  echo "             -c / --force  : Archive existing packages and rebuild"
-  echo "                             (default is to keep the existing area)"
-  echo "             --support-tag : Tag for GENIE Support"
-  echo "                             (default is $SUPPORTTAG)"
-  echo ""
-  echo "  All defaults:  "
-  echo "    ./rub_the_lamp.sh"
-  echo "  Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24"
-  echo ""
-  echo "  Other examples:  "
-  echo "    ./rub_the_lamp.sh --forge"
-  echo "    ./rub_the_lamp.sh -f --tag trunk"
-  echo "    ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n"
-  echo " "
-  echo "Note: Advanced configuration of the support packages require inspection of that script."
-  mybr
+    mybr
+    echo "Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure"
+    echo "you are using a version of lamp that is appropriate for the version of GENIE"
+    echo "you want to use. lamp has been tested for GENIE R-2_8_0 and later. It may"
+    echo "not work with earlier versions."
+    echo ""
+    echo "Welcome to rub_the_lamp. This script will build the 3rd party support"
+    echo "packages for GENIE and then build GENIE itself."
+    echo ""
+    echo "Usage: ./rub_the_lamp.sh -<flag>"
+    echo "             -h / --help   : Help"
+    echo "             -g / --github : Check out GENIE code from GitHub"
+    echo "             -f / --forge  : Check out GENIE code from HepForge"
+    echo "                             (DEFAULT)"
+    echo "             -r / --repo   : Specify the GitHub repo"
+    echo "                             (default == GENIE_2_8_6)"
+    echo "                             Available: GENIE_2_8, GENIE_2_8_6"
+    echo "             -u / --user   : Specify the GitHub user"
+    echo "                             (default == GENIEMC)"
+    echo "             -t / --tag    : Specify the HepForge SVN tag"
+    echo "                             (default == R-2_8_6)"
+    echo "             -b / --branch : Specify the GitHub GENIE branch"
+    echo "                             (default == master)"
+    echo "             -p / --pythia : Pythia version (6 or 8)"
+    echo "                             (default == 6)"
+    echo "             -m / --make   : Use make instead of gmake"
+    echo "                             (default == use gmake)"
+    echo "             -n / --nice   : Run make under nice"
+    echo "                             (default == normal make)"
+    echo "             -o / --root   : ROOT tag version"
+    echo "                             (default == v5-34-24)"
+    echo "             -s / --https  : Use HTTPS checkout from GitHub"
+    echo "                             (default is ssh)"
+    echo "             -c / --force  : Archive existing packages and rebuild"
+    echo "                             (default is to keep the existing area)"
+    echo "             --support-tag : Tag for GENIE Support"
+    echo "                             (default is $SUPPORTTAG)"
+    echo ""
+    echo "  All defaults:  "
+    echo "    ./rub_the_lamp.sh"
+    echo "  Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24"
+    echo ""
+    echo "  Other examples:  "
+    echo "    ./rub_the_lamp.sh --forge"
+    echo "    ./rub_the_lamp.sh -f --tag trunk"
+    echo "    ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n"
+    echo " "
+    echo "Note: Advanced configuration of the support packages require inspection of that script."
+    mybr
 }
 
 # quiet pushd
 mypush() 
 { 
-  pushd $1 >& /dev/null 
-  if [ $? -ne 0 ]; then
-    echo "Error! Directory $1 does not exist."
-    exit 0
-  fi
+    pushd $1 >& /dev/null 
+    if [ $? -ne 0 ]; then
+        echo "Error! Directory $1 does not exist."
+        exit 0
+    fi
 }
 
 # quiet popd
 mypop() 
 { 
-  popd >& /dev/null 
+    popd >& /dev/null 
 }
 
 # uniformly printed "subject" breaks
 mybr()
 {
-  echo "----------------------------------------"
+    echo "----------------------------------------"
 }
 
 # bail on illegal versions of Pythia
 badpythia()
 {
-  echo "Illegal version of Pythia! Only 6 or 8 are accepted."
-  exit 0
+    echo "Illegal version of Pythia! Only 6 or 8 are accepted."
+    exit 0
 }
 #
 
@@ -117,77 +113,77 @@ echo "Letting GENIE out of the bottle..."
 #
 while [[ $# > 0 ]]
 do
-  key="$1"
-  shift
+    key="$1"
+    shift
 
-  case $key in
-    -h|--help)
-    HELPFLAG=1
-    ;;
-    -g|--github)
-    CHECKOUT="GITHUB"
-    ;;
-    -f|--forge)
-    CHECKOUT="HEPFORGE"
-    ;;
-    -r|--repo)
-    GENIEVER="$1"
-    CHECKOUT="GITHUB"
-    shift
-    ;;
-    -u|--user)
-    USERREPO="$1"
-    CHECKOUT="GITHUB"
-    shift
-    ;;
-    -t|--tag)
-    TAG="$1"
-    CHECKOUT="HEPFORGE"
-    shift
-    ;;
-    -b|--branch)
-    GITBRANCH="$1"
-    CHECKOUT="GITHUB"
-    shift
-    ;;
-    -p|--pythia)
-    PYTHIAVER="$1"
-    shift
-    ;;
-    -m|--make)
-    MAKE=make
-    ;;
-    -n|--nice)
-    MAKENICE=1
-    ;;
-    -o|--root)
-    ROOTTAG="$1"
-    shift
-    ;;
-    -s|--https)
-    HTTPSCHECKOUT=1
-    ;;
-    -c|--force)
-    FORCEBUILD="-f"
-    ;;
-    --support-tag)
-    SUPPORTTAG="$1"
-    ;;
-    *)    # Unknown option
+    case $key in
+        -h|--help)
+            HELPFLAG=1
+            ;;
+        -g|--github)
+            CHECKOUT="GITHUB"
+            ;;
+        -f|--forge)
+            CHECKOUT="HEPFORGE"
+            ;;
+        -r|--repo)
+            GENIEVER="$1"
+            CHECKOUT="GITHUB"
+            shift
+            ;;
+        -u|--user)
+            USERREPO="$1"
+            CHECKOUT="GITHUB"
+            shift
+            ;;
+        -t|--tag)
+            TAG="$1"
+            CHECKOUT="HEPFORGE"
+            shift
+            ;;
+        -b|--branch)
+            GITBRANCH="$1"
+            CHECKOUT="GITHUB"
+            shift
+            ;;
+        -p|--pythia)
+            PYTHIAVER="$1"
+            shift
+            ;;
+        -m|--make)
+            MAKE=make
+            ;;
+        -n|--nice)
+            MAKENICE=1
+            ;;
+        -o|--root)
+            ROOTTAG="$1"
+            shift
+            ;;
+        -s|--https)
+            HTTPSCHECKOUT=1
+            ;;
+        -c|--force)
+            FORCEBUILD="-f"
+            ;;
+        --support-tag)
+            SUPPORTTAG="$1"
+            ;;
+        *)    # Unknown option
 
-    ;;
-  esac
+            ;;
+    esac
 done
 
 #
 # Check help and do sanity checks on options.
 #
 if [[ $HELPFLAG -eq 1 ]]; then
-  help
-  exit 0
+    help
+    exit 0
 fi
 if [ $PYTHIAVER -ne 6 -a $PYTHIAVER -ne 8 ]; then
-  badpythia
+    badpythia
 fi
 
 #
@@ -197,17 +193,17 @@ MAJOR=2
 MINOR=8
 PATCH=0
 if [[ $CHECKOUT == "GITHUB" ]]; then
-  MAJOR=`echo $GENIEVER | cut -c7-7`
-  MINOR=`echo $GENIEVER | cut -c9-9`
-  PATCH=`echo $GENIEVER | cut -c11-11`
-  # GitHub repos are `GENIE_2_8` and `GENIE_2_8_6`, so we must add the patch 0
-  if [[ $PATCH == "" ]]; then
-    PATCH=0
-  fi
+    MAJOR=`echo $GENIEVER | cut -c7-7`
+    MINOR=`echo $GENIEVER | cut -c9-9`
+    PATCH=`echo $GENIEVER | cut -c11-11`
+    # GitHub repos are `GENIE_2_8` and `GENIE_2_8_6`, so we must add the patch 0
+    if [[ $PATCH == "" ]]; then
+        PATCH=0
+    fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
-  MAJOR=`echo $TAG | cut -c3-3`
-  MINOR=`echo $TAG | cut -c5-5`
-  PATCH=`echo $TAG | cut -c7-7`
+    MAJOR=`echo $TAG | cut -c3-3`
+    MINOR=`echo $TAG | cut -c5-5`
+    PATCH=`echo $TAG | cut -c7-7`
 fi
 
 # 
@@ -219,13 +215,13 @@ echo "Welcome to the GENIE build script."
 echo " "
 echo " OS Information: "
 if [[ `which lsb_release` != "" ]]; then
-  lsb_release -a
+    lsb_release -a
 elif [[ -e "/etc/lsb-release" ]]; then
-  cat /etc/lsb-release
+    cat /etc/lsb-release
 elif [[ -e "/etc/issue.net" ]]; then
-  cat /etc/issue.net
+    cat /etc/issue.net
 else
-  echo " Missing information on Linux distribution..."
+    echo " Missing information on Linux distribution..."
 fi
 uname -a
 mybr
@@ -233,14 +229,14 @@ echo "Options set: "
 echo "------------ "
 echo " Checkout       = $CHECKOUT"
 if [[ $CHECKOUT == "HEPFORGE" ]]; then
-  echo " Tag            = $TAG"
+    echo " Tag            = $TAG"
 elif [[ $CHECKOUT == "GITHUB" ]]; then
-  echo " User           = $USERREPO"
-  echo " HTTPS Checkout = $HTTPSCHECKOUT"
-  echo " Branch         = $GITBRANCH"
+    echo " User           = $USERREPO"
+    echo " HTTPS Checkout = $HTTPSCHECKOUT"
+    echo " Branch         = $GITBRANCH"
 else
-  echo "Bad checkout option!"
-  exit 1
+    echo "Bad checkout option!"
+    exit 1
 fi
 echo " Deduced ID     = $MAJOR $MINOR $PATCH"
 echo " Support Tag    = $SUPPORTTAG"
@@ -249,9 +245,9 @@ echo " Make           = $MAKE"
 echo " Make Nice      = $MAKENICE"
 echo " ROOT tag       = $ROOTTAG"
 if [[ $FORCEBUILD == "" ]]; then
-  echo " Force build    = NO"
+    echo " Force build    = NO"
 else
-  echo " Force build    = YES"
+    echo " Force build    = YES"
 fi
 
 # 
@@ -261,8 +257,8 @@ echo ""
 echo "Press ctrl-c to stop. Otherwise starting the build in..."
 for i in {5..1}
 do
-  echo "$i"
-  sleep 1
+    echo "$i"
+    sleep 1
 done
 
 #
@@ -271,9 +267,9 @@ done
 #
 GITCHECKOUT="http://github.com/"
 if [ $HTTPSCHECKOUT -ne 0 ]; then 
-  GITCHECKOUT="https://github.com/"
+    GITCHECKOUT="https://github.com/"
 else
-  GITCHECKOUT="git@github.com:"
+    GITCHECKOUT="git@github.com:"
 fi
 
 #
@@ -281,66 +277,66 @@ fi
 # 
 GENIEDIRNAME=""
 if [[ $CHECKOUT == "GITHUB" ]]; then
-  GENIEDIRNAME=$GENIEVER
-  if [ ! -d $GENIEDIRNAME ]; then
-    git clone ${GITCHECKOUT}${USERREPO}/${GENIEVER}.git
-    mypush $GENIEVER  
-    git checkout $GITBRANCH
-    mypop
-  else
-    echo "$GENIEDIRNAME already installed..."
-  fi
-  echo "Done with GENIE GitHub checkout."
-elif [[ $CHECKOUT == "HEPFORGE" ]]; then
-  GENIEDIRNAME=$TAG
-  echo "Checking out $TAG..."
-  if [ ! -d $GENIEDIRNAME ]; then
-    if [[ $TAG != "trunk" ]]; then
-      svn co --quiet http://genie.hepforge.org/svn/branches/$TAG $GENIEDIRNAME 
+    GENIEDIRNAME=$GENIEVER
+    if [ ! -d $GENIEDIRNAME ]; then
+        git clone ${GITCHECKOUT}${USERREPO}/${GENIEVER}.git
+        mypush $GENIEVER  
+        git checkout $GITBRANCH
+        mypop
     else
-      svn co --quiet http://genie.hepforge.org/svn/trunk $GENIEDIRNAME 
+        echo "$GENIEDIRNAME already installed..."
     fi
-  else
-    echo "$GENIEDIRNAME already installed..."
-  fi
-  echo "Done with GENIE HepForge checkout."
+    echo "Done with GENIE GitHub checkout."
+elif [[ $CHECKOUT == "HEPFORGE" ]]; then
+    GENIEDIRNAME=$TAG
+    echo "Checking out $TAG..."
+    if [ ! -d $GENIEDIRNAME ]; then
+        if [[ $TAG != "trunk" ]]; then
+            svn co --quiet http://genie.hepforge.org/svn/branches/$TAG $GENIEDIRNAME 
+        else
+            svn co --quiet http://genie.hepforge.org/svn/trunk $GENIEDIRNAME 
+        fi
+    else
+        echo "$GENIEDIRNAME already installed..."
+    fi
+    echo "Done with GENIE HepForge checkout."
 fi
 
 #
 # Build the support packages.
 #
 if [ ! -d GENIESupport ]; then
-  git clone ${GITCHECKOUT}GENIEMC/GENIESupport.git
+    git clone ${GITCHECKOUT}GENIEMC/GENIESupport.git
 else
-  echo "GENIESupport already installed..."
+    echo "GENIESupport already installed..."
 fi
 
 if [ $MAKENICE -eq 1 ]; then
-  NICE="-n"
+    NICE="-n"
 fi
 MAKEFLAG=""
 if [ $MAKE == "make" ]; then
-  MAKEFLAG="-m"
+    MAKEFLAG="-m"
 fi
 
 IS64="no"
 # Is this 64 bit?
 if echo `uname -a` | grep "x86_64"; then
-  IS64="yes"
+    IS64="yes"
 fi
 
 HTTPSFLAG=""
 if [ $HTTPSCHECKOUT -ne 0 ]; then 
-  HTTPSFLAG="-s"
+    HTTPSFLAG="-s"
 fi
 
 # TODO - pass other flags nicely
 mypush GENIESupport
 if [[ $SUPPORTTAG == "head" || $SUPPORTTAG == "HEAD" ]]; then
-  echo "Using HEAD of GENIE Support..."
+    echo "Using HEAD of GENIE Support..."
 else
-  echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
-  git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
+    echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
+    git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 fi
 echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG"
 ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG
@@ -351,11 +347,11 @@ echo "export GENIE=`pwd`/${GENIEDIRNAME}" >> $ENVFILE
 echo "export PATH=`pwd`/${GENIEDIRNAME}/bin:\$PATH" >> $ENVFILE
 echo "export LD_LIBRARY_PATH=`pwd`/${GENIEDIRNAME}/lib:\$LD_LIBRARY_PATH" >> $ENVFILE
 if [ "$IS64" == "yes" ]; then
-  if [ -d /usr/lib64 ]; then
-    echo "export LD_LIBRARY_PATH=/usr/lib64:\$LD_LIBRARY_PATH" >> $ENVFILE
-  else
-    echo "Can't find lib64 - please update your setup script by hand."
-  fi
+    if [ -d /usr/lib64 ]; then
+        echo "export LD_LIBRARY_PATH=/usr/lib64:\$LD_LIBRARY_PATH" >> $ENVFILE
+    else
+        echo "Can't find lib64 - please update your setup script by hand."
+    fi
 fi
 
 # 
@@ -367,25 +363,28 @@ echo "You will need to source $ENVFILE after the build finishes."
 
 #
 # For 2.8.2 and 2.8.4, we must point LHAPATH into an area in $GENIE
-# For 2.8.6 we must copy a patched PDF file into the $LHAPATH
+# For 2.8.6 and 2.9.X, we must copy a patched PDF file into the $LHAPATH
+# TODO - check to see if this is also handled in GENIESupport
 # 
 if [[ $MAJOR == 2 ]]; then
-  if [[ $MINOR == 8 ]]; then
-    if [[ $PATCH -ge 2 && $PATCH -le 4 ]]; then
-      perl -ni -e 'print if !/LHAPATH/' $ENVFILE  # remove just the LHAPATH line
-      echo "export LHAPATH=`pwd`/$GENIEDIRNAME/data/evgen/pdfs" >> $ENVFILE
-    elif [[ $PATCH == 6 ]]; then
-      cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
+    if [[ $MINOR == 8 ]]; then
+        if [[ $PATCH -ge 2 && $PATCH -le 4 ]]; then
+            perl -ni -e 'print if !/LHAPATH/' $ENVFILE  # remove just the LHAPATH line
+            echo "export LHAPATH=`pwd`/$GENIEDIRNAME/data/evgen/pdfs" >> $ENVFILE
+        elif [[ $PATCH == 6 ]]; then
+            cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
+        fi
+    elif [[ $MINOR == 9 ]]; then
+        cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
     fi
-  fi
 fi
 #
 # For trunk prior to 2.10-proto we must copy a patched PDF file into the $LHAPATH
 # 
 if [[ $CHECKOUT == "HEPFORGE" ]]; then
-  if [[ $TAG == "trunk" ]]; then
-    cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
-  fi
+    if [[ $TAG == "trunk" ]]; then
+        cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
+    fi
 fi
 
 #
@@ -393,6 +392,7 @@ fi
 #
 mypush $GENIEDIRNAME
 echo "Configuring GENIE buid..."
+# TODO: GSL is required for 2.9.0+ and so the config flag is no longer needed there...
 CONFIGSCRIPT="do_configure.sh"
 echo -e "\043\041/usr/bin/env bash" > $CONFIGSCRIPT
 echo -e "echo \"Running configuration script generated by the Lamp...\"" >> $CONFIGSCRIPT
@@ -422,10 +422,10 @@ chmod u+x $CONFIGSCRIPT
 echo "Building GENIE..."
 $MAKE >& log.make
 if [ $? -eq 0 ]; then
-  echo "Build successful!"
+    echo "Build successful!"
 else 
-  echo "Build failed! Please check the log file."
-  exit 1
+    echo "Build failed! Please check the log file."
+    exit 1
 fi
 mypop
 
@@ -434,16 +434,45 @@ mypop
 #
 echo "Downloading Cross Section Data..."
 if [ ! -d data ]; then
-  mkdir data
+    mkdir data
 else
-  echo "Data directory already exists..."
+    echo "Data directory already exists..."
 fi
 mypush data
 XSECSPLINEDIR=`pwd`
-if [ ! -f $XSECDATA ]; then
-  wget http://www.hepforge.org/archive/genie/data/$XSECDATAREL/$XSECDATA >& log.datafetch
+# TODO - Hmmm... these versions...
+if [[ $MAJOR == 2 ]]; then
+    if [[ $MINOR == 8 ]]; then
+        if [[ $PATCH == 0 ]]; then
+            XSECDATA="gxspl-vA-v2.8.0.xml.gz"          
+            if [ ! -f $XSECDATA ]; then
+                wget http://www.hepforge.org/archive/genie/data/2.8.0/$XSECDATA >& log.datafetch
+            else
+                echo "Cross section data $XSECDATA already exists in `pwd`..."
+            fi
+        elif [[ $PATCH -le 6 ]]; then
+            XSECDATA="gxspl-NuMIsmall.xml.gz"          
+            if [ ! -f $XSECDATA ]; then
+                wget http://www.hepforge.org/archive/genie/data/2.8.4/$XSECDATA >& log.datafetch
+            else
+                echo "Cross section data $XSECDATA already exists in `pwd`..."
+            fi
+        fi
+    elif [[ $MINOR == 9 ]]; then
+        # Only one option for 2.9.X for now...
+        XSECDATA="gxspl-NuMI-R290.xml.gz"          # R. Hatcher's splines        
+        if [ ! -f $XSECDATA ]; then
+            curl -O http://home.fnal.gov/~rhatcher/$XSECDATA >& log.datafetch
+        else
+            echo "Cross section data $XSECDATA already exists in `pwd`..."
+        fi
+    else
+        echo "Don't know how to choose cross section splines for test run! Halting!"
+        exit 1
+    fi
 else
-  echo "Cross section data already exists in `pwd`..."
+    echo "Major version != 2... Don't know how to choose cross section splines for test run! Halting!"
+    exit 1
 fi
 mypop
 echo "export XSECSPLINEDIR=$XSECSPLINEDIR" >> $ENVFILE
@@ -454,27 +483,27 @@ echo "export XSECSPLINEDIR=$XSECSPLINEDIR" >> $ENVFILE
 echo "Performing a 5 event test run..."
 RUNSPKG="genie_runs"
 if [ ! -d "RUNSPKG" ]; then
-  echo "Checking out the genie_runs package from GitHub..."
-  git clone ${GITCHECKOUT}GENIEMC/${RUNSPKG}.git
+    echo "Checking out the genie_runs package from GitHub..."
+    git clone ${GITCHECKOUT}GENIEMC/${RUNSPKG}.git
 else
-  echo "$RUNSPKG already installed..."
+    echo "$RUNSPKG already installed..."
 fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
+       --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
 if [ $? -eq 0 ]; then
-  echo "Run successful!"
-  echo "***********************************************************"
-  echo "  NOTE: To run GENIE you MIUST first source $ENVFILE "
-  echo "***********************************************************"
-  mypush $XSECSPLINEDIR
-  gunzip -f $XSECDATA
-  echo " Note, unzipping $XSECDATA..."
-  mypop
+    echo "Run successful!"
+    echo "***********************************************************"
+    echo "  NOTE: To run GENIE you MIUST first source $ENVFILE "
+    echo "***********************************************************"
+    mypush $XSECSPLINEDIR
+    gunzip -f $XSECDATA
+    echo " Note, unzipping $XSECDATA..."
+    mypop
 else 
-  echo "Run failed! Please check the log file."
-  exit 1
+    echo "Run failed! Please check the log file."
+    exit 1
 fi
 mypop
 
