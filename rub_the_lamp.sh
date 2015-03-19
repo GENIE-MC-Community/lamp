@@ -408,7 +408,7 @@ echo -e "  --enable-roomuhistos \\" >> $CONFIGSCRIPT
 echo -e "  --with-optimiz-level=O0 \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-inc=$LOG4CPP_INC \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-lib=$LOG4CPP_LIB \\" >> $CONFIGSCRIPT
-echo -e "  >& log.confi\g" >> $CONFIGSCRIPT
+echo -e "  >& log.config" >> $CONFIGSCRIPT
 echo -e " " >> $CONFIGSCRIPT
 echo -e "# libxml is challenging for the auto-finder sometimes." >> $CONFIGSCRIPT
 echo -e "#  --with-libxml2-inc=/usr/include/libxml2 \\" >> $CONFIGSCRIPT
