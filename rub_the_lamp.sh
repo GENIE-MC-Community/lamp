@@ -408,7 +408,7 @@ echo -e "  --enable-validation-tools \\" >> $CONFIGSCRIPT
 echo -e "  --with-optimiz-level=O0 \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-inc=$LOG4CPP_INC \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-lib=$LOG4CPP_LIB \\" >> $CONFIGSCRIPT
-echo -e "  >& log.confi\g" >> $CONFIGSCRIPT
+echo -e "  >& log.config" >> $CONFIGSCRIPT
 echo -e " " >> $CONFIGSCRIPT
 echo -e "# The following are flags that may be useful to turn on." >> $CONFIGSCRIPT
 echo -e "# GSL is used for some special applications and libxml is" >> $CONFIGSCRIPT
