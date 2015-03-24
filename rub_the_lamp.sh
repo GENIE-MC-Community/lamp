@@ -106,8 +106,10 @@ badpythia()
 #
 # START!
 #
+BUILDSTARTTIME=`date +%Y-%m-%d-%H-%M-%S`
 echo ""
 echo "Letting GENIE out of the bottle..."
+echo "  Starting the build at $BUILDSTARTTIME"
 #
 # Parse the command line flags.
 #
@@ -408,7 +410,7 @@ echo -e "  --enable-roomuhistos \\" >> $CONFIGSCRIPT
 echo -e "  --with-optimiz-level=O0 \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-inc=$LOG4CPP_INC \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-lib=$LOG4CPP_LIB \\" >> $CONFIGSCRIPT
-echo -e "  >& log.config" >> $CONFIGSCRIPT
+echo -e "  >& log_${BUILDSTARTTIME}.config" >> $CONFIGSCRIPT
 echo -e " " >> $CONFIGSCRIPT
 echo -e "# libxml is challenging for the auto-finder sometimes." >> $CONFIGSCRIPT
 echo -e "#  --with-libxml2-inc=/usr/include/libxml2 \\" >> $CONFIGSCRIPT
@@ -416,7 +418,7 @@ echo -e "#  --with-libxml2-lib=/usr/lib64 \\" >> $CONFIGSCRIPT
 chmod u+x $CONFIGSCRIPT
 ./$CONFIGSCRIPT
 echo "Building GENIE..."
-$MAKE >& log.make
+$MAKE >& log_$BUILDSTARTTIME.make
 if [ $? -eq 0 ]; then
     echo "Build successful!"
 else 
@@ -437,19 +439,20 @@ fi
 mypush data
 XSECSPLINEDIR=`pwd`
 # TODO - Hmmm... these versions...
+FETCHLOG=log_$BUILDSTARTTIME.datafetch
 if [[ $MAJOR == 2 ]]; then
     if [[ $MINOR == 8 ]]; then
         if [[ $PATCH == 0 ]]; then
             XSECDATA="gxspl-vA-v2.8.0.xml.gz"          
             if [ ! -f $XSECDATA ]; then
-                wget http://www.hepforge.org/archive/genie/data/2.8.0/$XSECDATA >& log.datafetch
+                wget http://www.hepforge.org/archive/genie/data/2.8.0/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
             fi
         elif [[ $PATCH -le 6 ]]; then
             XSECDATA="gxspl-NuMIsmall.xml.gz"          
             if [ ! -f $XSECDATA ]; then
-                wget http://www.hepforge.org/archive/genie/data/2.8.4/$XSECDATA >& log.datafetch
+                wget http://www.hepforge.org/archive/genie/data/2.8.4/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
             fi
@@ -458,7 +461,7 @@ if [[ $MAJOR == 2 ]]; then
         # Only one option for 2.9.X for now...
         XSECDATA="gxspl-NuMI-R290.xml.gz"          # R. Hatcher's splines        
         if [ ! -f $XSECDATA ]; then
-            curl -O http://home.fnal.gov/~rhatcher/$XSECDATA >& log.datafetch
+            curl -O http://home.fnal.gov/~rhatcher/$XSECDATA >& $FETCHLOG
         else
             echo "Cross section data $XSECDATA already exists in `pwd`..."
         fi
@@ -487,7 +490,7 @@ fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
-       --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log.txt
+       --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log_$BUILDSTARTTIME.txt
 if [ $? -eq 0 ]; then
     echo "Run successful!"
     echo "***********************************************************"
@@ -502,4 +505,6 @@ else
     exit 1
 fi
 mypop
-
+echo " "
+BUILDSTOPTIME=`date +%Y-%m-%d-%H-%M-%S`
+echo "Finished at ${BUILDSTOPTIME}!"
