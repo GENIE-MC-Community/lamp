@@ -2,16 +2,16 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_8_6"        # SVN Branch
+TAG="R-2_9_0"        # SVN Branch
 
 USERREPO="GENIEMC"     # where do we get the code from GitHub?
-GENIEVER="GENIE_2_8_6" # 
+GENIEVER="GENIE_2_9_0" # 
 GITBRANCH="master"     # 
 HTTPSCHECKOUT=0        # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
 ROOTTAG="v5-34-24"   # 
-MAKE=gmake           # May prefer "make" on Ubuntu
+MAKE=make            # May prefer "gmake" on some systems
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
@@ -22,55 +22,58 @@ ENVFILE="environment_setup.sh"
 # how to use the script
 help()
 {
-    mybr
-    echo "Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure"
-    echo "you are using a version of lamp that is appropriate for the version of GENIE"
-    echo "you want to use. lamp has been tested for GENIE R-2_8_0 and later. It may"
-    echo "not work with earlier versions."
-    echo ""
-    echo "Welcome to rub_the_lamp. This script will build the 3rd party support"
-    echo "packages for GENIE and then build GENIE itself."
-    echo ""
-    echo "Usage: ./rub_the_lamp.sh -<flag>"
-    echo "             -h / --help   : Help"
-    echo "             -g / --github : Check out GENIE code from GitHub"
-    echo "             -f / --forge  : Check out GENIE code from HepForge"
-    echo "                             (DEFAULT)"
-    echo "             -r / --repo   : Specify the GitHub repo"
-    echo "                             (default == GENIE_2_8_6)"
-    echo "                             Available: GENIE_2_8, GENIE_2_8_6"
-    echo "             -u / --user   : Specify the GitHub user"
-    echo "                             (default == GENIEMC)"
-    echo "             -t / --tag    : Specify the HepForge SVN tag"
-    echo "                             (default == R-2_8_6)"
-    echo "             -b / --branch : Specify the GitHub GENIE branch"
-    echo "                             (default == master)"
-    echo "             -p / --pythia : Pythia version (6 or 8)"
-    echo "                             (default == 6)"
-    echo "             -m / --make   : Use make instead of gmake"
-    echo "                             (default == use gmake)"
-    echo "             -n / --nice   : Run make under nice"
-    echo "                             (default == normal make)"
-    echo "             -o / --root   : ROOT tag version"
-    echo "                             (default == v5-34-24)"
-    echo "             -s / --https  : Use HTTPS checkout from GitHub"
-    echo "                             (default is ssh)"
-    echo "             -c / --force  : Archive existing packages and rebuild"
-    echo "                             (default is to keep the existing area)"
-    echo "             --support-tag : Tag for GENIE Support"
-    echo "                             (default is $SUPPORTTAG)"
-    echo ""
-    echo "  All defaults:  "
-    echo "    ./rub_the_lamp.sh"
-    echo "  Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24"
-    echo ""
-    echo "  Other examples:  "
-    echo "    ./rub_the_lamp.sh --forge"
-    echo "    ./rub_the_lamp.sh -f --tag trunk"
-    echo "    ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n"
-    echo " "
-    echo "Note: Advanced configuration of the support packages require inspection of that script."
-    mybr
+    cat <<EOF
+
+Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure
+you are using a version of `lamp` that is appropriate for the version of GENIE
+you want to use. This version of `lamp` expects you want to work with GENIE 
+R-2_9_0. `lamp` has been tested for GENIE R-2_8_0 and later, but you need to be
+sure you check out the appropriate release for the version of GENIE that you 
+would like to use. 
+
+Welcome to `rub_the_lamp`. This script will build the 3rd party support packages
+for GENIE and then build GENIE itself.
+
+Usage: ./rub_the_lamp.sh -<flag>
+             -h / --help   : Help
+             -g / --github : Check out GENIE code from GitHub
+             -f / --forge  : Check out GENIE code from HepForge
+                             (DEFAULT)
+             -r / --repo   : Specify the GitHub repo
+                             (default == GENIE_2_8_6)
+                             Available: GENIE_2_8, GENIE_2_8_6
+             -u / --user   : Specify the GitHub user
+                             (default == GENIEMC)
+             -t / --tag    : Specify the HepForge SVN tag
+                             (default == R-2_8_6)
+             -b / --branch : Specify the GitHub GENIE branch
+                             (default == master)
+             -p / --pythia : Pythia version (6 or 8)
+                             (default == 6)
+             -n / --nice   : Run make under nice
+                             (default == normal make)
+             -o / --root   : ROOT tag version
+                             (default == v5-34-24)
+             -s / --https  : Use HTTPS checkout from GitHub
+                             (default is ssh)
+             -c / --force  : Archive existing packages and rebuild
+                             (default is to keep the existing area)
+             --support-tag : Tag for GENIE Support
+                             (default is $SUPPORTTAG)
+
+  All defaults:  
+    ./rub_the_lamp.sh
+  Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24
+
+  Other examples:  
+    ./rub_the_lamp.sh --forge
+    ./rub_the_lamp.sh -f --tag trunk
+    ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
+ 
+Note: Advanced configuration of the support packages may require inspection of
+that script.
+ 
+EOF
 }
 
 # quiet pushd
@@ -152,9 +155,6 @@ do
             PYTHIAVER="$1"
             shift
             ;;
-        -m|--make)
-            MAKE=make
-            ;;
         -n|--nice)
             MAKENICE=1
             ;;
@@ -192,16 +192,12 @@ fi
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
 #
 MAJOR=2
-MINOR=8
+MINOR=9
 PATCH=0
 if [[ $CHECKOUT == "GITHUB" ]]; then
     MAJOR=`echo $GENIEVER | cut -c7-7`
     MINOR=`echo $GENIEVER | cut -c9-9`
     PATCH=`echo $GENIEVER | cut -c11-11`
-    # GitHub repos are `GENIE_2_8` and `GENIE_2_8_6`, so we must add the patch 0
-    if [[ $PATCH == "" ]]; then
-        PATCH=0
-    fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     MAJOR=`echo $TAG | cut -c3-3`
     MINOR=`echo $TAG | cut -c5-5`
@@ -364,19 +360,12 @@ echo "Configuring GENIE environment in-shell."
 echo "You will need to source $ENVFILE after the build finishes."
 
 #
-# For 2.8.2 and 2.8.4, we must point LHAPATH into an area in $GENIE
 # For 2.8.6 and 2.9.X, we must copy a patched PDF file into the $LHAPATH
 # TODO - check to see if this is also handled in GENIESupport
+# TODO - get rid of this check on version and just copy?
 # 
 if [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR == 8 ]]; then
-        if [[ $PATCH -ge 2 && $PATCH -le 4 ]]; then
-            perl -ni -e 'print if !/LHAPATH/' $ENVFILE  # remove just the LHAPATH line
-            echo "export LHAPATH=`pwd`/$GENIEDIRNAME/data/evgen/pdfs" >> $ENVFILE
-        elif [[ $PATCH == 6 ]]; then
-            cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
-        fi
-    elif [[ $MINOR == 9 ]]; then
+    if [[ $MINOR == 9 ]]; then
         cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
     fi
 fi
@@ -400,14 +389,7 @@ echo -e "echo \"Running configuration script generated by the Lamp...\"" >> $CON
 echo -e "./configure \\" >> $CONFIGSCRIPT
 echo -e "  --enable-debug \\" >> $CONFIGSCRIPT
 echo -e "  --enable-test \\" >> $CONFIGSCRIPT
-# TODO - not gonna support 2.8 in the future except by checkout of older tags...
-if [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR == 8 ]]; then
-        echo -e "  --enable-numi \\" >> $CONFIGSCRIPT
-    elif [[ $MINOR == 9 ]]; then
-        echo -e "  --enable-fnal \\" >> $CONFIGSCRIPT
-    fi
-fi
+echo -e "  --enable-fnal \\" >> $CONFIGSCRIPT
 echo -e "  --enable-t2k \\" >> $CONFIGSCRIPT
 echo -e "  --enable-atmo \\" >> $CONFIGSCRIPT
 echo -e "  --enable-rwght \\" >> $CONFIGSCRIPT
