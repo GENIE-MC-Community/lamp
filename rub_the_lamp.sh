@@ -346,10 +346,6 @@ fi
 if [ $MAKENICE -eq 1 ]; then
     NICE="-n"
 fi
-MAKEFLAG=""
-if [ $MAKE == "make" ]; then
-    MAKEFLAG="-m"
-fi
 
 IS64="no"
 # Is this 64 bit?
@@ -370,8 +366,8 @@ else
     echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
     git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 fi
-echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $MAKEFLAG $FORCEBUILD $HTTPSFLAG
+echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG"
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG
 mv $ENVFILE ..
 mypop
 
