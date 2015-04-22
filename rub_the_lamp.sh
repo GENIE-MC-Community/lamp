@@ -30,13 +30,13 @@ help()
     cat <<EOF
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure
-you are using a version of `lamp` that is appropriate for the version of GENIE
-you want to use. This version of `lamp` expects you want to work with GENIE 
-R-2_9_0. `lamp` has been tested for GENIE R-2_8_0 and later, but you need to be
+you are using a version of "lamp" that is appropriate for the version of GENIE
+you want to use. This version of "lamp" expects you want to work with GENIE 
+R-2_9_0. "lamp" has been tested for GENIE R-2_8_0 and later, but you need to be
 sure you check out the appropriate release for the version of GENIE that you 
-would like to use. 
+would like to use. Check the "VERSIONS.md" file distributed with lamp for help.
 
-Welcome to `rub_the_lamp`. This script will build the 3rd party support packages
+Welcome to "rub_the_lamp". This script will build the 3rd party support packages
 for GENIE and then build GENIE itself.
 
 Usage: ./rub_the_lamp.sh -<flag>
@@ -138,13 +138,6 @@ badlamp()
 }
 
 #
-# START!
-#
-BUILDSTARTTIME=`date +%Y-%m-%d-%H-%M-%S`
-echo ""
-echo "Letting GENIE out of the bottle..."
-echo "  Starting the build at $BUILDSTARTTIME"
-#
 # Parse the command line flags.
 #
 while [[ $# > 0 ]]
@@ -209,15 +202,20 @@ do
 done
 
 #
-# Check help and do sanity checks on options.
+# Check the help flag
 #
 if [[ $HELPFLAG -eq 1 ]]; then
     help
     exit 0
 fi
-if [ $PYTHIAVER -ne 6 -a $PYTHIAVER -ne 8 ]; then
-    badpythia
-fi
+
+#
+# START!
+#
+BUILDSTARTTIME=`date +%Y-%m-%d-%H-%M-%S`
+echo ""
+echo "Letting GENIE out of the bottle..."
+echo "  Starting the build at $BUILDSTARTTIME"
 
 #
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
@@ -232,6 +230,13 @@ elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     PATCH=`echo $TAG | cut -c7-7`
 fi
 checklamp
+
+#
+# Check that the Pythia version requested is okay
+# 
+if [ $PYTHIAVER -ne 6 -a $PYTHIAVER -ne 8 ]; then
+    badpythia
+fi
 
 # 
 # Show the selected options.
