@@ -1,11 +1,13 @@
 # READ ME FIRST!
 
+This version of `lamp` is designed to work with GENIE `R-2_9_0`!
+
 It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_8_6.4`. Use the following command to check
+recommended tag is `R-2_9_0.0`. Use the following command to check
 it out (and read below for more if you're really interested). After
 cloning the repository, `cd` into the `lamp` directory and run:
 
-    git checkout -b R-2_8_6.4-br R-2_8_6.4
+    git checkout -b R-2_9_0.0-br R-2_9_0.0
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
@@ -39,15 +41,17 @@ When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_8_6.4-br R-2_8_6.4
+    git checkout -b R-2_9_0.0-br R-2_9_0.0
 
-This will checkout _tag_ `R-2_8_6.4` into _branch_ `R-2_8_6.4-br`. You want to
+This will checkout _tag_ `R-2_9_0.0` into _branch_ `R-2_9_0.0-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
 you are using a version of `lamp` that is appropriate for the version of GENIE
 you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
-not work with earlier versions. 
+not work with earlier versions. This version of `lamp` is designed to work with
+GENIE `R-2_9_0`, and you will need to check out an older release of `lamp` to
+work with the 2.8 series.
 
 ## Basic Usage
 
@@ -73,8 +77,6 @@ no arguments will produce the help menu:
                                  (default == master)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
-                 -m / --make   : Use make instead of gmake
-                                 (default == use gmake)
                  -n / --nice   : Run make under nice
                                  (default == normal make)
                  -o / --root   : ROOT tag version
@@ -93,7 +95,9 @@ no arguments will produce the help menu:
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
         ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
-    
+        ./rub_the_lamp.sh --support-tag head
+        ./rub_the_lamp.sh --support-tag R-2_9_0.0
+
     Note: Advanced configuration of the support packages require inspection of that script.
 
 This script only supports Linux. It may support Mac OSX in the future (we hope).
