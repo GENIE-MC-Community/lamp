@@ -19,6 +19,11 @@ SUPPORTTAG="R-2_8_6.3"
 
 ENVFILE="environment_setup.sh"
 
+# Defaults
+MAJOR=2
+MINOR=9
+PATCH=0
+
 # how to use the script
 help()
 {
@@ -82,7 +87,7 @@ mypush()
     pushd $1 >& /dev/null 
     if [ $? -ne 0 ]; then
         echo "Error! Directory $1 does not exist."
-        exit 0
+        exit 1
     fi
 }
 
@@ -102,9 +107,35 @@ mybr()
 badpythia()
 {
     echo "Illegal version of Pythia! Only 6 or 8 are accepted."
-    exit 0
+    exit 1
 }
 #
+
+# is lamp okay for this version of GENIE?
+checklamp()
+{
+    if [[ $MAJOR == 2 ]]; then
+        if [[ $MINOR == 9 ]]; then
+            if [[ $PATCH == 0 ]]; then
+                LAMPOKAY="YES"
+            else
+                badlamp
+            fi
+        else
+            badlamp
+        fi
+    else
+        badlamp
+    fi
+}
+
+# this version of lamp is not approproate for "this" GENIE
+badlamp()
+{
+    echo "GENIE $MAJOR $MINOR $PATH is not supported by this version of lamp."
+    echo "Please check the lamp project page for an apporopiate release."
+    exit 1
+}
 
 #
 # START!
@@ -191,9 +222,6 @@ fi
 #
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
 #
-MAJOR=2
-MINOR=9
-PATCH=0
 if [[ $CHECKOUT == "GITHUB" ]]; then
     MAJOR=`echo $GENIEVER | cut -c7-7`
     MINOR=`echo $GENIEVER | cut -c9-9`
@@ -203,6 +231,7 @@ elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     MINOR=`echo $TAG | cut -c5-5`
     PATCH=`echo $TAG | cut -c7-7`
 fi
+checklamp
 
 # 
 # Show the selected options.
@@ -360,7 +389,7 @@ echo "Configuring GENIE environment in-shell."
 echo "You will need to source $ENVFILE after the build finishes."
 
 #
-# For 2.8.6 and 2.9.X, we must copy a patched PDF file into the $LHAPATH
+# For 2.9.X, we must copy a patched PDF file into the $LHAPATH
 # TODO - check to see if this is also handled in GENIESupport
 # TODO - get rid of this check on version and just copy?
 # 
@@ -370,7 +399,7 @@ if [[ $MAJOR == 2 ]]; then
     fi
 fi
 #
-# For trunk prior to 2.10-proto we must copy a patched PDF file into the $LHAPATH
+# For trunk prior to LHAPDF retirement we must copy a patched PDF file into the $LHAPATH
 # 
 if [[ $CHECKOUT == "HEPFORGE" ]]; then
     if [[ $TAG == "trunk" ]]; then
@@ -430,37 +459,22 @@ XSECSPLINEDIR=`pwd`
 # TODO - Hmmm... these versions...
 FETCHLOG=log_$BUILDSTARTTIME.datafetch
 if [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR == 8 ]]; then
+    if [[ $MINOR == 9 ]]; then
         if [[ $PATCH == 0 ]]; then
-            XSECDATA="gxspl-vA-v2.8.0.xml.gz"          
+            XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
-                wget http://www.hepforge.org/archive/genie/data/2.8.0/$XSECDATA >& $FETCHLOG
+                wget https://www.hepforge.org/archive/genie/data/2.9.0/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
             fi
-        elif [[ $PATCH -le 6 ]]; then
-            XSECDATA="gxspl-NuMIsmall.xml.gz"          
-            if [ ! -f $XSECDATA ]; then
-                wget http://www.hepforge.org/archive/genie/data/2.8.4/$XSECDATA >& $FETCHLOG
-            else
-                echo "Cross section data $XSECDATA already exists in `pwd`..."
-            fi
-        fi
-    elif [[ $MINOR == 9 ]]; then
-        # Only one option for 2.9.X for now...
-        XSECDATA="gxspl-NuMI-R290.xml.gz"          # R. Hatcher's splines        
-        if [ ! -f $XSECDATA ]; then
-            curl -O http://home.fnal.gov/~rhatcher/$XSECDATA >& $FETCHLOG
         else
-            echo "Cross section data $XSECDATA already exists in `pwd`..."
+            badlamp
         fi
     else
-        echo "Don't know how to choose cross section splines for test run! Halting!"
-        exit 1
+        badlamp
     fi
 else
-    echo "Major version != 2... Don't know how to choose cross section splines for test run! Halting!"
-    exit 1
+    badlamp
 fi
 mypop
 echo "export XSECSPLINEDIR=$XSECSPLINEDIR" >> $ENVFILE
