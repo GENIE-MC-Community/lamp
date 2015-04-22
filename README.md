@@ -139,12 +139,6 @@ install them with a package manager:
 * Download source from [GNU](http://ftp.gnu.org/gnu/autoconf/) and build.
 * etc.
 
-It is possible that there is a problem with `make` vs. `gmake` on your 
-system. If you find cryptic error messages associated with libtool and 
-autoconf while attempting to build log4cpp, you may chose to try make
-in place of gmake. This seems to be a frequent problem for Ubuntu 
-users.
-
 ## Contributors
 
 * Gabriel Perdue,  [Fermilab](http://www.fnal.gov)
