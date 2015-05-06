@@ -1,5 +1,11 @@
 # Tags
 
+NOTE: Many of the older tags will not currently work for checking out code
+from HepForge due to a repository restructuring. Please check the list of 
+tags carefully and contact us if we can't cover your needs.
+
+* `R-2_9_0.1`: Update the paths to the SVN repository for the re-organized
+configuration.
 * `R-2_9_0.0`: Compliant with GENIE 2.9.0; uses tagged version of GENIESupport
 [package](https://github.com/GENIEMC/GENIESupport) tag version `R-2_9_0.0`;
 drop support for many little hacks required for different versions of GENIE

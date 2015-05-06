@@ -3,16 +3,22 @@
 This version of `lamp` is designed to work with GENIE `R-2_9_0`!
 
 It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_9_0.0`. Use the following command to check
+recommended tag is `R-2_9_0.1`. Use the following command to check
 it out (and read below for more if you're really interested). After
 cloning the repository, `cd` into the `lamp` directory and run:
 
-    git checkout -b R-2_9_0.0-br R-2_9_0.0
+    git checkout -b R-2_9_0.1-br R-2_9_0.1
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
 bug, please feel free to contact Gabe Perdue (`perdue` at Fermilab)
 or open an issue on [GitHub](https://github.com/GENIEMC/lamp).
+
+NOTE: On May 4, 2015 the GENIE SVN repository on HepForge was 
+re-orgnaized, breaking the SVN checkout path in `lamp`. Please update
+to a new version of the code. If you continue to have checkout problems
+for a specific tagged release, please let Gabe Perdue know (contact
+info below) or open an issue on GitHub.
 
 Let [GENIE](http://genie.hepforge.org) out of the bottle!
 
@@ -150,6 +156,8 @@ install them with a package manager:
 * Tom Van Cuyck,   [Universiteit Gent](http://www.ugent.be)
 * Kevin McFarland, [University of Rochester](http://www.rochester.edu)
 * Julia Yarba,     [Fermilab](http://www.fnal.gov)
+
+Please contact Gabe Perdue (`perdue "at" fnal.gov`) for complex inquiries, etc.
 
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).
