@@ -438,7 +438,7 @@ chmod u+x $CONFIGSCRIPT
 ./$CONFIGSCRIPT
 echo "Building GENIE..."
 $MAKE >& log_$BUILDSTARTTIME.make
-if grep -q "failed" log_$BUILDSTARTTIME.make; then
+if grep -q "ailed" log_$BUILDSTARTTIME.make; then
     echo "Build failed! Please check the log file."
     exit 1
 else
