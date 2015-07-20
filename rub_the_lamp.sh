@@ -438,13 +438,11 @@ chmod u+x $CONFIGSCRIPT
 ./$CONFIGSCRIPT
 echo "Building GENIE..."
 $MAKE >& log_$BUILDSTARTTIME.make
-if [ $? -eq 0 ]; then
-    echo "Build successful!"
-else if [ grep "failed" -eq 0 ]; then
-    echo "At least part of the build has failed. Please check the log file."
-else
+if grep -q "failed" log_$BUILDSTARTTIME.make; then
     echo "Build failed! Please check the log file."
     exit 1
+else
+    echo "Build successful!"
 fi
 mypop
 
