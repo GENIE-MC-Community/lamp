@@ -91,9 +91,9 @@ out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
 
-* To use 2.8.6, you probably want tag "R-2_8_6.4". Check it out with:
+* To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
 
-    git checkout -b R-2_8_6.4-br R-2_8_6.4
+    git checkout -b R-2_8_6.5-br R-2_8_6.5
 EOF
 }
 
