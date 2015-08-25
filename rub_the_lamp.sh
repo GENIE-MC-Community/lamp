@@ -45,16 +45,19 @@ Usage: ./rub_the_lamp.sh -<flag>
              -f / --forge  : Check out GENIE code from HepForge
                              (DEFAULT)
              -r / --repo   : Specify the GitHub repo
-                             (default == GENIE_2_8_6)
-                             Available: GENIE_2_8, GENIE_2_8_6
+                             (default == GENIE_2_9_0)
+                             Available: GENIE_2_9_0
+                             Available (older lamp): GENIE_2_8, GENIE_2_8_6
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
-                             (default == R-2_8_6)
+                             (default == R-2_9_0)
+                             Available: use ./list_hepforge_branches.sh
              -b / --branch : Specify the GitHub GENIE branch
                              (default == master)
              -p / --pythia : Pythia version (6 or 8)
                              (default == 6)
+                             8 is under construction! Not available yet.
              -n / --nice   : Run make under nice
                              (default == normal make)
              -o / --root   : ROOT tag version
@@ -242,15 +245,18 @@ echo "  Starting the build at $BUILDSTARTTIME"
 
 #
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
+#  GitHub: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
+#  HepForge: R-X_Y_Z
+#   I know Python is bad for one-liners, but this was easy...
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
-    MAJOR=`echo $GENIEVER | cut -c7-7`
-    MINOR=`echo $GENIEVER | cut -c9-9`
-    PATCH=`echo $GENIEVER | cut -c11-11`
+    MAJOR=`echo $GENIEVER | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('_');print('%s'%t[1])"`
+    MINOR=`echo $GENIEVER | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('_');print('%s'%t[2])"`
+    PATCH=`echo $GENIEVER | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('_');print('%s'%t[3])"`
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
-    MAJOR=`echo $TAG | cut -c3-3`
-    MINOR=`echo $TAG | cut -c5-5`
-    PATCH=`echo $TAG | cut -c7-7`
+    MAJOR=`echo $TAG | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('-')[1].split('_');print('%s'%t[0])"`
+    MINOR=`echo $TAG | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('-')[1].split('_');print('%s'%t[1])"`
+    PATCH=`echo $TAG | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('-')[1].split('_');print('%s'%t[2])"`
 fi
 checklamp
 

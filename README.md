@@ -72,17 +72,20 @@ no arguments will produce the help menu:
                  -g / --github : Check out GENIE code from GitHub
                  -f / --forge  : Check out GENIE code from HepForge
                                  (DEFAULT)
-                 -r / --repo   : Specify the GitHub repo"
-                                 (default == GENIE_2_8_6)"
-                                 Available: GENIE_2_8, GENIE_2_8_6"
-                 -u / --user   : Specify the GitHub user"
-                                 (default == GENIEMC)"
+                 -r / --repo   : Specify the GitHub repo
+                                 (default == GENIE_2_9_0)
+                                 Available: GENIE_2_9_0
+                                 Available (older lamp): GENIE_2_8, GENIE_2_8_6
+                 -u / --user   : Specify the GitHub user
+                                 (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
-                                 (default == R-2_8_4)
+                                 (default == R-2_9_0)
+                                 Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
                                  (default == master)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
+                                 8 is under construction! Not available yet.
                  -n / --nice   : Run make under nice
                                  (default == normal make)
                  -o / --root   : ROOT tag version
