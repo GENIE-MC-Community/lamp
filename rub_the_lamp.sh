@@ -81,6 +81,22 @@ that script.
 EOF
 }
 
+# comments on the version
+version_info()
+{
+    cat <<EOF
+Note that the "HEAD" version on the lamp package is designed to work with
+GENIE 2.9.X. If you want to use an older version of GENIE, you should check
+out an appropriate tag. You can do this with a branch checkout command that
+will switch to the version of the code matching the tag and also put you on
+a separate branch (away from master) in case you want to make commits, etc.
+
+* To use 2.8.6, you probably want tag "R-2_8_6.4". Check it out with:
+
+    git checkout -b R-2_8_6.4-br R-2_8_6.4
+EOF
+}
+
 # quiet pushd
 mypush() 
 { 
@@ -133,7 +149,14 @@ checklamp()
 badlamp()
 {
     echo "GENIE $MAJOR $MINOR $PATCH is not supported by this version of lamp."
-    echo "Please check the lamp project page for an apporopiate release."
+    echo ""
+    version_info
+    echo ""
+    echo "Please check the lamp project page for an additional information."
+    echo ""
+    echo "           https://github.com/GENIEMC/lamp                       "
+    echo "           https://github.com/GENIEMC/lamp/releases              "
+    echo ""
     exit 1
 }
 
