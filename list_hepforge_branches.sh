@@ -1,3 +1,3 @@
 #!/bin/bash
 echo "trunk"
-svn list http://genie.hepforge.org/svn/branches 
+svn list http://genie.hepforge.org/svn/generator/branches 

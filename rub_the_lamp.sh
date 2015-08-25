@@ -275,9 +275,9 @@ elif [[ $CHECKOUT == "HEPFORGE" ]]; then
   echo "Checking out $TAG..."
   if [ ! -d $GENIEDIRNAME ]; then
     if [[ $TAG != "trunk" ]]; then
-      svn co --quiet http://genie.hepforge.org/svn/branches/$TAG $GENIEDIRNAME 
+      svn co --quiet http://genie.hepforge.org/svn/generator/branches/$TAG $GENIEDIRNAME 
     else
-      svn co --quiet http://genie.hepforge.org/svn/trunk $GENIEDIRNAME 
+      svn co --quiet http://genie.hepforge.org/svn/generator/trunk $GENIEDIRNAME 
     fi
   else
     echo "$GENIEDIRNAME already installed..."
