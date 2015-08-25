@@ -132,7 +132,7 @@ checklamp()
 # this version of lamp is not approproate for "this" GENIE
 badlamp()
 {
-    echo "GENIE $MAJOR $MINOR $PATH is not supported by this version of lamp."
+    echo "GENIE $MAJOR $MINOR $PATCH is not supported by this version of lamp."
     echo "Please check the lamp project page for an apporopiate release."
     exit 1
 }
