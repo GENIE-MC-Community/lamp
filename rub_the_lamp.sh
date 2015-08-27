@@ -247,16 +247,15 @@ echo "  Starting the build at $BUILDSTARTTIME"
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
 #  GitHub: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
 #  HepForge: R-X_Y_Z
-#   I know Python is bad for one-liners, but this was easy...
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
-    MAJOR=`echo $GENIEVER | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('_');print('%s'%t[1])"`
-    MINOR=`echo $GENIEVER | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('_');print('%s'%t[2])"`
-    PATCH=`echo $GENIEVER | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('_');print('%s'%t[3])"`
+    MAJOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[1]'`
+    MINOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[2]'`
+    PATCH=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[3]'`
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
-    MAJOR=`echo $TAG | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('-')[1].split('_');print('%s'%t[0])"`
-    MINOR=`echo $TAG | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('-')[1].split('_');print('%s'%t[1])"`
-    PATCH=`echo $TAG | python -c "from __future__ import print_function; import sys;t=sys.stdin.readline().split('-')[1].split('_');print('%s'%t[2])"`
+    MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+    MINOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+    PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
 fi
 checklamp
 
