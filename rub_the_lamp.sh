@@ -97,6 +97,13 @@ a separate branch (away from master) in case you want to make commits, etc.
 * To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
 
     git checkout -b R-2_8_6.5-br R-2_8_6.5
+
+* If you have created a repo with a different name or naming structure from
+those expected by lamp, you will need to update this script or rename your
+repository. This script expects repositories in HepForge to look like 
+R-X_Y_Z and in GitHub to look like GENIE_X_Y_Z. You may grep this script 
+for the checklamp function to see how the major, minor, and patch version
+numbers are managed.
 EOF
 }
 
@@ -136,6 +143,9 @@ checklamp()
     if [[ $MAJOR == 2 ]]; then
         if [[ $MINOR == 9 ]]; then
             if [[ $PATCH == 0 ]]; then
+                LAMPOKAY="YES"
+            elif [[ $PATCH == "0-cand01" ]]; then  
+            # Special allowance for J. Yarba GitHub repo
                 LAMPOKAY="YES"
             else
                 badlamp
