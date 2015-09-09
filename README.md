@@ -47,9 +47,9 @@ When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_9_0.0-br R-2_9_0.0
+    git checkout -b R-2_9_0.1-br R-2_9_0.1
 
-This will checkout _tag_ `R-2_9_0.0` into _branch_ `R-2_9_0.0-br`. You want to
+This will checkout _tag_ `R-2_9_0.1` into _branch_ `R-2_9_0.1-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
@@ -98,14 +98,14 @@ no arguments will produce the help menu:
 
       All defaults: 
         ./rub_the_lamp.sh
-      Produces: R-2_8_6 from HepForge, Pythia6, ROOT v5-34-24
+      Produces: R-2_9_0 from HepForge, Pythia6, ROOT v5-34-24
     
       Other examples: 
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
         ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
         ./rub_the_lamp.sh --support-tag head
-        ./rub_the_lamp.sh --support-tag R-2_9_0.0
+        ./rub_the_lamp.sh --support-tag R-2_9_0.1
 
     Note: Advanced configuration of the support packages require inspection of that script.
 
