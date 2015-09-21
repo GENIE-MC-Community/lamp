@@ -140,21 +140,23 @@ badpythia()
 # is lamp okay for this version of GENIE?
 checklamp()
 {
-    if [[ $MAJOR == 2 ]]; then
-        if [[ $MINOR == 9 ]]; then
-            if [[ $PATCH == 0 ]]; then
-                LAMPOKAY="YES"
-            elif [[ $PATCH == "0-cand01" ]]; then  
-            # Special allowance for J. Yarba GitHub repo
-                LAMPOKAY="YES"
+    if [[ $MAJOR != "trunk" ]]; then
+        if [[ $MAJOR == 2 ]]; then
+            if [[ $MINOR == 9 ]]; then
+                if [[ $PATCH == 0 ]]; then
+                    LAMPOKAY="YES"
+                elif [[ $PATCH == "0-cand01" ]]; then  
+                    # Special allowance for J. Yarba GitHub repo
+                    LAMPOKAY="YES"
+                else
+                    badlamp
+                fi
             else
                 badlamp
             fi
         else
             badlamp
         fi
-    else
-        badlamp
     fi
 }
 
@@ -263,9 +265,15 @@ if [[ $CHECKOUT == "GITHUB" ]]; then
     MINOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[2]'`
     PATCH=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[3]'`
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
-    MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
-    MINOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
-    PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
+    if [[ $TAG != "trunk" ]]; then
+        MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+        MINOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+        PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
+    else
+        MAJOR="trunk"
+        MINOR=""
+        PATCH=""
+    fi
 fi
 checklamp
 
