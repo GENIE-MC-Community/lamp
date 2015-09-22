@@ -175,6 +175,7 @@ badlamp()
     exit 1
 }
 
+
 #
 # Parse the command line flags.
 #
@@ -504,8 +505,16 @@ fi
 mypush data
 XSECSPLINEDIR=`pwd`
 # TODO - Hmmm... these versions...
+# Use 2.9.0 for trunk for now.
 FETCHLOG=log_$BUILDSTARTTIME.datafetch
-if [[ $MAJOR == 2 ]]; then
+if [[ $MAJOR == "trunk" ]]; then
+    XSECDATA="gxspl-small.xml.gz"          
+    if [ ! -f $XSECDATA ]; then
+        wget https://www.hepforge.org/archive/genie/data/2.9.0/$XSECDATA >& $FETCHLOG
+    else
+        echo "Cross section data $XSECDATA already exists in `pwd`..."
+    fi
+elif [[ $MAJOR == 2 ]]; then
     if [[ $MINOR == 9 ]]; then
         if [[ $PATCH == 0 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
