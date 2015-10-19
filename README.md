@@ -59,6 +59,23 @@ not work with earlier versions. This version of `lamp` is designed to work with
 GENIE `R-2_9_0`, and you will need to check out an older release of `lamp` to
 work with the 2.8 series.
 
+Note that the "HEAD" version on the lamp package is designed to work with
+GENIE 2.9.X. If you want to use an older version of GENIE, you should check
+out an appropriate tag. You can do this with a branch checkout command that
+will switch to the version of the code matching the tag and also put you on
+a separate branch (away from master) in case you want to make commits, etc.
+
+* To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
+
+    git checkout -b R-2_8_6.5-br R-2_8_6.5
+
+* If you have created a repo with a different name or naming structure from
+those expected by lamp, you will need to update this script or rename your
+repository. This script expects repositories in HepForge to look like 
+R-X_Y_Z and in GitHub to look like GENIE_X_Y_Z. You may grep this script 
+for the checklamp function to see how the major, minor, and patch version
+numbers are managed.
+
 ## Basic Usage
 
 If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
