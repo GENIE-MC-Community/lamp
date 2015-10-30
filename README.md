@@ -113,6 +113,8 @@ no arguments will produce the help menu:
                                  (default is ssh)
                  -c / --force  : Archive existing packages and rebuild
                                  (default is to keep the existing area)
+                 --svnauthname : HepForge user name (SSH credentialed checkout)
+                                 (default is anonymous checkout)
                  --support-tag : Tag for GENIE Support Builder (3rd party code) 
 
       All defaults: 

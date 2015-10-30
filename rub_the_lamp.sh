@@ -3,6 +3,7 @@
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
 TAG="R-2_9_0"        # SVN Branch
+SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"     # where do we get the code from GitHub?
 GENIEVER="GENIE_2_9_0" # 
@@ -66,6 +67,8 @@ Usage: ./rub_the_lamp.sh -<flag>
                              (default is ssh)
              -c / --force  : Archive existing packages and rebuild
                              (default is to keep the existing area)
+             --svnauthname : HepForge user name (SSH credentialed checkout)
+                             (default is anonymous checkout)
              --support-tag : Tag for GENIE Support
                              (default is $SUPPORTTAG)
 
@@ -142,7 +145,7 @@ checklamp()
 {
     if [[ $MAJOR != "trunk" ]]; then
         if [[ $MAJOR == 2 ]]; then
-            if [[ $MINOR == 9 ]]; then
+            if [[ $MINOR -ge 9 ]]; then
                 if [[ $PATCH == 0 ]]; then
                     LAMPOKAY="YES"
                 elif [[ $PATCH == "0-cand01" ]]; then  
@@ -231,8 +234,13 @@ do
         -c|--force)
             FORCEBUILD="-f"
             ;;
+        --svnauthname)
+            SVNAUTHNAM="$1"
+            shift
+            ;;
         --support-tag)
             SUPPORTTAG="$1"
+            shift
             ;;
         *)    # Unknown option
 
@@ -309,6 +317,7 @@ echo "------------ "
 echo " Checkout       = $CHECKOUT"
 if [[ $CHECKOUT == "HEPFORGE" ]]; then
     echo " Tag            = $TAG"
+    echo " SVN account    = $SVNAUTHNAM"
 elif [[ $CHECKOUT == "GITHUB" ]]; then
     echo " User           = $USERREPO"
     echo " HTTPS Checkout = $HTTPSCHECKOUT"
@@ -371,9 +380,17 @@ elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     echo "Checking out $TAG..."
     if [ ! -d $GENIEDIRNAME ]; then
         if [[ $TAG != "trunk" ]]; then
-            svn co --quiet http://genie.hepforge.org/svn/generator/branches/$TAG $GENIEDIRNAME 
+            if [[ $SVNAUTHNAM == "anon" ]]; then 
+                svn co --quiet http://genie.hepforge.org/svn/generator/branches/$TAG $GENIEDIRNAME 
+            else
+                svn co --quiet svn+ssh://${SVNAUTHNAM}@svn.hepforge.org/hepforge/svn/genie/generator/branches/$TAG $GENIEDIRNAME
+            fi
         else
-            svn co --quiet http://genie.hepforge.org/svn/generator/trunk $GENIEDIRNAME 
+            if [[ $SVNAUTHNAM == "anon" ]]; then 
+                svn co --quiet http://genie.hepforge.org/svn/generator/trunk $GENIEDIRNAME 
+            else
+                svn co --quiet svn+ssh://${SVNAUTHNAM}@svn.hepforge.org/hepforge/svn/genie/generator/trunk $GENIEDIRNAME
+            fi
         fi
     else
         echo "$GENIEDIRNAME already installed..."
