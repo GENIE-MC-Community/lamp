@@ -1,6 +1,8 @@
 # READ ME FIRST!
 
-This version of `lamp` is designed to work with GENIE `R-2_9_0`!
+This version of `lamp` is designed to work with GENIE `R-2_9_0`! It is not
+guaranteed to work with `R-2_10_0`, but support for `R-2_10_0` is coming
+soon.
 
 It is a good idea to use a tagged version of the `lamp`. The latest
 recommended tag is `R-2_9_0.1`. Use the following command to check
