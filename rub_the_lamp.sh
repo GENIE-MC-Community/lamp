@@ -532,10 +532,11 @@ if [[ $MAJOR == "trunk" ]]; then
         echo "Cross section data $XSECDATA already exists in `pwd`..."
     fi
 elif [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR == 9 ]]; then
+    if [[ $MINOR -ge 9 ]]; then
         if [[ $PATCH == 0 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
+                # TODO: wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
                 wget https://www.hepforge.org/archive/genie/data/2.9.0/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
