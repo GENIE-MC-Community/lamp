@@ -521,13 +521,12 @@ else
 fi
 mypush data
 XSECSPLINEDIR=`pwd`
-# TODO - Hmmm... these versions...
-# Use 2.9.0 for trunk for now.
 FETCHLOG=log_$BUILDSTARTTIME.datafetch
 if [[ $MAJOR == "trunk" ]]; then
     XSECDATA="gxspl-small.xml.gz"          
     if [ ! -f $XSECDATA ]; then
-        wget https://www.hepforge.org/archive/genie/data/2.9.0/$XSECDATA >& $FETCHLOG
+        echo "Using GENIE 2.10.0 splines - be careful that these may not be appropriate for trunk!"
+        wget https://www.hepforge.org/archive/genie/data/2.10.0/$XSECDATA >& $FETCHLOG
     else
         echo "Cross section data $XSECDATA already exists in `pwd`..."
     fi
@@ -536,8 +535,7 @@ elif [[ $MAJOR == 2 ]]; then
         if [[ $PATCH == 0 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
-                # TODO: wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
-                wget https://www.hepforge.org/archive/genie/data/2.9.0/$XSECDATA >& $FETCHLOG
+                wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
             fi
