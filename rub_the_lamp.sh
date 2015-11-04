@@ -2,13 +2,13 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_9_0"        # SVN Branch
+TAG="R-2_10_0"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
-USERREPO="GENIEMC"     # where do we get the code from GitHub?
-GENIEVER="GENIE_2_9_0" # 
-GITBRANCH="master"     # 
-HTTPSCHECKOUT=0        # use https checkout if non-zero (otherwise ssh)
+USERREPO="GENIEMC"      # where do we get the code from GitHub?
+GENIEVER="GENIE_2_10_0" # 
+GITBRANCH="master"      # 
+HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
 ROOTTAG="v5-34-24"   # 
@@ -22,7 +22,7 @@ ENVFILE="environment_setup.sh"
 
 # Defaults
 MAJOR=2
-MINOR=9
+MINOR=10
 PATCH=0
 
 # how to use the script
