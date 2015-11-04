@@ -33,7 +33,7 @@ help()
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure
 you are using a version of "lamp" that is appropriate for the version of GENIE
 you want to use. This version of "lamp" expects you want to work with GENIE 
-R-2_9_0. "lamp" has been tested for GENIE R-2_8_0 and later, but you need to be
+R-2_10_0. "lamp" has been tested for GENIE R-2_8_0 and later, but you need to be
 sure you check out the appropriate release for the version of GENIE that you 
 would like to use. Check the "VERSIONS.md" file distributed with lamp for help.
 
@@ -46,13 +46,13 @@ Usage: ./rub_the_lamp.sh -<flag>
              -f / --forge  : Check out GENIE code from HepForge
                              (DEFAULT)
              -r / --repo   : Specify the GitHub repo
-                             (default == GENIE_2_9_0)
-                             Available: GENIE_2_9_0
+                             (default == GENIE_2_10_0)
+                             Available: GENIE_2_9_0, GENIE_2_10_0
                              Available (older lamp): GENIE_2_8, GENIE_2_8_6
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
-                             (default == R-2_9_0)
+                             (default == R-2_10_0)
                              Available: use ./list_hepforge_branches.sh
              -b / --branch : Specify the GitHub GENIE branch
                              (default == master)
@@ -74,7 +74,7 @@ Usage: ./rub_the_lamp.sh -<flag>
 
   All defaults:  
     ./rub_the_lamp.sh
-  Produces: R-2_9_0 from HepForge, Pythia6, ROOT v5-34-24
+  Produces: R-2_10_0 from HepForge, Pythia6, ROOT v5-34-24
 
   Other examples:  
     ./rub_the_lamp.sh --forge
@@ -92,7 +92,7 @@ version_info()
 {
     cat <<EOF
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.9.X. If you want to use an older version of GENIE, you should check
+GENIE 2.10.X. If you want to use an older version of GENIE, you should check
 out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
@@ -454,12 +454,12 @@ echo "Configuring GENIE environment in-shell."
 echo "You will need to source $ENVFILE after the build finishes."
 
 #
-# For 2.9.X, we must copy a patched PDF file into the $LHAPATH
+# For 2.9.X+, we must copy a patched PDF file into the $LHAPATH
 # TODO - check to see if this is also handled in GENIESupport
 # TODO - get rid of this check on version and just copy?
 # 
 if [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR == 9 ]]; then
+    if [[ $MINOR -ge 9 ]]; then
         cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
     fi
 fi

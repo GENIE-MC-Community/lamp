@@ -1,15 +1,15 @@
 # READ ME FIRST!
 
-This version of `lamp` is designed to work with GENIE `R-2_9_0`! It is not
-guaranteed to work with `R-2_10_0`, but support for `R-2_10_0` is coming
-soon.
+This version of `lamp` is designed to work with GENIE `R-2_10_0`! It will
+also work with `R-2_9_0`, but earlier versions require checking out
+older tags of `lamp` (see below).
 
 It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_9_0.1`. Use the following command to check
+recommended tag is `R-2_10_0.0`. Use the following command to check
 it out (and read below for more if you're really interested). After
 cloning the repository, `cd` into the `lamp` directory and run:
 
-    git checkout -b R-2_9_0.1-br R-2_9_0.1
+    git checkout -b R-2_10_0.0-br R-2_10_0.0
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
@@ -17,9 +17,10 @@ bug, please feel free to contact Gabe Perdue (`perdue` at Fermilab)
 or open an issue on [GitHub](https://github.com/GENIEMC/lamp).
 
 NOTE: On May 4, 2015 the GENIE SVN repository on HepForge was 
-re-orgnaized, breaking the SVN checkout path in `lamp`. Please update
-to a new version of the code. If you continue to have checkout problems
-for a specific tagged release, please let Gabe Perdue know (contact
+re-orgnaized, breaking the SVN checkout path in some versions of`lamp`.
+Please check the version tags and use one appropriate for your needs
+with respecrt to this change. If you continue to have checkout problems
+for a specific version of GENIE, please let Gabe Perdue know (contact
 info below) or open an issue on GitHub.
 
 Let [GENIE](http://genie.hepforge.org) out of the bottle!
@@ -49,20 +50,20 @@ When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_9_0.1-br R-2_9_0.1
+    git checkout -b R-2_10_0.0-br R-2_10_0.0
 
-This will checkout _tag_ `R-2_9_0.1` into _branch_ `R-2_9_0.1-br`. You want to
+This will checkout _tag_ `R-2_10_0.0` into _branch_ `R-2_10_0.0-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
 you are using a version of `lamp` that is appropriate for the version of GENIE
 you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
 not work with earlier versions. This version of `lamp` is designed to work with
-GENIE `R-2_9_0`, and you will need to check out an older release of `lamp` to
+GENIE `R-2_10_0`, and you will need to check out an older release of `lamp` to
 work with the 2.8 series.
 
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.9.X. If you want to use an older version of GENIE, you should check
+GENIE 2.10.X. If you want to use an older version of GENIE, you should check
 out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
@@ -92,13 +93,13 @@ no arguments will produce the help menu:
                  -f / --forge  : Check out GENIE code from HepForge
                                  (DEFAULT)
                  -r / --repo   : Specify the GitHub repo
-                                 (default == GENIE_2_9_0)
-                                 Available: GENIE_2_9_0
+                                 (default == GENIE_2_10_0)
+                                 Available: GENIE_2_9_0, GENIE_2_10_0
                                  Available (older lamp): GENIE_2_8, GENIE_2_8_6
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
-                                 (default == R-2_9_0)
+                                 (default == R-2_10_0)
                                  Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
                                  (default == master)
@@ -119,14 +120,14 @@ no arguments will produce the help menu:
 
       All defaults: 
         ./rub_the_lamp.sh
-      Produces: R-2_9_0 from HepForge, Pythia6, ROOT v5-34-24
+      Produces: R-2_10_0 from HepForge, Pythia6, ROOT v5-34-24
     
       Other examples: 
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
         ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
         ./rub_the_lamp.sh --support-tag head
-        ./rub_the_lamp.sh --support-tag R-2_9_0.1
+        ./rub_the_lamp.sh --support-tag R-2_10_0.1
 
     Note: Advanced configuration of the support packages require inspection of that script.
 
