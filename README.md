@@ -182,6 +182,7 @@ install them with a package manager:
 * Kevin McFarland, [University of Rochester](http://www.rochester.edu)
 * Julia Yarba,     [Fermilab](http://www.fnal.gov)
 * Ryan Hill,       [Queen Mary University of London](http://www.qmul.ac.uk)
+* Martti Nirkko    [University of Bern](http://www.unibe.ch)
 
 Please contact Gabe Perdue (`perdue "at" fnal.gov`) for complex inquiries, etc.
 
