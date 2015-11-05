@@ -511,7 +511,7 @@ fi
 mypop
 
 #
-# Get cross seciton data
+# Get cross section data
 #
 echo "Downloading Cross Section Data..."
 if [ ! -d data ]; then
@@ -569,7 +569,7 @@ gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
 if [ $? -eq 0 ]; then
     echo "Run successful!"
     echo "***********************************************************"
-    echo "  NOTE: To run GENIE you MIUST first source $ENVFILE "
+    echo "  NOTE: To run GENIE you MUST first source $ENVFILE "
     echo "***********************************************************"
     mypush $XSECSPLINEDIR
     gunzip -f $XSECDATA
