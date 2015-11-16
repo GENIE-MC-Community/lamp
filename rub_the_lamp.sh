@@ -490,6 +490,18 @@ echo -e "  --enable-rwght \\" >> $CONFIGSCRIPT
 echo -e "  --enable-vle-extension \\" >> $CONFIGSCRIPT
 echo -e "  --enable-validation-tools \\" >> $CONFIGSCRIPT
 echo -e "  --enable-roomuhistos \\" >> $CONFIGSCRIPT
+if [[ $MAJOR == "trunk" ]]; then
+    # presumably...
+    # TODO - let users pass in a flag for this
+    echo -e "  --with-compiler=gcc \\" >> $CONFIGSCRIPT
+elif [[ $MAJOR == 2 ]]; then
+    if [[ $MINOR -ge 11 ]]; then
+        # presumably... might be 3.0 instead of 2.11 where this shows first
+        echo -e "  --with-compiler=gcc \\" >> $CONFIGSCRIPT
+    fi
+else
+    badlamp
+fi
 echo -e "  --with-optimiz-level=O0 \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-inc=$LOG4CPP_INC \\" >> $CONFIGSCRIPT
 echo -e "  --with-log4cpp-lib=$LOG4CPP_LIB \\" >> $CONFIGSCRIPT
