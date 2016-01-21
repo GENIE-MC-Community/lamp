@@ -2,7 +2,7 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_10_0"       # SVN Branch
+TAG="R-2_10_2"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"      # where do we get the code from GitHub?
@@ -52,7 +52,7 @@ Usage: ./rub_the_lamp.sh -<flag>
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
-                             (default == R-2_10_0)
+                             (default == R-2_10_2)
                              Available: use ./list_hepforge_branches.sh
              -b / --branch : Specify the GitHub GENIE branch
                              (default == master)
