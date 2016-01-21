@@ -5,9 +5,9 @@ CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
 TAG="R-2_10_2"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
-USERREPO="GENIEMC"      # where do we get the code from GitHub?
-GENIEVER="GENIE_2_10_0" # 
-GITBRANCH="master"      # 
+USERREPO="GENIEMC"      # "USER REPO" == just User, really
+GENIEVER="GENIE"        # "VER" == repo name (really)
+GITBRANCH="R-2_10_2"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -46,16 +46,16 @@ Usage: ./rub_the_lamp.sh -<flag>
              -f / --forge  : Check out GENIE code from HepForge
                              (DEFAULT)
              -r / --repo   : Specify the GitHub repo
-                             (default == GENIE_2_10_0)
-                             Available: GENIE_2_9_0, GENIE_2_10_0
-                             Available (older lamp): GENIE_2_8, GENIE_2_8_6
+                             (default == GENIE)
+                             Available (older lamp): GENIE_2_9_0, GENIE_2_10_0
+                             Available (even older lamp): GENIE_2_8, GENIE_2_8_6
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
                              (default == R-2_10_2)
                              Available: use ./list_hepforge_branches.sh
              -b / --branch : Specify the GitHub GENIE branch
-                             (default == master)
+                             (default == R-2_10_2)
              -p / --pythia : Pythia version (6 or 8)
                              (default == 6)
                              8 is under construction! Not available yet.
@@ -266,13 +266,20 @@ echo "  Starting the build at $BUILDSTARTTIME"
 
 #
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
-#  GitHub: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
+#  GitHub: R-2_10_2+: GENIE, with Major_Minor_Patch in **branch name**
+#  GitHub: R-2_8 -> R-2_10_0: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
 #  HepForge: R-X_Y_Z
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
-    MAJOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[1]'`
-    MINOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[2]'`
-    PATCH=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[3]'`
+    if [[ $GITBRANCH != "master" ]]; then
+        MAJOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+        MINOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+        PATCH=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
+    else
+        MAJOR="master"
+        MINOR=""
+        PATCH=""
+    fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     if [[ $TAG != "trunk" ]]; then
         MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
@@ -442,7 +449,7 @@ if [ "$IS64" == "yes" ]; then
     if [ -d /usr/lib64 ]; then
         echo "export LD_LIBRARY_PATH=/usr/lib64:\$LD_LIBRARY_PATH" >> $ENVFILE
     else
-        echo "Can't find lib64 - please update your setup script by hand."
+        echo "Can't find lib64 - using lib instead!"
     fi
 fi
 
