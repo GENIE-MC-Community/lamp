@@ -93,16 +93,16 @@ no arguments will produce the help menu:
                  -f / --forge  : Check out GENIE code from HepForge
                                  (DEFAULT)
                  -r / --repo   : Specify the GitHub repo
-                                 (default == GENIE_2_10_0)
-                                 Available: GENIE_2_9_0, GENIE_2_10_0
-                                 Available (older lamp): GENIE_2_8, GENIE_2_8_6
+                                 (default == GENIE)
+                                 Available (older lamp): GENIE_2_9_0, GENIE_2_10_0
+                                 Available (even older lamp): GENIE_2_8, GENIE_2_8_6
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
-                                 (default == R-2_10_0)
+                                 (default == R-2_10_2)
                                  Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
-                                 (default == master)
+                                 (default == R-2_10_2)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
                                  8 is under construction! Not available yet.
@@ -120,7 +120,7 @@ no arguments will produce the help menu:
 
       All defaults: 
         ./rub_the_lamp.sh
-      Produces: R-2_10_0 from HepForge, Pythia6, ROOT v5-34-24
+      Produces: R-2_10_2 from HepForge, Pythia6, ROOT v5-34-24
     
       Other examples: 
         ./rub_the_lamp.sh --forge

@@ -74,7 +74,7 @@ Usage: ./rub_the_lamp.sh -<flag>
 
   All defaults:  
     ./rub_the_lamp.sh
-  Produces: R-2_10_0 from HepForge, Pythia6, ROOT v5-34-24
+  Produces: R-2_10_2 from HepForge, Pythia6, ROOT v5-34-24
 
   Other examples:  
     ./rub_the_lamp.sh --forge
