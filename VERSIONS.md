@@ -4,6 +4,10 @@ NOTE: Many of the older tags will not currently work for checking out code
 from HepForge due to a repository restructuring. Please check the list of 
 tags carefully and contact us if we can't cover your needs.
 
+You may list the full set of available tags with
+
+    git ls-remote --tags
+
 * `R-2_10_0.0`: Updated for use with GENIE 2.10.0.
 * `R-2_9_0.1`: Update the paths to the SVN repository for the re-organized
 configuration.
