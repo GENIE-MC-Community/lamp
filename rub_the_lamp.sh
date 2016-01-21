@@ -92,10 +92,14 @@ version_info()
 {
     cat <<EOF
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.10.X. If you want to use an older version of GENIE, you should check
+GENIE 2.10.2. If you want to use an older version of GENIE, you should check
 out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
+
+* To use 2.10.0, you probably want tag "R-2_10_0.0". Check it out with:
+
+    git checkout -b R-2_10_0.0-br R-2_10_0.0
 
 * To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
 
@@ -104,9 +108,9 @@ a separate branch (away from master) in case you want to make commits, etc.
 * If you have created a repo with a different name or naming structure from
 those expected by lamp, you will need to update this script or rename your
 repository. This script expects repositories in HepForge to look like 
-R-X_Y_Z and in GitHub to look like GENIE_X_Y_Z. You may grep this script 
-for the checklamp function to see how the major, minor, and patch version
-numbers are managed.
+R-X_Y_Z and in GitHub to look like GENIE, with the version set by the 
+**branch name**. You may grep this script for the checklamp function to see
+how the major, minor, and patch version numbers are managed.
 EOF
 }
 
@@ -143,13 +147,10 @@ badpythia()
 # is lamp okay for this version of GENIE?
 checklamp()
 {
-    if [[ $MAJOR != "trunk" ]]; then
+    if [[ $MAJOR != "trunk" && $MAJOR != "master" ]]; then
         if [[ $MAJOR == 2 ]]; then
-            if [[ $MINOR -ge 9 ]]; then
-                if [[ $PATCH == 0 ]]; then
-                    LAMPOKAY="YES"
-                elif [[ $PATCH == "0-cand01" ]]; then  
-                    # Special allowance for J. Yarba GitHub repo
+            if [[ $MINOR -ge 10 ]]; then
+                if [[ $PATCH -ge 2 ]]; then
                     LAMPOKAY="YES"
                 else
                     badlamp
@@ -268,6 +269,7 @@ echo "  Starting the build at $BUILDSTARTTIME"
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
 #  GitHub: R-2_10_2+: GENIE, with Major_Minor_Patch in **branch name**
 #  GitHub: R-2_8 -> R-2_10_0: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
+#      Check out an older tag of lamp for pre R-2_10_2
 #  HepForge: R-X_Y_Z
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
@@ -463,21 +465,10 @@ echo "You will need to source $ENVFILE after the build finishes."
 #
 # For 2.9.X+, we must copy a patched PDF file into the $LHAPATH
 # TODO - check to see if this is also handled in GENIESupport
-# TODO - get rid of this check on version and just copy?
 # 
-if [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR -ge 9 ]]; then
-        cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
-    fi
-fi
-#
 # For trunk prior to LHAPDF retirement we must copy a patched PDF file into the $LHAPATH
 # 
-if [[ $CHECKOUT == "HEPFORGE" ]]; then
-    if [[ $TAG == "trunk" ]]; then
-        cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
-    fi
-fi
+cp -v $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
 
 #
 # Configure and build GENIE
@@ -550,11 +541,12 @@ if [[ $MAJOR == "trunk" ]]; then
         echo "Cross section data $XSECDATA already exists in `pwd`..."
     fi
 elif [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR -ge 9 ]]; then
-        if [[ $PATCH == 0 ]]; then
+    if [[ $MINOR -ge 10 ]]; then
+        if [[ $PATCH -ge 0 && $PATCH -le 4 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
-                wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
+                # wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
+                wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.0/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
             fi
