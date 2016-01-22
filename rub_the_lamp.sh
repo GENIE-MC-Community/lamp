@@ -146,7 +146,7 @@ checklamp()
     if [[ $MAJOR != "trunk" ]]; then
         if [[ $MAJOR == 2 ]]; then
             if [[ $MINOR -ge 9 ]]; then
-                if [[ $PATCH == 0 ]]; then
+                if [[ $PATCH -ge 0 ]]; then
                     LAMPOKAY="YES"
                 elif [[ $PATCH == "0-cand01" ]]; then  
                     # Special allowance for J. Yarba GitHub repo
