@@ -92,10 +92,6 @@ no arguments will produce the help menu:
                  -g / --github : Check out GENIE code from GitHub
                  -f / --forge  : Check out GENIE code from HepForge
                                  (DEFAULT)
-                 -r / --repo   : Specify the GitHub repo
-                                 (default == GENIE)
-                                 Available (older lamp): GENIE_2_9_0, GENIE_2_10_0
-                                 Available (even older lamp): GENIE_2_8, GENIE_2_8_6
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag

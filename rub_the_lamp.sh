@@ -45,10 +45,6 @@ Usage: ./rub_the_lamp.sh -<flag>
              -g / --github : Check out GENIE code from GitHub
              -f / --forge  : Check out GENIE code from HepForge
                              (DEFAULT)
-             -r / --repo   : Specify the GitHub repo
-                             (default == GENIE)
-                             Available (older lamp): GENIE_2_9_0, GENIE_2_10_0
-                             Available (even older lamp): GENIE_2_8, GENIE_2_8_6
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
@@ -198,11 +194,6 @@ do
         -f|--forge)
             CHECKOUT="HEPFORGE"
             ;;
-        -r|--repo)
-            GENIEVER="$1"
-            CHECKOUT="GITHUB"
-            shift
-            ;;
         -u|--user)
             USERREPO="$1"
             CHECKOUT="GITHUB"
@@ -244,7 +235,9 @@ do
             shift
             ;;
         *)    # Unknown option
-
+            echo "Unknown option!"
+            help
+            exit 0
             ;;
     esac
 done
