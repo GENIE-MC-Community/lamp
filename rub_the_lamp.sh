@@ -544,10 +544,11 @@ if [[ $MAJOR == "trunk" ]]; then
     fi
 elif [[ $MAJOR == 2 ]]; then
     if [[ $MINOR -ge 9 ]]; then
-        if [[ $PATCH == 0 ]]; then
-            XSECDATA="gxspl-small.xml.gz"          
+        if [[ $PATCH -ge 0 && $PATCH -le 4 ]]; then
+            XSECDATA="gxspl-small.xml.gz"
             if [ ! -f $XSECDATA ]; then
-                wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
+                # wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
+                wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.0/$XSECDATA >& $FETCHLOG
             else
                 echo "Cross section data $XSECDATA already exists in `pwd`..."
             fi
@@ -577,7 +578,7 @@ fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
-       --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log_$BUILDSTARTTIME.txt
+    --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log_$BUILDSTARTTIME.txt
 if [ $? -eq 0 ]; then
     echo "Run successful!"
     echo "***********************************************************"
