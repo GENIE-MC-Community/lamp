@@ -5,9 +5,9 @@ CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
 TAG="R-2_10_2"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
-USERREPO="GENIEMC"      # where do we get the code from GitHub?
-GENIEVER="GENIE_2_10_0" # 
-GITBRANCH="master"      # 
+USERREPO="GENIEMC"      # "USER REPO" == just User, really
+GENIEVER="GENIE"        # "VER" == repo name (really)
+GITBRANCH="R-2_10_2"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -16,6 +16,7 @@ MAKE=make            # May prefer "gmake" on some systems
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
+ROOMUHISTOSFLAG=""
 SUPPORTTAG="R-2_9_0.1"
 
 ENVFILE="environment_setup.sh"
@@ -45,17 +46,13 @@ Usage: ./rub_the_lamp.sh -<flag>
              -g / --github : Check out GENIE code from GitHub
              -f / --forge  : Check out GENIE code from HepForge
                              (DEFAULT)
-             -r / --repo   : Specify the GitHub repo
-                             (default == GENIE_2_10_0)
-                             Available: GENIE_2_9_0, GENIE_2_10_0
-                             Available (older lamp): GENIE_2_8, GENIE_2_8_6
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
                              (default == R-2_10_2)
                              Available: use ./list_hepforge_branches.sh
              -b / --branch : Specify the GitHub GENIE branch
-                             (default == master)
+                             (default == R-2_10_2)
              -p / --pythia : Pythia version (6 or 8)
                              (default == 6)
                              8 is under construction! Not available yet.
@@ -71,10 +68,11 @@ Usage: ./rub_the_lamp.sh -<flag>
                              (default is anonymous checkout)
              --support-tag : Tag for GENIE Support
                              (default is $SUPPORTTAG)
+             --no-roomu    : build without RooMUHistos (requires Boost)
 
   All defaults:  
     ./rub_the_lamp.sh
-  Produces: R-2_10_0 from HepForge, Pythia6, ROOT v5-34-24
+  Produces: R-2_10_2 from HepForge, Pythia6, ROOT v5-34-24
 
   Other examples:  
     ./rub_the_lamp.sh --forge
@@ -92,10 +90,14 @@ version_info()
 {
     cat <<EOF
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.10.X. If you want to use an older version of GENIE, you should check
+GENIE 2.10.2. If you want to use an older version of GENIE, you should check
 out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
+
+* To use 2.10.0, you probably want tag "R-2_10_0.0". Check it out with:
+
+    git checkout -b R-2_10_0.0-br R-2_10_0.0
 
 * To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
 
@@ -104,9 +106,9 @@ a separate branch (away from master) in case you want to make commits, etc.
 * If you have created a repo with a different name or naming structure from
 those expected by lamp, you will need to update this script or rename your
 repository. This script expects repositories in HepForge to look like 
-R-X_Y_Z and in GitHub to look like GENIE_X_Y_Z. You may grep this script 
-for the checklamp function to see how the major, minor, and patch version
-numbers are managed.
+R-X_Y_Z and in GitHub to look like GENIE, with the version set by the 
+**branch name**. You may grep this script for the checklamp function to see
+how the major, minor, and patch version numbers are managed.
 EOF
 }
 
@@ -143,13 +145,10 @@ badpythia()
 # is lamp okay for this version of GENIE?
 checklamp()
 {
-    if [[ $MAJOR != "trunk" ]]; then
+    if [[ $MAJOR != "trunk" && $MAJOR != "master" ]]; then
         if [[ $MAJOR == 2 ]]; then
-            if [[ $MINOR -ge 9 ]]; then
-                if [[ $PATCH -ge 0 ]]; then
-                    LAMPOKAY="YES"
-                elif [[ $PATCH == "0-cand01" ]]; then  
-                    # Special allowance for J. Yarba GitHub repo
+            if [[ $MINOR -ge 10 ]]; then
+                if [[ $PATCH -ge 2 ]]; then
                     LAMPOKAY="YES"
                 else
                     badlamp
@@ -197,11 +196,6 @@ do
         -f|--forge)
             CHECKOUT="HEPFORGE"
             ;;
-        -r|--repo)
-            GENIEVER="$1"
-            CHECKOUT="GITHUB"
-            shift
-            ;;
         -u|--user)
             USERREPO="$1"
             CHECKOUT="GITHUB"
@@ -242,8 +236,13 @@ do
             SUPPORTTAG="$1"
             shift
             ;;
+        --no-roomu)
+            ROOMUHISTOSFLAG="--no-roomu"
+            ;;
         *)    # Unknown option
-
+            echo "Unknown option!"
+            help
+            exit 0
             ;;
     esac
 done
@@ -266,13 +265,21 @@ echo "  Starting the build at $BUILDSTARTTIME"
 
 #
 # Calculate Major_Minor_Patch from Repository and Name/Tag combos
-#  GitHub: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
+#  GitHub: R-2_10_2+: GENIE, with Major_Minor_Patch in **branch name**
+#  GitHub: R-2_8 -> R-2_10_0: GENIE_X_Y_Z except 2_8, which is before our support window anyway. 
+#      Check out an older tag of lamp for pre R-2_10_2
 #  HepForge: R-X_Y_Z
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
-    MAJOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[1]'`
-    MINOR=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[2]'`
-    PATCH=`echo $GENIEVER | perl -ne '@l=split("_",$_);print @l[3]'`
+    if [[ $GITBRANCH != "master" ]]; then
+        MAJOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+        MINOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+        PATCH=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
+    else
+        MAJOR="master"
+        MINOR=""
+        PATCH=""
+    fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     if [[ $TAG != "trunk" ]]; then
         MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
@@ -431,7 +438,13 @@ else
     git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 fi
 echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $ROOMUHISTOSFLAG
+if [[ $? == 0 ]]; then
+    echo "Successfully built support packages."
+else
+    echo "Support package installation failed!"
+    exit 1
+fi
 mv $ENVFILE ..
 mypop
 
@@ -442,7 +455,7 @@ if [ "$IS64" == "yes" ]; then
     if [ -d /usr/lib64 ]; then
         echo "export LD_LIBRARY_PATH=/usr/lib64:\$LD_LIBRARY_PATH" >> $ENVFILE
     else
-        echo "Can't find lib64 - please update your setup script by hand."
+        echo "Can't find lib64 - using lib instead!"
     fi
 fi
 
@@ -456,21 +469,10 @@ echo "You will need to source $ENVFILE after the build finishes."
 #
 # For 2.9.X+, we must copy a patched PDF file into the $LHAPATH
 # TODO - check to see if this is also handled in GENIESupport
-# TODO - get rid of this check on version and just copy?
 # 
-if [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR -ge 9 ]]; then
-        cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
-    fi
-fi
-#
 # For trunk prior to LHAPDF retirement we must copy a patched PDF file into the $LHAPATH
 # 
-if [[ $CHECKOUT == "HEPFORGE" ]]; then
-    if [[ $TAG == "trunk" ]]; then
-        cp $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
-    fi
-fi
+cp -v $GENIE/data/evgen/pdfs/GRV98lo_patched.LHgrid $LHAPATH
 
 #
 # Configure and build GENIE
@@ -543,9 +545,9 @@ if [[ $MAJOR == "trunk" ]]; then
         echo "Cross section data $XSECDATA already exists in `pwd`..."
     fi
 elif [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR -ge 9 ]]; then
+    if [[ $MINOR -ge 10 ]]; then
         if [[ $PATCH -ge 0 && $PATCH -le 4 ]]; then
-            XSECDATA="gxspl-small.xml.gz"
+            XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
                 # wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
                 wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.0/$XSECDATA >& $FETCHLOG

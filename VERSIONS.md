@@ -8,6 +8,8 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
+* `R-2_10_2.0`: Updated for use with GENIE 2.10.2. Allow the user to opt
+out of building RooMUHistos.
 * `R-2_10_0.0`: Updated for use with GENIE 2.10.0.
 * `R-2_9_0.1`: Update the paths to the SVN repository for the re-organized
 configuration.
