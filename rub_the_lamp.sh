@@ -16,6 +16,7 @@ MAKE=make            # May prefer "gmake" on some systems
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
+ROOMUHISTOSFLAG=""
 SUPPORTTAG="R-2_9_0.1"
 
 ENVFILE="environment_setup.sh"
@@ -67,6 +68,7 @@ Usage: ./rub_the_lamp.sh -<flag>
                              (default is anonymous checkout)
              --support-tag : Tag for GENIE Support
                              (default is $SUPPORTTAG)
+             --no-roomu    : build without RooMUHistos (requires Boost)
 
   All defaults:  
     ./rub_the_lamp.sh
@@ -233,6 +235,9 @@ do
         --support-tag)
             SUPPORTTAG="$1"
             shift
+            ;;
+        --no-roomu)
+            ROOMUHISTOSFLAG="--no-roomu"
             ;;
         *)    # Unknown option
             echo "Unknown option!"
@@ -433,7 +438,13 @@ else
     git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 fi
 echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $ROOMUHISTOSFLAG
+if [[ $? == 0 ]]; then
+    echo "Successfully built support packages."
+else
+    echo "Support package installation failed!"
+    exit 1
+fi
 mv $ENVFILE ..
 mypop
 
