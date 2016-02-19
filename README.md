@@ -118,7 +118,7 @@ no arguments will produce the help menu:
                  --svnauthname : HepForge user name (SSH credentialed checkout)
                                  (default is anonymous checkout)
                  --support-tag : Tag for GENIE Support
-                                 (default is R-2_9_0.1)
+                                 (default is R-2_10_2.0)
                  --no-roomu    : build without RooMUHistos (requires Boost)
                                  (default is to use RooMUHistos)
     

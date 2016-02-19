@@ -17,7 +17,7 @@ MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-2_9_0.1"
+SUPPORTTAG="R-2_10_2.0"
 
 ENVFILE="environment_setup.sh"
 
