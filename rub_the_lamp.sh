@@ -2,12 +2,12 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_10_2"       # SVN Branch
+TAG="R-2_10_4"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_10_2"    # 
+GITBRANCH="R-2_10_4"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -16,7 +16,7 @@ MAKE=make            # May prefer "gmake" on some systems
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
-ROOMUHISTOSFLAG=""
+ROOMUHISTOSFLAG=""   # silence is assent
 SUPPORTTAG="R-2_9_0.1"
 
 ENVFILE="environment_setup.sh"
@@ -24,7 +24,7 @@ ENVFILE="environment_setup.sh"
 # Defaults
 MAJOR=2
 MINOR=10
-PATCH=0
+PATCH=4
 
 # how to use the script
 help()
@@ -34,7 +34,7 @@ help()
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure
 you are using a version of "lamp" that is appropriate for the version of GENIE
 you want to use. This version of "lamp" expects you want to work with GENIE 
-R-2_10_0. "lamp" has been tested for GENIE R-2_8_0 and later, but you need to be
+$TAG. "lamp" has been tested for GENIE R-2_8_0 and later, but you need to be
 sure you check out the appropriate release for the version of GENIE that you 
 would like to use. Check the "VERSIONS.md" file distributed with lamp for help.
 
@@ -49,17 +49,17 @@ Usage: ./rub_the_lamp.sh -<flag>
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
-                             (default == R-2_10_2)
+                             (default == $TAG)
                              Available: use ./list_hepforge_branches.sh
              -b / --branch : Specify the GitHub GENIE branch
-                             (default == R-2_10_2)
+                             (default == $GITBRANCH)
              -p / --pythia : Pythia version (6 or 8)
                              (default == 6)
                              8 is under construction! Not available yet.
              -n / --nice   : Run make under nice
                              (default == normal make)
              -o / --root   : ROOT tag version
-                             (default == v5-34-24)
+                             (default == $ROOTTAG)
              -s / --https  : Use HTTPS checkout from GitHub
                              (default is ssh)
              -c / --force  : Archive existing packages and rebuild
@@ -69,10 +69,11 @@ Usage: ./rub_the_lamp.sh -<flag>
              --support-tag : Tag for GENIE Support
                              (default is $SUPPORTTAG)
              --no-roomu    : build without RooMUHistos (requires Boost)
+                             (default is to use RooMUHistos)
 
   All defaults:  
     ./rub_the_lamp.sh
-  Produces: R-2_10_2 from HepForge, Pythia6, ROOT v5-34-24
+  Produces: $TAG from HepForge, Pythia6, ROOT $ROOTTAG
 
   Other examples:  
     ./rub_the_lamp.sh --forge
@@ -90,10 +91,11 @@ version_info()
 {
     cat <<EOF
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.10.2. If you want to use an older version of GENIE, you should check
+GENIE 2.10.4. If you want to use an older version of GENIE, you should check
 out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
+See the VERSIONS.md file in this package for more information.
 
 * To use 2.10.0, you probably want tag "R-2_10_0.0". Check it out with:
 
