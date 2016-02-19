@@ -1,8 +1,11 @@
 # Ignore GENIE repo and support repo.
-GENIE          # GitHub repo structures
-GENIE_*        # GitHub repo structures
+# GitHub repo structures
+GENIE
+# "Old" GitHub repo structures
+GENIE_*
 GENIESupport
-R-2_*          # HepForge SVN
+# HepForge SVN
+R-2_*
 trunk
 
 # Ignore (default) environment configuration script.
