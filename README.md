@@ -69,13 +69,13 @@ will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
 See the VERSIONS.md file in this package for more information.
 
-* To use 2.10.0, you probably want tag "R-2_10_0.0". Check it out with:
+* To use 2.10.0, you probably want tag `R-2_10_0.0`. Check it out with:
 
-    git checkout -b R-2_10_0.0-br R-2_10_0.0
+        git checkout -b R-2_10_0.0-br R-2_10_0.0
 
-* To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
+* To use 2.8.6, you probably want tag `R-2_8_6.5`. Check it out with:
 
-    git checkout -b R-2_8_6.5-br R-2_8_6.5
+        git checkout -b R-2_8_6.5-br R-2_8_6.5
 
 * If you have created a repo with a different name or naming structure from
 those expected by lamp, you will need to update this script or rename your
