@@ -2,12 +2,12 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_10_4"       # SVN Branch
+TAG="R-2_10_6"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_10_4"    # 
+GITBRANCH="R-2_10_6"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -17,14 +17,14 @@ MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-2_10_2.0"
+SUPPORTTAG="R-2_10_6.0"
 
 ENVFILE="environment_setup.sh"
 
 # Defaults
 MAJOR=2
 MINOR=10
-PATCH=4
+PATCH=6
 
 # how to use the script
 help()
@@ -548,7 +548,7 @@ if [[ $MAJOR == "trunk" ]]; then
     fi
 elif [[ $MAJOR == 2 ]]; then
     if [[ $MINOR -ge 10 ]]; then
-        if [[ $PATCH -ge 0 && $PATCH -le 4 ]]; then
+        if [[ $PATCH -ge 0 && $PATCH -le 6 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
                 # wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG

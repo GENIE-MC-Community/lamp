@@ -1,15 +1,15 @@
 # READ ME FIRST!
 
-This version of `lamp` is designed to work with GENIE `R-2_10_4`! It will
+This version of `lamp` is designed to work with GENIE `R-2_10_6`! It will
 also work with `R-2_10_2`, but earlier versions may require checking out
 older tags of `lamp` (see below).
 
 It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_10_4.0`. Use the following command to check
+recommended tag is `R-2_10_6.0`. Use the following command to check
 it out (and read below for more if you're really interested). After
 cloning the repository, `cd` into the `lamp` directory and run:
 
-    git checkout -b R-2_10_4.0-br R-2_10_4.0
+    git checkout -b R-2_10_6.0-br R-2_10_6.0
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
@@ -50,16 +50,16 @@ When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_10_4.0-br R-2_10_4.0
+    git checkout -b R-2_10_6.0-br R-2_10_6.0
 
-This will checkout _tag_ `R-2_10_4.0` into _branch_ `R-2_10_4.0-br`. You want to
+This will checkout _tag_ `R-2_10_6.0` into _branch_ `R-2_10_6.0-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
 you are using a version of `lamp` that is appropriate for the version of GENIE
 you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
 not work with earlier versions. This version of `lamp` is designed to work with
-GENIE `R-2_10_4`, and you will need to check out an older release of `lamp` to
+GENIE `R-2_10_6`, and you will need to check out an older release of `lamp` to
 work with the 2.8 series.
 
 Note that the "HEAD" version on the lamp package is designed to work with
@@ -100,10 +100,10 @@ no arguments will produce the help menu:
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
-                                 (default == R-2_10_4)
+                                 (default == R-2_10_6)
                                  Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
-                                 (default == R-2_10_4)
+                                 (default == R-2_10_6)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
                                  8 is under construction! Not available yet.
@@ -118,19 +118,19 @@ no arguments will produce the help menu:
                  --svnauthname : HepForge user name (SSH credentialed checkout)
                                  (default is anonymous checkout)
                  --support-tag : Tag for GENIE Support
-                                 (default is R-2_10_2.0)
+                                 (default is R-2_10_6.0)
                  --no-roomu    : build without RooMUHistos (requires Boost)
                                  (default is to use RooMUHistos)
     
-      All defaults:  
+      All defaults:
         ./rub_the_lamp.sh
-      Produces: R-2_10_4 from HepForge, Pythia6, ROOT v5-34-24
+      Produces: R-2_10_6 from HepForge, Pythia6, ROOT v5-34-24
     
-      Other examples:  
+      Other examples:
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
         ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
-     
+    
     Note: Advanced configuration of the support packages may require inspection of
     that script.
 
