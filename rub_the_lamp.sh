@@ -18,6 +18,7 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 
 ROOMUHISTOSFLAG=""   # silence is assent
 SUPPORTTAG="R-2_10_6.0"
+VERBOSESUPPORT=""    # silence is NOT assent
 
 ENVFILE="environment_setup.sh"
 
@@ -64,6 +65,8 @@ Usage: ./rub_the_lamp.sh -<flag>
                              (default is ssh)
              -c / --force  : Archive existing packages and rebuild
                              (default is to keep the existing area)
+             -v / --verbose : Install Support packages with verbose mode
+                              turned on.
              --svnauthname : HepForge user name (SSH credentialed checkout)
                              (default is anonymous checkout)
              --support-tag : Tag for GENIE Support
@@ -229,6 +232,9 @@ do
             ;;
         -c|--force)
             FORCEBUILD="-f"
+            ;;
+        -v|--verbose)
+            VERBOSESUPPORT="-v"
             ;;
         --svnauthname)
             SVNAUTHNAM="$1"
@@ -440,7 +446,7 @@ else
     git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 fi
 echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $ROOMUHISTOSFLAG
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $ROOMUHISTOSFLAG $VERBOSESUPPORT
 if [[ $? == 0 ]]; then
     echo "Successfully built support packages."
 else

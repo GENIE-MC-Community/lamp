@@ -8,6 +8,8 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
+* `R-2_10_6.1`: Pass the `-v/--verbose` flag to 
+[GENIESupport](https://github.com/GENIEMC/GENIESupport)
 * `R-2_10_6.0`: Updated for use with GENIE 2.10.6.
 * `R-2_10_4.0`: Updated for use with GENIE 2.10.4.
 * `R-2_10_2.0`: Updated for use with GENIE 2.10.2. Allow the user to opt
