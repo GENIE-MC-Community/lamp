@@ -2,12 +2,12 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_10_6"       # SVN Branch
+TAG="R-2_10_8"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_10_6"    # 
+GITBRANCH="R-2_10_8"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -25,7 +25,7 @@ ENVFILE="environment_setup.sh"
 # Defaults
 MAJOR=2
 MINOR=10
-PATCH=6
+PATCH=8
 
 # how to use the script
 help()
@@ -94,7 +94,7 @@ version_info()
 {
     cat <<EOF
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.10.4. If you want to use an older version of GENIE, you should check
+GENIE 2.10.8. If you want to use an older version of GENIE, you should check
 out an appropriate tag. You can do this with a branch checkout command that
 will switch to the version of the code matching the tag and also put you on
 a separate branch (away from master) in case you want to make commits, etc.
@@ -554,7 +554,7 @@ if [[ $MAJOR == "trunk" ]]; then
     fi
 elif [[ $MAJOR == 2 ]]; then
     if [[ $MINOR -ge 10 ]]; then
-        if [[ $PATCH -ge 0 && $PATCH -le 6 ]]; then
+        if [[ $PATCH -ge 0 && $PATCH -le 8 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
                 # wget https://www.hepforge.org/archive/genie/data/${MAJOR}.${MINOR}.${PATCH}/$XSECDATA >& $FETCHLOG
