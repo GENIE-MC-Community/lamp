@@ -1,15 +1,15 @@
 # READ ME FIRST!
 
-This version of `lamp` is designed to work with GENIE `R-2_10_8`! It will
+This version of `lamp` is designed to work with GENIE `R-2_10_10`! It will
 also work with `R-2_10_2`, but earlier versions may require checking out
 older tags of `lamp` (see below).
 
 It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_10_8.0`. Use the following command to check
+recommended tag is `R-2_10_10.0`. Use the following command to check
 it out (and read below for more if you're really interested). After
 cloning the repository, `cd` into the `lamp` directory and run:
 
-    git checkout -b R-2_10_8.0-br R-2_10_8.0
+    git checkout -b R-2_10_10.0-br R-2_10_10.0
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
@@ -50,9 +50,9 @@ When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_10_8.0-br R-2_10_8.0
+    git checkout -b R-2_10_10.0-br R-2_10_10.0
 
-This will checkout _tag_ `R-2_10_8.0` into _branch_ `R-2_10_8.0-br`. You want to
+This will checkout _tag_ `R-2_10_10.0` into _branch_ `R-2_10_10.0-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
@@ -100,10 +100,10 @@ no arguments will produce the help menu:
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
-                                 (default == R-2_10_8)
+                                 (default == R-2_10_10)
                                  Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
-                                 (default == R-2_10_8)
+                                 (default == R-2_10_10)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
                                  8 is under construction! Not available yet.
@@ -117,6 +117,7 @@ no arguments will produce the help menu:
                                  (default is to keep the existing area)
                  -v / --verbose : Install Support packages with verbose mode
                                   turned on.
+                 -d / --debug  : Build GENIE with debugging symbols.
                  --svnauthname : HepForge user name (SSH credentialed checkout)
                                  (default is anonymous checkout)
                  --support-tag : Tag for GENIE Support
@@ -126,7 +127,7 @@ no arguments will produce the help menu:
     
       All defaults:
         ./rub_the_lamp.sh
-      Produces: R-2_10_8 from HepForge, Pythia6, ROOT v5-34-24
+      Produces: R-2_10_10 from HepForge, Pythia6, ROOT v5-34-24
     
       Other examples:
         ./rub_the_lamp.sh --forge
@@ -174,7 +175,7 @@ missing the autoconf tools. In that case, you can install them with a package ma
 * etc.
 
 This is a bash script, so some errors will likely occur under different shells. If 
-you get errors, make sure `/bin/bash` exists and is not a link to a different executable.
+you get errors, make sure `/bin/bash` exists and it is not a link to a different executable.
 
 If there is a strong desire for a c-shell or some other version of this script, 
 we welcome a translation!
