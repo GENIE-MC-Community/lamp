@@ -117,7 +117,8 @@ no arguments will produce the help menu:
                                  (default is to keep the existing area)
                  -v / --verbose : Install Support packages with verbose mode
                                   turned on.
-                 -d / --debug  : Build GENIE with debugging symbols.
+                 -d / --debug  : Build GENIE with debugging symbols. (Also impacts
+                                 support libraries.)
                  --svnauthname : HepForge user name (SSH credentialed checkout)
                                  (default is anonymous checkout)
                  --support-tag : Tag for GENIE Support

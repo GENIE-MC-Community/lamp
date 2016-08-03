@@ -69,7 +69,8 @@ Usage: ./rub_the_lamp.sh -<flag>
                              (default is to keep the existing area)
              -v / --verbose : Install Support packages with verbose mode
                               turned on.
-             -d / --debug  : Build GENIE with debugging symbols.
+             -d / --debug  : Build GENIE with debugging symbols. (Also impacts
+                             support libraries.)
              --svnauthname : HepForge user name (SSH credentialed checkout)
                              (default is anonymous checkout)
              --support-tag : Tag for GENIE Support
@@ -451,8 +452,12 @@ else
     echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
     git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
 fi
-echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG"
-./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $ROOMUHISTOSFLAG $VERBOSESUPPORT
+DEBUGFLAG=""
+if [ "$DEBUG" == "yes" ]; then
+    DEBUGFLAG="--debug"
+fi
+echo "Running: ./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $DEBUGFLAG"
+./build_support.sh -p $PYTHIAVER -r $ROOTTAG $NICE $FORCEBUILD $HTTPSFLAG $ROOMUHISTOSFLAG $VERBOSESUPPORT $DEBUGFLAG
 if [[ $? == 0 ]]; then
     echo "Successfully built support packages."
 else
