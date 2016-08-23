@@ -607,8 +607,10 @@ else
 fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
+gmkspl -p -14,14 -t 1000080160 -o CCQE_1000080160_splines.xml -n 50 \
+    -e 20 --message-thresholds Messenger.xml --event-generator-list CCQE >& spline_log_$BUILDSTARTTIME.txt
 gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
-    --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log_$BUILDSTARTTIME.txt
+    --seed 2989819 --cross-sections CCQE_1000080160_splines.xml >& run_log_$BUILDSTARTTIME.txt
 if [ $? -eq 0 ]; then
     echo "Run successful!"
     echo "***********************************************************"
