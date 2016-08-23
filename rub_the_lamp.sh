@@ -2,13 +2,14 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
+CHECKOUT="GITHUB"    # default to github for z-exp-tut
 TAG="R-2_10_10"      # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_10_10"   # 
-HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
+GITBRANCH="z-expansion-tutorial"   # 
+HTTPSCHECKOUT=1         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
 ROOTTAG="v5-34-24"   # 
@@ -19,7 +20,7 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 DEBUG="no"
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-2_10_10.0"
+SUPPORTTAG="R-2_10_10.1"
 VERBOSESUPPORT=""    # silence is NOT assent
 
 ENVFILE="environment_setup.sh"
@@ -47,8 +48,8 @@ for GENIE and then build GENIE itself.
 Usage: ./rub_the_lamp.sh -<flag>
              -h / --help   : Help
              -g / --github : Check out GENIE code from GitHub
-             -f / --forge  : Check out GENIE code from HepForge
                              (DEFAULT)
+             -f / --forge  : Check out GENIE code from HepForge
              -u / --user   : Specify the GitHub user
                              (default == GENIEMC)
              -t / --tag    : Specify the HepForge SVN tag
@@ -64,7 +65,7 @@ Usage: ./rub_the_lamp.sh -<flag>
              -o / --root   : ROOT tag version
                              (default == $ROOTTAG)
              -s / --https  : Use HTTPS checkout from GitHub
-                             (default is ssh)
+                             (default is https)
              -c / --force  : Archive existing packages and rebuild
                              (default is to keep the existing area)
              -v / --verbose : Install Support packages with verbose mode
@@ -80,7 +81,7 @@ Usage: ./rub_the_lamp.sh -<flag>
 
   All defaults:  
     ./rub_the_lamp.sh
-  Produces: $TAG from HepForge, Pythia6, ROOT $ROOTTAG
+  Produces: $GITBRANCH from GitHub, Pythia6, ROOT $ROOTTAG, https checkout
 
   Other examples:  
     ./rub_the_lamp.sh --forge
@@ -154,7 +155,7 @@ badpythia()
 # is lamp okay for this version of GENIE?
 checklamp()
 {
-    if [[ $MAJOR != "trunk" && $MAJOR != "master" ]]; then
+    if [[ $MAJOR != "trunk" && $MAJOR != "master" && $MAJOR != "z-expansion-tutorial" ]]; then
         if [[ $MAJOR == 2 ]]; then
             if [[ $MINOR -ge 10 ]]; then
                 if [[ $PATCH -ge 2 ]]; then
@@ -286,14 +287,18 @@ echo "  Starting the build at $BUILDSTARTTIME"
 #  HepForge: R-X_Y_Z
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
-    if [[ $GITBRANCH != "master" ]]; then
-        MAJOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
-        MINOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
-        PATCH=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
-    else
+    if [[ $GITBRANCH == "master" ]]; then
         MAJOR="master"
         MINOR=""
         PATCH=""
+    elif [[ $GITBRANCH == "z-expansion-tutorial" ]]; then
+        MAJOR="z-expansion-tutorial"
+        MINOR=""
+        PATCH=""
+    else
+        MAJOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+        MINOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+        PATCH=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
     fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     if [[ $TAG != "trunk" ]]; then
@@ -516,7 +521,7 @@ echo -e "  --enable-rwght \\" >> $CONFIGSCRIPT
 echo -e "  --enable-vle-extension \\" >> $CONFIGSCRIPT
 echo -e "  --enable-validation-tools \\" >> $CONFIGSCRIPT
 echo -e "  --enable-roomuhistos \\" >> $CONFIGSCRIPT
-if [[ $MAJOR == "trunk" ]]; then
+if [[ $MAJOR == "trunk" || $MAJOR == "z-expansion-tutorial" ]]; then
     # presumably...
     # TODO - let users pass in a flag for this
     echo -e "  --with-compiler=gcc \\" >> $CONFIGSCRIPT
@@ -559,7 +564,7 @@ fi
 mypush data
 XSECSPLINEDIR=`pwd`
 FETCHLOG=log_$BUILDSTARTTIME.datafetch
-if [[ $MAJOR == "trunk" ]]; then
+if [[ $MAJOR == "trunk" || $MAJOR == "z-expansion-tutorial" ]]; then
     XSECDATA="gxspl-small.xml.gz"          
     if [ ! -f $XSECDATA ]; then
         echo "Using GENIE 2.10.0 splines - be careful that these may not be appropriate for trunk!"

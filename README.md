@@ -1,27 +1,15 @@
 # READ ME FIRST!
 
-This version of `lamp` is designed to work with GENIE `R-2_10_10`! It will
-also work with `R-2_10_2`, but earlier versions may require checking out
-older tags of `lamp` (see below).
+It is a good idea to use a tagged version of the `lamp`. For the
+z-expansion tutorial, after cloning the repository, `cd` into the 
+`lamp` directory and run:
 
-It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_10_10.0`. Use the following command to check
-it out (and read below for more if you're really interested). After
-cloning the repository, `cd` into the `lamp` directory and run:
-
-    git checkout -b R-2_10_10.0-br R-2_10_10.0
+    git checkout z-expansion-tutorial
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
 bug, please feel free to contact Gabe Perdue (`perdue` at Fermilab)
 or open an issue on [GitHub](https://github.com/GENIEMC/lamp).
-
-NOTE: On May 4, 2015 the GENIE SVN repository on HepForge was 
-re-orgnaized, breaking the SVN checkout path in some versions of`lamp`.
-Please check the version tags and use one appropriate for your needs
-with respecrt to this change. If you continue to have checkout problems
-for a specific version of GENIE, please let Gabe Perdue know (contact
-info below) or open an issue on GitHub.
 
 Let [GENIE](http://genie.hepforge.org) out of the bottle!
 
@@ -55,34 +43,9 @@ branch like so:
 This will checkout _tag_ `R-2_10_10.0` into _branch_ `R-2_10_10.0-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
-Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
-you are using a version of `lamp` that is appropriate for the version of GENIE
-you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
-not work with earlier versions. This version of `lamp` is designed to work with
-GENIE `R-2_10_6` or later, and you will need to check out an older release of 
-`lamp` to work with the 2.8 series.
+For the z-expansion tutorial, please use the `z-expansion-tutorial` branch:
 
-Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.10.8. If you want to use an older version of GENIE, you should check
-out an appropriate tag. You can do this with a branch checkout command that
-will switch to the version of the code matching the tag and also put you on
-a separate branch (away from master) in case you want to make commits, etc.
-See the VERSIONS.md file in this package for more information.
-
-* To use 2.10.0, you probably want tag `R-2_10_0.0`. Check it out with:
-
-        git checkout -b R-2_10_0.0-br R-2_10_0.0
-
-* To use 2.8.6, you probably want tag `R-2_8_6.5`. Check it out with:
-
-        git checkout -b R-2_8_6.5-br R-2_8_6.5
-
-* If you have created a repo with a different name or naming structure from
-those expected by lamp, you will need to update this script or rename your
-repository. This script expects repositories in HepForge to look like 
-R-X_Y_Z and in GitHub to look like GENIE, with the version set by the 
-**branch name**. You may grep this script for the checklamp function to see
-how the major, minor, and patch version numbers are managed.
+    git checkout z-expansion-tutorial
 
 ## Basic Usage
 
@@ -95,15 +58,15 @@ no arguments will produce the help menu:
     Usage: ./rub_the_lamp.sh -<flag>
                  -h / --help   : Help
                  -g / --github : Check out GENIE code from GitHub
-                 -f / --forge  : Check out GENIE code from HepForge
                                  (DEFAULT)
+                 -f / --forge  : Check out GENIE code from HepForge
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
                                  (default == R-2_10_10)
                                  Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
-                                 (default == R-2_10_10)
+                                 (default == z-expansion-tutorial)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
                                  8 is under construction! Not available yet.
@@ -112,7 +75,7 @@ no arguments will produce the help menu:
                  -o / --root   : ROOT tag version
                                  (default == v5-34-24)
                  -s / --https  : Use HTTPS checkout from GitHub
-                                 (default is ssh)
+                                 (default is https)
                  -c / --force  : Archive existing packages and rebuild
                                  (default is to keep the existing area)
                  -v / --verbose : Install Support packages with verbose mode
@@ -128,7 +91,7 @@ no arguments will produce the help menu:
     
       All defaults:
         ./rub_the_lamp.sh
-      Produces: R-2_10_10 from HepForge, Pythia6, ROOT v5-34-24
+      Produces: z-expansion-tutorial from GitHub, Pythia6, ROOT v5-34-24, https checkout
     
       Other examples:
         ./rub_the_lamp.sh --forge

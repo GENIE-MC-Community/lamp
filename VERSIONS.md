@@ -4,6 +4,11 @@ NOTE: Many of the older tags will not currently work for checking out code
 from HepForge due to a repository restructuring. Please check the list of 
 tags carefully and contact us if we can't cover your needs.
 
+For the z-expansion tutorial, use the `z-expansion-tutorial` branch (not
+a tag):
+
+    git checkout z-expansion-tutorial 
+
 You may list the full set of available tags with
 
     git ls-remote --tags
