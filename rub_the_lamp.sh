@@ -64,7 +64,7 @@ Usage: ./rub_the_lamp.sh -<flag>
                              (default == normal make)
              -o / --root   : ROOT tag version
                              (default == $ROOTTAG)
-             -s / --https  : Use HTTPS checkout from GitHub
+             -s / --ssh    : Use SSH checkout from GitHub
                              (default is https)
              -c / --force  : Archive existing packages and rebuild
                              (default is to keep the existing area)
@@ -232,8 +232,8 @@ do
             ROOTTAG="$1"
             shift
             ;;
-        -s|--https)
-            HTTPSCHECKOUT=1
+        -s|--ssh)
+            HTTPSCHECKOUT=0
             ;;
         -c|--force)
             FORCEBUILD="-f"

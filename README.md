@@ -74,7 +74,7 @@ no arguments will produce the help menu:
                                  (default == normal make)
                  -o / --root   : ROOT tag version
                                  (default == v5-34-24)
-                 -s / --https  : Use HTTPS checkout from GitHub
+                 -s / --ssh    : Use ssh checkout from GitHub
                                  (default is https)
                  -c / --force  : Archive existing packages and rebuild
                                  (default is to keep the existing area)
