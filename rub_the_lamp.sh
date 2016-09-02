@@ -2,16 +2,16 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_10_10"      # SVN Branch
+TAG="R-2_11_0"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_10_10"   # 
+GITBRANCH="R-2_11_0"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
-ROOTTAG="v5-34-24"   # 
+ROOTTAG="v5-34-36"   # 
 MAKE=make            # May prefer "gmake" on some systems
 MAKENICE=0           # Run make under nice if == 1
 FORCEBUILD=""        # " -f" will archive existing packages and rebuild
@@ -98,15 +98,15 @@ version_info()
 {
     cat <<EOF
 Note that the "HEAD" version on the lamp package is designed to work with
-GENIE 2.10.8. If you want to use an older version of GENIE, you should check
-out an appropriate tag. You can do this with a branch checkout command that
-will switch to the version of the code matching the tag and also put you on
-a separate branch (away from master) in case you want to make commits, etc.
-See the VERSIONS.md file in this package for more information.
+GENIE 2.10.8 and later. If you want to use an older version of GENIE, you
+should check out an appropriate tag. You can do this with a branch checkout
+command that will switch to the version of the code matching the tag and also
+put you on a separate branch (away from master) in case you want to make
+commits, etc. See the VERSIONS.md file in this package for more information.
 
-* To use 2.10.0, you probably want tag "R-2_10_0.0". Check it out with:
+* To use 2.11.0, you probably want tag "R-2_11_0.0". Check it out with:
 
-    git checkout -b R-2_10_0.0-br R-2_10_0.0
+    git checkout -b R-2_11_0.0-br R-2_11_0.0
 
 * To use 2.8.6, you probably want tag "R-2_8_6.5". Check it out with:
 
@@ -156,12 +156,14 @@ checklamp()
 {
     if [[ $MAJOR != "trunk" && $MAJOR != "master" ]]; then
         if [[ $MAJOR == 2 ]]; then
-            if [[ $MINOR -ge 10 ]]; then
+            if [[ $MINOR -eq 10 ]]; then
                 if [[ $PATCH -ge 2 ]]; then
                     LAMPOKAY="YES"
                 else
                     badlamp
                 fi
+            elif [[ $MINOR -ge 11 ]]; then
+                LAMPOKAY="YES"
             else
                 badlamp
             fi
@@ -568,7 +570,7 @@ if [[ $MAJOR == "trunk" ]]; then
         echo "Cross section data $XSECDATA already exists in `pwd`..."
     fi
 elif [[ $MAJOR == 2 ]]; then
-    if [[ $MINOR -ge 10 ]]; then
+    if [[ $MINOR -eq 10 ]]; then
         if [[ $PATCH -ge 0 && $PATCH -le 10 ]]; then
             XSECDATA="gxspl-small.xml.gz"          
             if [ ! -f $XSECDATA ]; then
@@ -579,6 +581,14 @@ elif [[ $MAJOR == 2 ]]; then
             fi
         else
             badlamp
+        fi
+    elif [[ $MINOR -ge 11 ]]; then
+        XSECDATA="gxspl-small.xml.gz"          
+        if [ ! -f $XSECDATA ]; then
+            # for now, while we wait for 2.11 splines
+            wget https://www.hepforge.org/archive/genie/data/2.10.0/$XSECDATA >& $FETCHLOG
+        else
+            echo "Cross section data $XSECDATA already exists in `pwd`..."
         fi
     else
         badlamp
