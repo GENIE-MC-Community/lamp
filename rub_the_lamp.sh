@@ -19,15 +19,15 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 DEBUG="no"
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-2_10_10.0"
+SUPPORTTAG="R-2_11_0.0"
 VERBOSESUPPORT=""    # silence is NOT assent
 
 ENVFILE="environment_setup.sh"
 
 # Defaults
 MAJOR=2
-MINOR=10
-PATCH=10
+MINOR=11
+PATCH=0
 
 # how to use the script
 help()

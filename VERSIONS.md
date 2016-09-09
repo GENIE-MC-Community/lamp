@@ -8,6 +8,8 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
+* `R-2_11_0.0`: Updated for use with GENIE 2.11.0. Use newest support
+tag (builds ROOT with CMake).
 * `R-2_10_10.0`: Updated for use with GENIE 2.10.10. Stop building with
 debugging symbols by default. Users should now supply a `-d/--debug` flag
 if they want debugging symbols.
