@@ -629,10 +629,12 @@ if [ $? -eq 0 ]; then
     echo "***********************************************************"
     echo "  NOTE: To run GENIE you MUST first source $ENVFILE "
     echo "***********************************************************"
-    mypush $XSECSPLINEDIR
-    gunzip -f $XSECDATA
-    echo " Note, unzipping $XSECDATA..."
-    mypop
+    if [[ $XSECDATA != "none" ]]; then 
+        mypush $XSECSPLINEDIR
+        gunzip -f $XSECDATA
+        echo " Note, unzipping $XSECDATA..."
+        mypop
+    fi
 else 
     echo "Run failed! Please check the log file."
     exit 1
