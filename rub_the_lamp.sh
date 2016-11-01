@@ -594,12 +594,7 @@ elif [[ $MAJOR == 2 ]]; then
             echo "Cross section data $XSECDATA already exists in `pwd`..."
         fi
     elif [[ $MINOR -ge 12 ]]; then
-        XSECDATA="gxspl-small.xml.gz"          
-        if [ ! -f $XSECDATA ]; then
-            wget https://www.hepforge.org/archive/genie/data/2.12.0/$XSECDATA >& $FETCHLOG
-        else
-            echo "Cross section data $XSECDATA already exists in `pwd`..."
-        fi
+        XSECDATA="none"          
     else
         badlamp
     fi
@@ -622,8 +617,13 @@ else
 fi
 echo "Moving to the genie_runs package area to do the test run..."
 mypush $RUNSPKG 
-gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
-    --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log_$BUILDSTARTTIME.txt
+if [[ $XSECDATA == "none" ]]; then
+    ./do_make_spline.sh --list CCQE --knots 50 --maxenergy 20 --target 1000180400 --nus -14,14
+    ./do_a_run.sh --list CCQE --target 1000180400 --numevt 5 --run 42 --energy 3 --nus 14
+else
+    gevgen -n 5 -p 14 -t 1000080160 -e 0,10 -r 42 -f 'x*exp(-x)' \
+        --seed 2989819 --cross-sections $XSECSPLINEDIR/$XSECDATA >& run_log_$BUILDSTARTTIME.txt
+fi
 if [ $? -eq 0 ]; then
     echo "Run successful!"
     echo "***********************************************************"
