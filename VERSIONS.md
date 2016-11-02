@@ -8,8 +8,9 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
-* `R-2_12_0.0`: Updated for use with GENIE 2.12.0. Uses updated cross
-sections in the test run. Updated comments and documentation.
+* `R-2_12_0.0`: Updated for use with GENIE 2.12.0. Produce cross
+sections on the fly for the test run if using GENIE 2.12.  Updated
+comments and documentation.
 * `R-2_11_0.0`: Updated for use with GENIE 2.11.0. Use newest support
 tag (builds ROOT with CMake).
 * `R-2_10_10.0`: Updated for use with GENIE 2.10.10. Stop building with
