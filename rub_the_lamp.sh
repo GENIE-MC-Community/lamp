@@ -564,13 +564,7 @@ mypush data
 XSECSPLINEDIR=`pwd`
 FETCHLOG=log_$BUILDSTARTTIME.datafetch
 if [[ $MAJOR == "trunk" ]]; then
-    XSECDATA="gxspl-small.xml.gz"          
-    if [ ! -f $XSECDATA ]; then
-        echo "Using GENIE 2.12.0 splines - be careful that these may not be appropriate for trunk!"
-        wget https://www.hepforge.org/archive/genie/data/2.12.0/$XSECDATA >& $FETCHLOG
-    else
-        echo "Cross section data $XSECDATA already exists in `pwd`..."
-    fi
+    XSECDATA="none"          
 elif [[ $MAJOR == 2 ]]; then
     if [[ $MINOR -eq 10 ]]; then
         if [[ $PATCH -ge 0 && $PATCH -le 10 ]]; then
