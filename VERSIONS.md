@@ -8,6 +8,8 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
+* `R-2_12_2.0`: Updated for use with GENIE 2.12.2. Updated defaults,
+comments, and documentation.
 * `R-2_12_0.0`: Updated for use with GENIE 2.12.0. Produce cross
 sections on the fly for the test run if using GENIE 2.12.  Updated
 comments and documentation.
