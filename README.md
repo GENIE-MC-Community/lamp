@@ -93,7 +93,7 @@ no arguments will produce the help menu:
 
     Welcome to "rub_the_lamp". This script will build the 3rd party support packages
     for GENIE and then build GENIE itself.
-        
+    
     Usage: ./rub_the_lamp.sh -<flag>
                  -h / --help   : Help
                  -g / --github : Check out GENIE code from GitHub
@@ -102,10 +102,10 @@ no arguments will produce the help menu:
                  -u / --user   : Specify the GitHub user
                                  (default == GENIEMC)
                  -t / --tag    : Specify the HepForge SVN tag
-                                 (default == R-2_12_2)
+                                 (default == R-2_12_4)
                                  Available: use ./list_hepforge_branches.sh
                  -b / --branch : Specify the GitHub GENIE branch
-                                 (default == R-2_12_2)
+                                 (default == R-2_12_4)
                  -p / --pythia : Pythia version (6 or 8)
                                  (default == 6)
                                  8 is under construction! Not available yet.
@@ -124,13 +124,13 @@ no arguments will produce the help menu:
                  --svnauthname : HepForge user name (SSH credentialed checkout)
                                  (default is anonymous checkout)
                  --support-tag : Tag for GENIE Support
-                                 (default is R-2_12_2.0)
+                                 (default is R-2_11_0.0)
                  --no-roomu    : build without RooMUHistos (requires Boost)
                                  (default is to use RooMUHistos)
     
       All defaults:
         ./rub_the_lamp.sh
-      Produces: R-2_12_2 from HepForge, Pythia6, ROOT v5-34-36
+      Produces: R-2_12_4 from HepForge, Pythia6, ROOT v5-34-36
     
       Other examples:
         ./rub_the_lamp.sh --forge
