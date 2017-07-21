@@ -455,7 +455,9 @@ if [[ $SUPPORTTAG == "head" || $SUPPORTTAG == "HEAD" ]]; then
     echo "Using HEAD of GENIE Support..."
 else
     echo "Switching to tag $SUPPORTTAG (on branch named $SUPPORTTAG-br)..."
-    git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
+    # git checkout -b ${SUPPORTTAG}-br $SUPPORTTAG
+    # hack this for now so we are actually getting a branch, not a tag
+    git checkout -b ${SUPPORTTAG} origin/$SUPPORTTAG
 fi
 DEBUGFLAG=""
 if [ "$DEBUG" == "yes" ]; then
