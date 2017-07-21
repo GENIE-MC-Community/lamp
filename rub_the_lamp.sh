@@ -301,15 +301,18 @@ if [[ $CHECKOUT == "GITHUB" ]]; then
         PATCH=""
     fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
-    if [[ $TAG != "trunk" ]]; then
-        MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
-        MINOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
-        PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
-    else
-        MAJOR="trunk"
-        MINOR=""
-        PATCH=""
-    fi
+    # if [[ $TAG != "trunk" ]]; then
+    #     MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+    #     MINOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+    #     PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
+    # else
+    #     MAJOR="trunk"
+    #     MINOR=""
+    #     PATCH=""
+    # fi
+    MAJOR="pythia8"
+    MINOR=""
+    PATCH=""
 fi
 checklamp
 
@@ -410,7 +413,8 @@ elif [[ $CHECKOUT == "HEPFORGE" ]]; then
             if [[ $SVNAUTHNAM == "anon" ]]; then 
                 svn co --quiet http://genie.hepforge.org/svn/generator/branches/$TAG $GENIEDIRNAME 
             else
-                svn co --quiet svn+ssh://${SVNAUTHNAM}@svn.hepforge.org/hepforge/svn/genie/generator/branches/$TAG $GENIEDIRNAME
+                # svn co --quiet svn+ssh://${SVNAUTHNAM}@svn.hepforge.org/hepforge/svn/genie/generator/branches/$TAG $GENIEDIRNAME
+                svn co --quiet svn+ssh://${SVNAUTHNAM}@svn.hepforge.org/hepforge/svn/genie/generator/branches/devel/pythia8 $GENIEDIRNAME
             fi
         else
             if [[ $SVNAUTHNAM == "anon" ]]; then 
