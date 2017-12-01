@@ -2,7 +2,7 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_12_6"       # SVN Branch
+TAG="R-2_12_8"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 # major, minor, version (extract from tag dynamically)
 MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
@@ -11,7 +11,7 @@ PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_12_6"    # 
+GITBRANCH="R-2_12_8"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -23,7 +23,7 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 DEBUG="no"
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-2_11_0.0"
+SUPPORTTAG="R-2_12_8.0"
 VERBOSESUPPORT=""    # silence is NOT assent
 
 ENVFILE="environment_setup.sh"
