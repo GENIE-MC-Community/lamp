@@ -103,9 +103,9 @@ command that will switch to the version of the code matching the tag and also
 put you on a separate branch (away from master) in case you want to make
 commits, etc. See the VERSIONS.md file in this package for more information.
 
-* The latest version is 2.12.6. To use 2.12.6, you want tag "R-2_12_6.0":
+* The latest version is 2.12.8. To use 2.12.8, you want tag "R-2_12_8.0":
 
-    git checkout -b R-2_12_6.0-br R-2_12_6.0
+    git checkout -b R-2_12_8.0-br R-2_12_8.0
 
 * To use 2.10.0, you probably want tag "R-2_10_0.0":
 
