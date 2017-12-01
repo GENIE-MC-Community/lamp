@@ -8,6 +8,10 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
+* `R-2_12_8.0`: Updated for use with GENIE 2.12.8. Updated defaults,
+comments, and documentation. This includes pointing to a new tag of
+[GENIESupport](https://github.com/GENIEMC/GENIESupport) to pick up
+the new default GSL (version 2.3).
 * `R-2_12_6.0`: Updated for use with GENIE 2.12.6. Updated defaults,
 comments, and documentation.
 * `R-2_12_4.0`: Updated for use with GENIE 2.12.4. Updated defaults,
