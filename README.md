@@ -194,6 +194,7 @@ we welcome a translation!
 * Julia Yarba,     [Fermilab](http://www.fnal.gov)
 * Ryan Hill,       [Queen Mary University of London](http://www.qmul.ac.uk)
 * Martti Nirkko,   [University of Bern](http://www.unibe.ch)
+* Steve Dennis,    [University of Liverpool](https://www.liverpool.ac.uk)
 
 Please contact Gabe Perdue (`perdue "at" fnal.gov`) for complex inquiries, etc.
 
