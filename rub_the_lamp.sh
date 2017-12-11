@@ -619,10 +619,7 @@ else
 fi
 if [ $? -eq 0 ]; then
     echo "Run successful!"
-    echo "***********************************************************"
-    echo "  NOTE: To run GENIE you MUST first source $ENVFILE "
-    echo "***********************************************************"
-    if [[ $XSECDATA != "none" ]]; then 
+if [[ $XSECDATA != "none" ]]; then 
         mypush $XSECSPLINEDIR
         gunzip -f $XSECDATA
         echo " Note, unzipping $XSECDATA..."
@@ -632,6 +629,19 @@ else
     echo "Run failed! Please check the log file."
     exit 1
 fi
+# Simple check of interpreter
+genie -q -b
+if [ $? -eq 0 ] ; then
+    echo "Interpreter loaded correctly."
+else
+    echo "Interpreter failed to load! Please check the log file."
+    exit 1
+fi
+
+echo "***********************************************************"
+echo "  NOTE: To run GENIE you MUST first source $ENVFILE "
+echo "***********************************************************"
+    
 mypop
 echo " "
 BUILDSTOPTIME=`date +%Y-%m-%d-%H-%M-%S`
