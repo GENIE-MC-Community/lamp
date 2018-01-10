@@ -291,14 +291,18 @@ echo "  Starting the build at $BUILDSTARTTIME"
 #  HepForge: R-X_Y_Z
 #
 if [[ $CHECKOUT == "GITHUB" ]]; then
-    if [[ $GITBRANCH != "master" ]]; then
-        MAJOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
-        MINOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
-        PATCH=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
-    else
+    if [[ $GITBRANCH == "trunk" ]]; then
+        MAJOR="trunk"
+        MINOR=""
+        PATCH=""
+    elif [[ $GITBRANCH == "master" ]]; then
         MAJOR="master"
         MINOR=""
         PATCH=""
+    else
+        MAJOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
+        MINOR=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[1]'`
+        PATCH=`echo $GITBRANCH | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
     fi
 elif [[ $CHECKOUT == "HEPFORGE" ]]; then
     if [[ $TAG != "trunk" ]]; then
