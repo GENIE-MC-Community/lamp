@@ -5,11 +5,11 @@ also work with `R-2_10_2`, but earlier versions may require checking out
 older tags of `lamp` (see below).
 
 It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_12_8.0`. Use the following command to check
+recommended tag is `R-2_12_8.1`. Use the following command to check
 it out (and read below for more if you're really interested). After
 cloning the repository, `cd` into the `lamp` directory and run:
 
-    git checkout -b R-2_12_8.0-br R-2_12_8.0
+    git checkout -b R-2_12_8.1-br R-2_12_8.1
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a 
@@ -50,9 +50,9 @@ When first checking out this package, you will have the `HEAD` version of the
 `master` branch. Get a specific tagged release by checking out the tag into a
 branch like so:
 
-    git checkout -b R-2_12_8.0-br R-2_12_8.0
+    git checkout -b R-2_12_8.1-br R-2_12_8.1
 
-This will checkout _tag_ `R-2_12_8.0` into _branch_ `R-2_12_8.0-br`. You want to
+This will checkout _tag_ `R-2_12_8.1` into _branch_ `R-2_12_8.1-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
 Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
@@ -67,9 +67,9 @@ of the code matching the tag and also put you on a separate branch (away from
 master) in case you want to make commits, etc. See the VERSIONS.md file in this
 package for more information.
 
-* The latest version is 2.12.8. To use 2.12.8, you want tag "R-2_12_8.0":
+* The latest version is 2.12.8. To use 2.12.8, you want tag "R-2_12_8.1":
 
-    git checkout -b R-2_12_8.0-br R-2_12_8.0
+    git checkout -b R-2_12_8.1-br R-2_12_8.1
 
 * To use 2.10.0, you probably want tag `R-2_10_0.0`:
 
