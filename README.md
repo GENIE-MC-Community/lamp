@@ -69,7 +69,7 @@ package for more information.
 
 * The latest version is 2.12.10. To use 2.12.10, you want tag "R-2_12_10.0":
 
-    git checkout -b R-2_12_10.0-br R-2_12_10.0
+        git checkout -b R-2_12_10.0-br R-2_12_10.0
 
 * To use 2.10.0, you probably want tag `R-2_10_0.0`:
 
