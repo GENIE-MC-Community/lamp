@@ -8,9 +8,10 @@ You may list the full set of available tags with
 
     git ls-remote --tags
 
+* `R-2_12_10.0`: Updated for use with GENIE 2.12.10. Updated defaults,
+comments, and documentation.
 * `R-2_12_8.1`: Added `trunk` as a valid branch option when building
 GENIE from GitHub.
-comments, and documentation.
 * `R-2_12_8.0`: Updated for use with GENIE 2.12.8. Updated defaults,
 comments, and documentation.
 * `R-2_12_6.0`: Updated for use with GENIE 2.12.6. Updated defaults,

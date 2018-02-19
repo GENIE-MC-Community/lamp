@@ -2,7 +2,7 @@
 
 HELPFLAG=0           # show the help block (if non-zero)
 CHECKOUT="HEPFORGE"  # Alternate option is "GITHUB"
-TAG="R-2_12_8"       # SVN Branch
+TAG="R-2_12_10"       # SVN Branch
 SVNAUTHNAM="anon"    # credentialed checkout?
 # major, minor, version (extract from tag dynamically)
 MAJOR=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[0]'`
@@ -11,7 +11,7 @@ PATCH=`echo $TAG | perl -ne '@l=split("-",$_);@m=split("_",@l[1]);print @m[2]'`
 
 USERREPO="GENIEMC"      # "USER REPO" == just User, really
 GENIEVER="GENIE"        # "VER" == repo name (really)
-GITBRANCH="R-2_12_8"    # 
+GITBRANCH="R-2_12_10"    # 
 HTTPSCHECKOUT=0         # use https checkout if non-zero (otherwise ssh)
 
 PYTHIAVER=6          # must eventually be either 6 or 8
@@ -23,7 +23,7 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 DEBUG="no"
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-2_12_8.0"
+SUPPORTTAG="R-2_12_10.0"
 VERBOSESUPPORT=""    # silence is NOT assent
 
 ENVFILE="environment_setup.sh"
@@ -103,9 +103,9 @@ command that will switch to the version of the code matching the tag and also
 put you on a separate branch (away from master) in case you want to make
 commits, etc. See the VERSIONS.md file in this package for more information.
 
-* The latest version is 2.12.8. To use 2.12.8, you want tag "R-2_12_8.0":
+* The latest version is 2.12.10. To use 2.12.10, you want tag "R-2_12_10.0":
 
-    git checkout -b R-2_12_8.0-br R-2_12_8.0
+    git checkout -b R-2_12_10.0-br R-2_12_10.0
 
 * To use 2.10.0, you probably want tag "R-2_10_0.0":
 
