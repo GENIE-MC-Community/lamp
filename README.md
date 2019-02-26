@@ -1,6 +1,8 @@
 # READ ME FIRST!
 
-This version of `lamp` is designed to work with GENIE `R-2_12_10`! It should
+_Note:_ Support for GENIE v3 is managed through `rub_the_lamp_v3.sh`, which is not part of any of the `R-2_*` tags/releases.
+
+This version of `lamp/rub_the_lamp.sh` is designed to work with GENIE `R-2_12_10`! It should
 also work with `R-2_10_2`, but earlier versions may require checking out
 older tags of `lamp` (see below).
 
@@ -12,11 +14,11 @@ cloning the repository, `cd` into the `lamp` directory and run:
     git checkout -b R-2_12_10.0-br R-2_12_10.0
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
-please consult the "Trouble-Shooting" section below. If you find a 
+please consult the "Trouble-Shooting" section below. If you find a
 bug, please feel free to contact Gabe Perdue (`perdue` at Fermilab)
 or open an issue on [GitHub](https://github.com/GENIEMC/lamp).
 
-NOTE: On May 4, 2015 the GENIE SVN repository on HepForge was 
+NOTE: On May 4, 2015 the GENIE SVN repository on HepForge was
 re-orgnaized, breaking the SVN checkout path in some versions of`lamp`.
 Please check the version tags and use one appropriate for your needs
 with respecrt to this change. If you continue to have checkout problems
@@ -29,11 +31,11 @@ Let [GENIE](http://genie.hepforge.org) out of the bottle!
                                              dP/$.                             
                                              $4$$%                             
                                            .ee$$ee.                            
-                                        .eF3??????$C$r.        .d$$$$$$$$$$$e. 
-     .zeez$$$$$be..                    JP3F$5'$5K$?K?Je$.     d$$$FCLze.CC?$$$e 
-         """??$$$$$$$$ee..         .e$$$e$CC$???$$CC3e$$$$.  $$$/$$$$$$$$$.$$$$ 
-                `"?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$b $$"$$$$P?CCe$$$$$F 
-                     "?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$b$$J?bd$$$$$$$$$F" 
+                                        .eF3??????$C$r.        .d$$$$$$$$$$$e.
+     .zeez$$$$$be..                    JP3F$5'$5K$?K?Je$.     d$$$FCLze.CC?$$$e
+         """??$$$$$$$$ee..         .e$$$e$CC$???$$CC3e$$$$.  $$$/$$$$$$$$$.$$$$
+                `"?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$b $$"$$$$P?CCe$$$$$F
+                     "?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$b$$J?bd$$$$$$$$$F"
                          "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$d$$F"           
                             "?$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"...           
                                 "?$$$$$$$$$$$$$$$$$$$$$$$$$F "$$"$$$$b         
@@ -55,11 +57,11 @@ branch like so:
 This will checkout _tag_ `R-2_12_10.0` into _branch_ `R-2_12_10.0-br`. You want to
 checkout into a branch to avoid being in a "detached `HEAD`" state.
 
-Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure 
+Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure
 you are using a version of `lamp` that is appropriate for the version of GENIE
 you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
 not work with earlier versions. This version of `lamp` is designed to work with
-GENIE `R-2_10_2` or later, and you will need to check out an older release of 
+GENIE `R-2_10_2` or later, and you will need to check out an older release of
 `lamp` to work with the 2.8 series.
 
 You can do this with a branch checkout command that will switch to the version
@@ -81,19 +83,19 @@ package for more information.
 
 * If you have created a repo with a different name or naming structure from
 those expected by lamp, you will need to update this script or rename your
-repository. This script expects repositories in HepForge to look like 
-R-X_Y_Z and in GitHub to look like GENIE, with the version set by the 
+repository. This script expects repositories in HepForge to look like
+R-X_Y_Z and in GitHub to look like GENIE, with the version set by the
 **branch name**. You may grep this script for the checklamp function to see
 how the major, minor, and patch version numbers are managed.
 
 ## Basic Usage
 
-If you rub the lamp, you will let GENIE out of the bottle! Running the script with 
+If you rub the lamp, you will let GENIE out of the bottle! Running the script with
 no arguments will produce the help menu:
 
     Welcome to "rub_the_lamp". This script will build the 3rd party support packages
     for GENIE and then build GENIE itself.
-    
+
     Usage: ./rub_the_lamp.sh -<flag>
                  -h / --help   : Help
                  -g / --github : Check out GENIE code from GitHub
@@ -127,16 +129,16 @@ no arguments will produce the help menu:
                                  (default is R-2_11_0.0)
                  --no-roomu    : build without RooMUHistos (requires Boost)
                                  (default is to use RooMUHistos)
-    
+
       All defaults:
         ./rub_the_lamp.sh
       Produces: R-2_12_10 from HepForge, Pythia6, ROOT v5-34-36
-    
+
       Other examples:
         ./rub_the_lamp.sh --forge
         ./rub_the_lamp.sh -f --tag trunk
         ./rub_the_lamp.sh -g -u GENIEMC --root v5-34-24 -n
-    
+
     Note: Advanced configuration of the support packages may require inspection of
     that script.
 
@@ -163,7 +165,7 @@ Sometimes you may run into permissions troubles with `https` or `ssh`, so toggle
 usage of the `-s` flag if you are gettting "permission denied" errors.
 
 If the build fails it is important to check the logs for each of the 3rd party
-support packages installed under `GENIESupport`. It is possible you are 
+support packages installed under `GENIESupport`. It is possible you are
 missing requirements for those packages to build. [ROOT](https://root.cern.ch)
 especially requires a large number of libraries to be installed. See the
 provisioning scripts in the [Wayfarer](https://github.com/GENIEMC/Wayfarer)
@@ -182,7 +184,7 @@ This is a bash script, so some errors will likely occur under different shells.
 If you get errors, make sure `/bin/bash` exists and it is not a link to a
 different executable.
 
-If there is a strong desire for a c-shell or some other version of this script, 
+If there is a strong desire for a c-shell or some other version of this script,
 we welcome a translation!
 
 ## Contributors
@@ -195,6 +197,7 @@ we welcome a translation!
 * Ryan Hill,       [Queen Mary University of London](http://www.qmul.ac.uk)
 * Martti Nirkko,   [University of Bern](http://www.unibe.ch)
 * Steve Dennis,    [University of Liverpool](https://www.liverpool.ac.uk)
+* Afrodite Papadopoulou, [MIT](http://www.mit.edu)
 
 Please contact Gabe Perdue (`perdue "at" fnal.gov`) for complex inquiries, etc.
 
