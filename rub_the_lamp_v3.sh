@@ -157,10 +157,12 @@ badpythia()
 # is lamp okay for this version of GENIE?
 checklamp()
 {
+    echo MAJOR 
+    echo $MAJOR 
     if [[ $MAJOR != "trunk" && $MAJOR != "master" ]]; then
-        if [[ $MAJOR == 2 ]]; then
-            if [[ $MINOR -eq 10 ]]; then
-                if [[ $PATCH -ge 2 ]]; then
+        if [[ $MAJOR == 3 ]]; then
+            if [[ $MINOR -eq 00 ]]; then
+                if [[ $PATCH -ge 02 ]]; then
                     LAMPOKAY="YES"
                 else
                     badlamp
@@ -525,7 +527,7 @@ echo -e "  --enable-rwght \\" >> $CONFIGSCRIPT
 echo -e "  --enable-vle-extension \\" >> $CONFIGSCRIPT
 echo -e "  --enable-validation-tools \\" >> $CONFIGSCRIPT
 echo -e "  --enable-roomuhistos \\" >> $CONFIGSCRIPT
-if [[ $MAJOR == "trunk" ]]; then
+if [[ $MAJOR == "trunk" || $MAJOR == "master" ]]; then
     # TODO - let users pass in a flag for this?
     echo -e "  --with-compiler=gcc \\" >> $CONFIGSCRIPT
 elif [[ $MAJOR == 2 ]]; then
@@ -566,7 +568,7 @@ fi
 mypush data
 XSECSPLINEDIR=`pwd`
 FETCHLOG=log_$BUILDSTARTTIME.datafetch
-if [[ $MAJOR == "trunk" ]]; then
+if [[ $MAJOR == "trunk" || $MAJOR == "master" ]]; then
     XSECDATA="none"          
 elif [[ $MAJOR == 2 ]]; then
     if [[ $MINOR -eq 10 ]]; then
