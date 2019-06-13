@@ -1,31 +1,35 @@
 # READ ME FIRST!
 
-_Note:_ Support for GENIE v3 is managed through `rub_the_lamp_v3.sh`, which is not part of any of the `R-2_*` tags/releases.
+_Note:_ Support for GENIE v3 is managed through `rub_the_lamp_v3.sh`, which is
+not part of any of the `R-2_*` tags/releases. The menu options are essentially
+the same as for `rub_the_lamp.sh`, so the rest of this README should be
+applicable to `rub_the_lamp_v3.sh`.
 
-This version of `lamp/rub_the_lamp.sh` is designed to work with GENIE `R-2_12_10`! It should
-also work with `R-2_10_2`, but earlier versions may require checking out
-older tags of `lamp` (see below).
+This version of `lamp/rub_the_lamp.sh` is designed to work with GENIE
+`R-2_12_10`. It should also work with `R-2_10_2`, but earlier versions may
+require checking out older tags of `lamp` (see below).
 
-It is a good idea to use a tagged version of the `lamp`. The latest
-recommended tag is `R-2_12_10.0`. Use the following command to check
-it out (and read below for more if you're really interested). After
-cloning the repository, `cd` into the `lamp` directory and run:
+It is a good idea to use a tagged version of the `lamp` for work on GENIE v2.
+The latest recommended tag for GENIE v2 is `R-2_12_10.0`. Use the following
+command to check it out (and read below for more if you're really interested).
+For GENIE v3, the current best practice is to use the latest version of the
+`lamp`. After cloning the repository, `cd` into the `lamp` directory and run:
 
     git checkout -b R-2_12_10.0-br R-2_12_10.0
 
 Run `./rub_the_lamp.sh -h` to get a help menu. If you run into trouble,
 please consult the "Trouble-Shooting" section below. If you find a
-bug, please feel free to contact Gabe Perdue (`perdue` at Fermilab)
-or open an issue on [GitHub](https://github.com/GENIEMC/lamp).
+bug, please feel free to contact Afroditi Papadopoulou (`apapadop` at `mit.edu`)
+or open an issue on [GitHub](https://github.com/GENIE-MC-Community/lamp).
 
 NOTE: On May 4, 2015 the GENIE SVN repository on HepForge was
 re-orgnaized, breaking the SVN checkout path in some versions of`lamp`.
 Please check the version tags and use one appropriate for your needs
-with respecrt to this change. If you continue to have checkout problems
-for a specific version of GENIE, please let Gabe Perdue know (contact
-info below) or open an issue on GitHub.
+with respect to this change. If you continue to have checkout problems
+for a specific version of GENIE, please let Afroditi know or open an issue on
+GitHub.
 
-Let [GENIE](http://genie.hepforge.org) out of the bottle!
+Let [GENIE](http://www.genie-mc.org) out of the bottle!
 
                                               ..                               
                                              dP/$.                             
@@ -54,22 +58,22 @@ branch like so:
 
     git checkout -b R-2_12_10.0-br R-2_12_10.0
 
-This will checkout _tag_ `R-2_12_10.0` into _branch_ `R-2_12_10.0-br`. You want to
-checkout into a branch to avoid being in a "detached `HEAD`" state.
+This will checkout _tag_ `R-2_12_10.0` into _branch_ `R-2_12_10.0-br`. You want
+to checkout into a branch to avoid being in a "detached `HEAD`" state.
 
-Check the [releases](https://github.com/GENIEMC/lamp/releases) page to be sure
-you are using a version of `lamp` that is appropriate for the version of GENIE
-you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later. It may
-not work with earlier versions. This version of `lamp` is designed to work with
-GENIE `R-2_10_2` or later, and you will need to check out an older release of
-`lamp` to work with the 2.8 series.
+Check the [releases](https://github.com/GENIE-MC-Community/lamp/releases) page
+to be sure you are using a version of `lamp` that is appropriate for the version
+of GENIE you want to use. `lamp` has been tested for GENIE `R-2_8_0` and later.
+It may not work with earlier versions. You will need to check out an older
+release of `lamp` to work with the 2.8 series.
 
 You can do this with a branch checkout command that will switch to the version
 of the code matching the tag and also put you on a separate branch (away from
 master) in case you want to make commits, etc. See the VERSIONS.md file in this
 package for more information.
 
-* The latest version is 2.12.10. To use 2.12.10, you want tag "R-2_12_10.0":
+* The latest tagged version is 2.12.10. To use 2.12.10, you want tag
+"R-2_12_10.0":
 
         git checkout -b R-2_12_10.0-br R-2_12_10.0
 
@@ -85,7 +89,7 @@ package for more information.
 those expected by lamp, you will need to update this script or rename your
 repository. This script expects repositories in HepForge to look like
 R-X_Y_Z and in GitHub to look like GENIE, with the version set by the
-**branch name**. You may grep this script for the checklamp function to see
+**branch name**. You may grep this script for the `checklamp` function to see
 how the major, minor, and patch version numbers are managed.
 
 ## Basic Usage
@@ -144,11 +148,19 @@ no arguments will produce the help menu:
 
 This script only supports Linux. It may support Mac OSX in the future (we hope).
 
+
 ## Pythia
 
 Checking out [Pythia](http://home.thep.lu.se/~torbjorn/Pythia.html) version 8
 is an option, but GENIE will not currently build against it. Please specify
 only Pythia version 6 for now.
+
+
+## ROOT
+
+As of now, the `lamp` only supports ROOT5. The internal build scripts do not
+work for ROOT6. That would be a nice community contribution! See
+[GENIESupport](https://github.com/GENIE-MC-Community/GENIESupport).
 
 
 ## Checking Available HepForge Tags
@@ -189,6 +201,7 @@ we welcome a translation!
 
 ## Contributors
 
+* Afroditi Papadopoulou, [MIT](http://www.mit.edu)
 * Gabriel Perdue,  [Fermilab](http://www.fnal.gov)
 * Mathieu Labare,  [Universiteit Gent](http://www.ugent.be)
 * Tom Van Cuyck,   [Universiteit Gent](http://www.ugent.be)
@@ -197,9 +210,9 @@ we welcome a translation!
 * Ryan Hill,       [Queen Mary University of London](http://www.qmul.ac.uk)
 * Martti Nirkko,   [University of Bern](http://www.unibe.ch)
 * Steve Dennis,    [University of Liverpool](https://www.liverpool.ac.uk)
-* Afrodite Papadopoulou, [MIT](http://www.mit.edu)
 
-Please contact Gabe Perdue (`perdue "at" fnal.gov`) for complex inquiries, etc.
+Please contact Afroditi Papadopoulou (`apapadop` "at" `mit.edu`) for complex
+inquiries, etc.
 
 ---
 ASCII Art from [Chris.com](http://www.chris.com/ascii/index.php?art=movies/aladdin).
