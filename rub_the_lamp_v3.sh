@@ -23,7 +23,7 @@ FORCEBUILD=""        # " -f" will archive existing packages and rebuild
 DEBUG="no"
 
 ROOMUHISTOSFLAG=""   # silence is assent
-SUPPORTTAG="R-3_00_02"
+SUPPORTTAG="R-3_00_06"
 VERBOSESUPPORT=""    # silence is NOT assent
 
 ENVFILE="environment_setup.sh"
